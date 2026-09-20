@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Proposal – Product Purchase Prediction | IT3081</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: A4;
+      margin: 18mm 18mm 18mm 18mm;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 11pt;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.65;
+    }
+
+    /* ── COVER PAGE ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 40px;
+      background: linear-gradient(160deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+      top: -150px; right: -150px;
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      bottom: -100px; left: -80px;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+      font-size: 9pt;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 30px;
+    }
+    .cover h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32pt;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      max-width: 700px;
+    }
+    .cover h1 span {
+      color: #a78bfa;
+    }
+    .cover-sub {
+      font-size: 13pt;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 50px;
+      font-weight: 300;
+    }
+    .cover-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #a78bfa, #60a5fa);
+      border-radius: 2px;
+      margin: 0 auto 50px;
+    }
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 560px;
+      width: 100%;
+      margin-bottom: 50px;
+    }
+    .cover-meta-item {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-align: left;
+    }
+    .cover-meta-item .label {
+      font-size: 7.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 4px;
+    }
+    .cover-meta-item .value {
+      font-size: 10pt;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+    .cover-footer {
+      font-size: 8.5pt;
+      color: rgba(255,255,255,0.35);
+      position: absolute;
+      bottom: 28px;
+    }
+
+    /* ── CONTENT PAGES ── */
+    .page {
+      padding: 50px 60px;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* Section headers */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .section-num {
+      background: linear-gradient(135deg, #302b63, #a78bfa);
+      color: #fff;
+      font-size: 8pt;
+      font-weight: 700;
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17pt;
+      font-weight: 700;
+      color: #0f0c29;
+      letter-spacing: -0.3px;
+    }
+    .section-rule {
+      height: 2px;
+      background: linear-gradient(90deg, #302b63 0%, transparent 100%);
+      border: none;
+      margin-bottom: 20px;
+      border-radius: 2px;
+    }
+    h3 {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #302b63;
+      margin: 18px 0 8px;
+    }
+    p { margin-bottom: 12px; color: #2d2d44; }
+
+    /* Callout boxes */
+    .callout {
+      border-left: 4px solid #a78bfa;
+      background: #f5f3ff;
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+    .callout.blue {
+      border-color: #60a5fa;
+      background: #eff6ff;
+    }
+    .callout.green {
+      border-color: #34d399;
+      background: #ecfdf5;
+    }
+    .callout strong { color: #302b63; }
+
+    /* Dataset stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .stat-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+      background: #fafafa;
+    }
+    .stat-card .num {
+      font-size: 19pt;
+      font-weight: 700;
+      color: #302b63;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-card .desc {
+      font-size: 8pt;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Task table */
+    .task-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 10pt;
+    }
+    .task-table th {
+      background: #302b63;
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 9pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .task-table th:first-child { border-radius: 8px 0 0 0; }
+    .task-table th:last-child { border-radius: 0 8px 0 0; }
+    .task-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #f0f0f5;
+      vertical-align: top;
+      color: #2d2d44;
+    }
+    .task-table tr:last-child td { border-bottom: none; }
+    .task-table tr:nth-child(even) td { background: #f9f8ff; }
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 50px;
+      font-size: 8pt;
+      font-weight: 600;
+    }
+    .tag-r    { background: #dbeafe; color: #1e40af; }
+    .tag-doc  { background: #d1fae5; color: #065f46; }
+    .tag-manual { background: #fef3c7; color: #92400e; }
+    .tag-analysis { background: #ede9fe; color: #4c1d95; }
+
+    /* Tools grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .tool-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px 16px;
+      background: #fafafa;
+    }
+    .tool-card .tool-name {
+      font-weight: 700;
+      font-size: 11pt;
+      color: #302b63;
+      margin-bottom: 4px;
+    }
+    .tool-card .tool-desc {
+      font-size: 9pt;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    /* Missing data table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 10pt;
+    }
+    .data-table th {
+      background: #f3f4f6;
+      color: #374151;
+      font-weight: 600;
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 9pt;
+      border-bottom: 2px solid #e5e7eb;
+    }
+    .data-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 10pt;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .pill {
+      display: inline-block;
+      padding: 1px 8px;
+      border-radius: 50px;
+      font-size: 8.5pt;
+      font-weight: 500;
+    }
+    .pill-red { background: #fee2e2; color: #991b1b; }
+    .pill-amber { background: #fef3c7; color: #92400e; }
+    .pill-green { background: #d1fae5; color: #065f46; }
+
+    /* Page break */
+    .pb { page-break-before: always; }
+    .spacer { height: 28px; }
+    .spacer-sm { height: 14px; }
+
+    /* Signature block */
+    .sig-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 40px;
+    }
+    .sig-line {
+      border-top: 1px solid #374151;
+      padding-top: 6px;
+      font-size: 9.5pt;
+      color: #374151;
+    }
+    .sig-label {
+      font-size: 8pt;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    /* Print styles */
+    @media print {
+      body { font-size: 10.5pt; }
+      .cover { min-height: 100vh; }
+      .page { padding: 30px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     COVER PAGE
+════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-badge">IT3081 · Statistical Modelling</div>
+  <h1>Project Proposal:<br/><span>Product Purchase Prediction</span></h1>
+  <div class="cover-sub">A Data Science Consultancy for a Large-Scale F&amp;B Chain</div>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="label">Module</div>
+      <div class="value">IT3081 – Statistical Modelling</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Project Topic</div>
+      <div class="value">Product Purchase Prediction</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Industry Partner</div>
+      <div class="value">BladeGen Tech (Pvt) Ltd</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Date Submitted</div>
+      <div class="value">20 September 2026</div>
+    </div>
+  </div>
+  <div class="cover-footer">Submitted for Lecturer Approval · University of Moratuwa · Faculty of IT</div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     PAGE 1 – Overview & Problem Statement
+════════════════════════════════════ -->
+<div class="page">
+
+  <div class="section-label">
+    <div class="section-num">1</div>
+    <h2>Project Overview</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <p>
+    This document presents our group's proposed approach for the IT3081 Statistical Modelling Group Assignment. Our project addresses a real-world industry challenge posed by <strong>BladeGen Tech (Pvt) Ltd</strong>, a technology partner serving a large Food &amp; Beverage (F&amp;B) chain operating across <strong>80+ outlets</strong> in Sri Lanka.
+  </p>
+  <p>
+    The core challenge is: <em>given transaction-level point-of-sale (POS) data, can we build a statistical model that predicts what category of product a customer is most likely to purchase?</em> This enables the business to deliver targeted promotions, optimise inventory, and personalise the in-store customer experience.
+  </p>
+
+  <div class="callout">
+    <strong>Bonus Opportunity Applied:</strong> This project qualifies for <strong>Bonus Opportunity 1 (+10%)</strong> as it is a genuine industry consultancy engagement, with an official project approval letter from BladeGen Tech dated 20 September 2026.
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="section-label">
+    <div class="section-num">2</div>
+    <h2>Problem Statement</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <p>
+    The F&amp;B chain processes thousands of point-of-sale transactions daily across its outlet network. Despite holding rich transactional data — including customer demographics, loyalty programme membership, time of purchase, payment method, and product categories — the business currently has no predictive capability to anticipate customer purchasing behaviour.
+  </p>
+  <p>
+    Our group will act as a statistical modelling consultancy team to analyse this data and develop a predictive model capable of answering the following business question:
+  </p>
+
+  <div class="callout blue">
+    <strong>Research Question:</strong><br/>
+    Given contextual information about a customer and their visit (e.g. time of day, day of week, outlet, customer type, payment method, loyalty membership), which product category — <em>Beverage, Food, Merchandising, or Deals</em> — is the customer most likely to purchase?
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="section-label">
+    <div class="section-num">3</div>
+    <h2>Dataset Description</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <p>
+    We have been provided with a sample POS transaction dataset by BladeGen Tech. An initial cleaning and profiling exercise was conducted using R (v4.6.1), the results of which are summarised below.
+  </p>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num">15,937</div><div class="desc">Total Transactions</div></div>
+    <div class="stat-card"><div class="num">80+</div><div class="desc">Outlets</div></div>
+    <div class="stat-card"><div class="num">29</div><div class="desc">Features / Columns</div></div>
+    <div class="stat-card"><div class="num">17</div><div class="desc">Payment Methods</div></div>
+  </div>
+
+  <h3>Key Dataset Columns</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Column</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Outlet</strong></td><td>Character</td><td>Name of the outlet where the transaction occurred (80 unique outlets)</td></tr>
+      <tr><td><strong>OrderDate / OrderTime</strong></td><td>Date / Time</td><td>Date and time of the transaction</td></tr>
+      <tr><td><strong>ItemName</strong></td><td>Character</td><td>Name of the specific product purchased</td></tr>
+      <tr><td><strong>MainCategory</strong></td><td>Character</td><td><strong>Prediction Target</strong>: Beverage (54%), Food (40%), Merchandising (4%), Deals (2%)</td></tr>
+      <tr><td><strong>CustomerLoyaltyNumber</strong></td><td>Character</td><td>Loyalty ID (present for 48% of transactions)</td></tr>
+      <tr><td><strong>CustomerType</strong></td><td>Character</td><td>Local (85%) or Foreign (15%)</td></tr>
+      <tr><td><strong>PaymentMethod</strong></td><td>Character</td><td>17 payment methods including VISA, CASH, MASTER, UBER EATS, PICK ME</td></tr>
+      <tr><td><strong>OrderType</strong></td><td>Character</td><td>Dine-In (R), Takeaway (T), Delivery (D), Kiosk (K)</td></tr>
+      <tr><td><strong>TimeOfTheDay</strong></td><td>Character</td><td>Morning / Afternoon / Evening / Night</td></tr>
+      <tr><td><strong>Day / Month</strong></td><td>Character</td><td>Day of week and month of year</td></tr>
+      <tr><td><strong>AdjustedRate / Discount</strong></td><td>Numeric</td><td>Transaction value and discount applied</td></tr>
+      <tr><td><strong>Age</strong></td><td>Numeric</td><td>Customer age (years since registration; 60% missing)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Data Quality Observations</h3>
+  <table class="data-table">
+    <thead>
+      <tr><th>Column</th><th>Missing %</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Contact No, Registered Outlet, End</td><td><span class="pill pill-red">100%</span></td><td>Drop — entirely empty columns</td></tr>
+      <tr><td>AddressLine1</td><td><span class="pill pill-red">98.7%</span></td><td>Drop — insufficient data</td></tr>
+      <tr><td>Name, DOB</td><td><span class="pill pill-amber">60%</span></td><td>Exclude from modelling; use loyalty flag instead</td></tr>
+      <tr><td>CustomerLoyaltyNumber</td><td><span class="pill pill-amber">51.9%</span></td><td>Convert to binary flag: <em>IsLoyaltyMember</em></td></tr>
+      <tr><td>SubMenu</td><td><span class="pill pill-amber">58.9%</span></td><td>Use as optional contextual feature</td></tr>
+      <tr><td>Outlet, OrderDate, MainCategory, etc.</td><td><span class="pill pill-green">0%</span></td><td>Complete — no action needed</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+<!-- ════════════════════════════════════
+     PAGE 2 – Methodology
+════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="section-label">
+    <div class="section-num">4</div>
+    <h2>Proposed Methodology</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <p>We will address all 12 required consultancy tasks as defined in the assignment brief. The table below outlines each task, our approach, and the type of deliverable.</p>
+
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th style="width:5%">#</th>
+        <th style="width:22%">Task</th>
+        <th style="width:50%">Our Approach</th>
+        <th style="width:14%">Deliverable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1</strong></td>
+        <td>Problem Statement &amp; Industry Context</td>
+        <td>Define the F&amp;B chain's challenge: lack of predictive purchase intelligence across 80+ outlets. Frame using real BladeGen Tech data.</td>
+        <td><span class="tag tag-doc">Report</span></td>
+      </tr>
+      <tr>
+        <td><strong>2</strong></td>
+        <td>Literature Review</td>
+        <td>Review 15+ recent research papers covering: machine learning for purchase prediction, F&amp;B demand forecasting, logistic regression, time series, PCA, Bayesian methods, experimental design.</td>
+        <td><span class="tag tag-doc">Report</span></td>
+      </tr>
+      <tr>
+        <td><strong>3</strong></td>
+        <td>Dataset Understanding &amp; Descriptive Analysis</td>
+        <td>Load, clean and profile the dataset using R. Generate visualisations (sales by outlet, time-of-day, category, customer type, payment method). Produce summary statistics.</td>
+        <td><span class="tag tag-r">R Script</span></td>
+      </tr>
+      <tr>
+        <td><strong>4</strong></td>
+        <td>Statistical Inference</td>
+        <td>Conduct hypothesis tests: T-test (local vs foreign spend), ANOVA (revenue by outlet), Chi-Square (payment method vs customer type), Kruskal-Wallis (qty by time of day). Report p-values at α = 0.05.</td>
+        <td><span class="tag tag-r">R Script</span></td>
+      </tr>
+      <tr>
+        <td><strong>5</strong></td>
+        <td>Predictive Statistical Modelling</td>
+        <td>Train a <strong>Multinomial Logistic Regression</strong> model (using <code>nnet</code> package) to predict <em>MainCategory</em>. Use an 80/20 train-test split. Evaluate using confusion matrix, accuracy, F1-score. Compare with a Random Forest baseline.</td>
+        <td><span class="tag tag-r">R Script</span></td>
+      </tr>
+      <tr>
+        <td><strong>6</strong></td>
+        <td>Experimental Design</td>
+        <td>Discuss applicability of CRD and RCBD in this context. Propose: outlets as blocking units, time-of-day as treatment. Relate to A/B testing of discount promotions.</td>
+        <td><span class="tag tag-doc">Report</span></td>
+      </tr>
+      <tr>
+        <td><strong>7</strong></td>
+        <td>Principal Component Analysis (PCA)</td>
+        <td>One-hot encode categorical variables, apply <code>prcomp()</code>, inspect scree plot, and assess dimensionality reduction potential. Generate PCA biplot.</td>
+        <td><span class="tag tag-r">R Script</span></td>
+      </tr>
+      <tr>
+        <td><strong>8</strong></td>
+        <td>Bayesian Methods</td>
+        <td>Train a Naïve Bayes classifier (<code>e1071</code> package) for <em>MainCategory</em>. Discuss prior probability selection and compare performance against logistic regression.</td>
+        <td><span class="tag tag-r">R Script</span></td>
+      </tr>
+      <tr>
+        <td><strong>9</strong></td>
+        <td>Time Series Analysis</td>
+        <td>Aggregate daily transaction counts from <em>OrderDate</em>. Plot ACF/PACF, fit an ARIMA model using <code>auto.arima()</code>, forecast next 30 days of transaction volume.</td>
+        <td><span class="tag tag-r">R Script</span></td>
+      </tr>
+      <tr>
+        <td><strong>10</strong></td>
+        <td>Innovation Proposal</td>
+        <td>Propose a <strong>Customer Intelligence &amp; Dynamic Offer Framework</strong>: a real-time scoring engine integrated at the POS terminal that predicts likely purchase category and triggers personalised promotions via the loyalty programme.</td>
+        <td><span class="tag tag-doc">Report</span></td>
+      </tr>
+      <tr>
+        <td><strong>11</strong></td>
+        <td>Expert Interview</td>
+        <td>Interview a Data Analyst / BI professional from the F&amp;B or retail sector to validate our approach and gather industry insights on demand prediction challenges.</td>
+        <td><span class="tag tag-manual">Interview</span></td>
+      </tr>
+      <tr>
+        <td><strong>12</strong></td>
+        <td>Recommendations</td>
+        <td>Provide 5–7 data-driven strategic and operational recommendations for the F&amp;B chain based on our statistical findings (e.g. peak time targeting, loyalty programme enhancement, product pairing strategies).</td>
+        <td><span class="tag tag-doc">Report</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="spacer"></div>
+
+  <div class="section-label">
+    <div class="section-num">5</div>
+    <h2>Predictive Model — Detailed Design</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <h3>Target Variable</h3>
+  <p><strong>MainCategory</strong> — a 4-class categorical variable: <em>Beverage, Food, Merchandising, Deals</em>. We will use Multinomial Logistic Regression as our primary model.</p>
+
+  <h3>Feature Set (Predictor Variables)</h3>
+  <table class="data-table">
+    <thead><tr><th>Feature</th><th>Type</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>TimeOfTheDay</td><td>Categorical</td><td>Purchase patterns differ across morning, afternoon, evening, night</td></tr>
+      <tr><td>Day</td><td>Categorical</td><td>Weekday vs weekend behaviour differences</td></tr>
+      <tr><td>Month</td><td>Categorical</td><td>Seasonal demand patterns</td></tr>
+      <tr><td>CustomerType</td><td>Binary</td><td>Local vs Foreign purchasing preference</td></tr>
+      <tr><td>IsLoyaltyMember</td><td>Binary</td><td>Loyalty members may have different purchasing patterns</td></tr>
+      <tr><td>PaymentMethod</td><td>Categorical</td><td>Payment method may correlate with purchase category</td></tr>
+      <tr><td>OrderType</td><td>Categorical</td><td>Dine-In / Takeaway / Delivery / Kiosk orders differ</td></tr>
+      <tr><td>Outlet</td><td>Categorical</td><td>Location-specific purchasing patterns</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Evaluation Metrics</h3>
+  <p>Confusion Matrix · Accuracy · Precision · Recall · F1-Score per class</p>
+
+</div>
+
+
+<!-- ════════════════════════════════════
+     PAGE 3 – Tools, Timeline, Sign-off
+════════════════════════════════════ -->
+<div class="page pb">
+
+  <div class="section-label">
+    <div class="section-num">6</div>
+    <h2>Tools &amp; Technologies</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <p>All analysis will be conducted using <strong>R (v4.6.1)</strong> and <strong>RStudio</strong>. The following R packages will be used:</p>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">tidyverse</div>
+      <div class="tool-desc">Data manipulation, cleaning, and ggplot2 visualisations</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">lubridate</div>
+      <div class="tool-desc">Date and time parsing and manipulation</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">nnet</div>
+      <div class="tool-desc">Multinomial logistic regression model training</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">randomForest</div>
+      <div class="tool-desc">Random Forest baseline model for comparison</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">e1071</div>
+      <div class="tool-desc">Naïve Bayes classification (Task 8)</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">forecast</div>
+      <div class="tool-desc">ARIMA time series modelling (Task 9)</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">caret</div>
+      <div class="tool-desc">Model evaluation: confusion matrix, metrics</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">FactoMineR + factoextra</div>
+      <div class="tool-desc">PCA and visualisation (Task 7)</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">corrplot + janitor</div>
+      <div class="tool-desc">Correlation plots and data cleaning utilities</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="section-label">
+    <div class="section-num">7</div>
+    <h2>Project Deliverables</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <div class="callout green">
+    <strong>Final Deliverables:</strong>
+    <ul style="margin-top:8px;padding-left:20px;line-height:2">
+      <li>Analytical R scripts for each task (data cleaning, EDA, inference, modelling, PCA, Bayesian, time series)</li>
+      <li>Visualisation outputs (charts exported as .PNG for use in the report and presentation)</li>
+      <li>Written report covering all 12 consultancy tasks</li>
+      <li>PowerPoint presentation following the provided template</li>
+    </ul>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="section-label">
+    <div class="section-num">8</div>
+    <h2>Proposed Timeline</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <table class="data-table">
+    <thead><tr><th>Phase</th><th>Tasks</th><th>Target</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Phase 1</strong> – Data &amp; EDA</td><td>Tasks 1, 3 — Cleaning, descriptive stats, visualisations</td><td>Week 1</td></tr>
+      <tr><td><strong>Phase 2</strong> – Literature</td><td>Task 2 — Literature review (15+ papers)</td><td>Week 1–2</td></tr>
+      <tr><td><strong>Phase 3</strong> – Inference &amp; Modelling</td><td>Tasks 4, 5 — Hypothesis testing, predictive model</td><td>Week 2</td></tr>
+      <tr><td><strong>Phase 4</strong> – Advanced Methods</td><td>Tasks 6, 7, 8, 9 — Experimental design, PCA, Bayesian, Time series</td><td>Week 3</td></tr>
+      <tr><td><strong>Phase 5</strong> – Innovation &amp; Report</td><td>Tasks 10, 11, 12 — Innovation proposal, expert interview, recommendations</td><td>Week 3–4</td></tr>
+      <tr><td><strong>Phase 6</strong> – Presentation</td><td>Final slides, rehearsal, submission</td><td>Week 4</td></tr>
+    </tbody>
+  </table>
+
+  <div class="spacer"></div>
+
+  <div class="section-label">
+    <div class="section-num">9</div>
+    <h2>Lecturer Approval</h2>
+  </div>
+  <hr class="section-rule"/>
+
+  <p>We hereby submit this project proposal for review and approval. We confirm that:</p>
+  <ul style="padding-left:22px;line-height:2;margin-bottom:16px;">
+    <li>The selected topic (<strong>Product Purchase Prediction</strong>) is appropriate for IT3081 Statistical Modelling</li>
+    <li>The dataset is real, sourced from an industry partner (BladeGen Tech), and contains sufficient data for all 12 tasks</li>
+    <li>All planned analyses will be conducted using R scripts and presented in the final report and presentation</li>
+  </ul>
+
+  <div class="sig-block">
+    <div>
+      <div class="sig-line">Ranindu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="sig-label">Student — Group Leader</div>
+    </div>
+    <div>
+      <div class="sig-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="sig-label">Lecturer Signature &amp; Date</div>
+    </div>
+    <div>
+      <div class="sig-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="sig-label">Approved ☐ &nbsp; Revision Required ☐ &nbsp; Rejected ☐</div>
+    </div>
+    <div>
+      <div class="sig-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="sig-label">Lecturer Comments</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
