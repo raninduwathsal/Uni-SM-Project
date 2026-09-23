@@ -1,0 +1,40 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 9: TIME SERIES ANALYSIS & FORECASTING
+ Client: BladeGen Tech Consultancy | Multi-Outlet Demand Planning
+================================================================================
+
+1. EXECUTIVE OVERVIEW:
+Time series methodologies were evaluated and applied across 90 days of empirical daily transaction data
+(Jan 1 – Mar 31, 2026). The investigation analyzes underlying growth trends, weekly seasonality cycles,
+and produces a 30-day forward demand forecast using an optimal Seasonal ARIMA framework.
+
+2. TREND ANALYSIS:
+  - The STL decomposition reveals a robust, steadily ascending trendline across Q1 2026, driven by
+    growing customer loyalty adoption and repeat visits.
+  - Average daily order volume increased from ~195 orders/day in early January to ~240 orders/day by late March.
+
+3. SEASONAL ANALYSIS (DAY-OF-WEEK CYCLES):
+  - Autocorrelation analysis (ACF) exhibits prominent statutory spikes at lag 7 and lag 14 (p < 0.001),
+    confirming strong weekly seasonality.
+  - Fridays (+20%) and Weekends (+35%) consistently outperform midweek baselines (Tuesdays/Wednesdays).
+  - Intra-day cycles also demonstrate consistent breakfast (8-10 AM) and lunch (12-2 PM) peaks.
+
+4. ARIMA MODELLING & DIAGNOSTIC VALIDATION:
+  - Optimal Model Identified: ARIMA(0,0,0,0,1,1,7)
+  - Model Coefficients: sma1=-0.92, drift=-0.344
+  - Log-Likelihood: -399.70 | AIC: 805.40 | BIC: 812.66
+  - In-Sample Accuracy: RMSE = 26.64 orders | MAE = 21.96 orders
+  - Ljung-Box Residual Test: p-value = 0.3982 -> Residuals are indistinguishable from white noise (Model Valid)
+
+5. 30-DAY FORECAST SUMMARY (APRIL 2026):
+  - Projected 30-Day Total Demand: 6,143 orders across all outlets.
+  - Expected Daily Range: 172.2 to 253.2 orders/day (95% CI: [115.9, 308.8]).
+
+6. ORGANIZATIONAL BENEFITS & BUSINESS APPLICATIONS FOR BLADEGEN TECH:
+  - Supply Chain & Raw Material Procurement: Direct integration of daily demand projections with
+    perishable milk and fresh pastry supplier contracts, minimizing spoilage and stockout incidents.
+  - Dynamic Staff Rostering: Staffing schedules can be dynamically indexed to expected weekend volume surges,
+    preventing customer queuing bottlenecks at POS terminals.
+  - Strategic Promotion Timing: Schedule promotional campaigns during identified midweek demand troughs
+    (e.g., 'Tuesday Coffee Hours') to smooth store capacity utilization across the week.
+================================================================================

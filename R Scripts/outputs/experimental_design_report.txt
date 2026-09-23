@@ -1,0 +1,78 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 6: CRITICAL EVALUATION OF EXPERIMENTAL DESIGN
+ Client: BladeGen Tech Consultancy | Scientific Experimentation & A/B Testing
+================================================================================
+
+1. EXECUTIVE OVERVIEW & MOTIVATION:
+In observational F&B transaction data, consumer purchase patterns are confounded by extraneous variables
+such as outlet geographic wealth, day-of-week surges, weather variations, and holiday events. To establish
+rigorous causal relationships—rather than simple correlation—between marketing interventions (e.g., dynamic
+promotional discounts) and customer purchasing conversion, formal experimental design methodologies must
+be evaluated.
+
+2. EXPERIMENTAL DESIGNS EVALUATED:
+This consultancy evaluation critically compares two established experimental paradigms:
+  A. Completely Randomized Design (CRD)
+  B. Randomized Complete Block Design (RCBD)
+
+--------------------------------------------------------------------------------
+A. COMPLETELY RANDOMIZED DESIGN (CRD)
+--------------------------------------------------------------------------------
+- Structure:
+  Treatments (e.g., 3 promotional discount levels: 0% Control, 10% Loyalty Discount, 20% Flash Deal)
+  are assigned completely at random to experimental units (store order transactions or entire store-days)
+  without restriction or grouping.
+  Mathematical Model: Y_ij = mu + tau_i + epsilon_ij
+  where tau_i is the effect of treatment i, and epsilon_ij ~ N(0, sigma^2) is random experimental error.
+
+- Suitability & Situations Where CRD May Be Useful:
+  - Online delivery platforms (e.g., Uber Eats / PickMe digital storefronts) where environmental conditions
+    are homogeneous and user traffic can be randomly assigned to algorithmic treatments in real time.
+  - Controlled laboratory sensory test kitchens where temperature, prep time, and environment are strictly uniform.
+
+- Advantages:
+  - Extreme simplicity in randomization and statistical analysis (standard one-way ANOVA).
+  - Maximum degrees of freedom for the experimental error term (DF_error = N - k).
+  - Robust to unequal sample sizes across treatment arms without loss of orthogonality.
+
+- Critical Limitations in a Physical Restaurant Chain:
+  - Vulnerable to severe confounding: If Outlet 40 (high volume) randomly receives more 20% discount treatments
+    than Location 85 (low volume), treatment effects are hopelessly confounded with store foot-traffic variations.
+  - High residual variance (large MSE): Between-store heterogeneity inflates the error denominator, dramatically
+    reducing statistical power to detect subtle promotional effects.
+
+--------------------------------------------------------------------------------
+B. RANDOMIZED COMPLETE BLOCK DESIGN (RCBD) - RECOMMENDED APPROACH
+--------------------------------------------------------------------------------
+- Structure:
+  Experimental units are stratified into homogeneous groups ('blocks') before randomization. Each block contains
+  all treatments once.
+  Proposed Blocking Factor: 'Store Outlet Location' (or 'Time-of-Day Slots within Outlets').
+  Mathematical Model: Y_ij = mu + tau_i + beta_j + epsilon_ij
+  where beta_j represents the nuisance variation of block j (outlet base purchasing power).
+
+- Suitability & Situations Where RCBD Should Be Used:
+  - Multi-outlet retail chains where store-to-store variance in baseline revenue is substantial (as proven
+    in Task 3 where top outlets generate over LKR 800k while smaller outlets generate under LKR 100k).
+  - A/B testing promotional elasticity across diverse geographic demographics (commercial business districts
+    vs. suburban university branches).
+
+- Expected Advantages:
+  - Error Variance Reduction: Removes between-outlet variance (SS_block) from the experimental error sum of squares (SS_error).
+  - Increased Statistical Power: Lower MSE results in narrower confidence intervals and higher sensitivity for F-tests.
+  - Generalizability: Testing treatments across all blocks demonstrates whether a promotion works universally
+    or only in specific store profiles.
+
+- Implementation Challenges & Practical Feasibility:
+  - Customer Fairness & Spillage: If two friends visit the same outlet at different times and receive different
+    discounts, brand friction may occur. Solution: Block by entire weeks or synchronized digital app voucher releases.
+  - Missing Data / Store Disruptions: If an outlet suffers a POS internet outage during one treatment phase,
+    orthogonality is broken, requiring more complex unbalanced mixed-model analysis.
+  - Practical Feasibility: High. BladeGen Tech's centralized cloud POS system allows scheduled price overrides
+    by outlet block seamlessly.
+
+3. SUMMARY RECOMMENDATION:
+RCBD with store-outlet blocking is strongly recommended over CRD for future pricing experiments. By isolating
+geographic baseline variance, BladeGen Tech can accurately quantify true price elasticity with 30-40% smaller
+sample sizes than an unblocked CRD.
+================================================================================

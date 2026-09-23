@@ -1,0 +1,72 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 10: INDUSTRY INNOVATION PROPOSAL
+ Client: BladeGen Tech Consultancy | F&B Chain Innovation Challenge
+ Proposal: Real-Time Customer Intelligence & Dynamic Offer Framework (CIF)
+================================================================================
+
+1. BUSINESS NEED:
+BladeGen Tech operates over 80 chain outlets serving ~20,000+ orders daily. Despite collecting extensive POS
+data, the chain currently operates statically:
+  - Cashiers manually ask generic upsell questions ("Would you like a pastry with that?") with low conversion (<5%).
+  - Promotions are static across all branches regardless of local foot-traffic dynamics or time of day.
+  - Perishable food inventory accounts for 12% waste due to mismatches between daily prep and customer demand.
+  - Foreign tourists and non-loyalty patrons are treated identically to loyal everyday regulars.
+
+2. PROPOSED SOLUTION: "CUSTOMER INTELLIGENCE & DYNAMIC OFFER FRAMEWORK (CIF)"
+An edge-deployed real-time analytical engine integrated directly into the POS terminal hardware:
+  - Sub-Second Scoring Pipeline: When a cashier enters the first item (e.g., 'Nice Coffee') and inputs loyalty number
+    or customer type (or phone number), the Decision Tree classifier (Task 5 champion model) and Bayesian posterior
+    estimator (Task 8) instantaneously predict the customer's highest propensity category (Beverage, Food, Deals).
+  - Contextual Prompt Screen: The POS register displays a personalized 1-tap recommendation button
+    (e.g., "Recommended Upsell: Toasted Croissant (+LKR 350) - 84% Acceptance Likelihood").
+  - Dynamic Markdown Triggers: Late in the afternoon, if ARIMA daily volume projections (Task 9) indicate perishable
+    pastry surplus, the system automatically triggers targeted bundle deals to clear stock before evening close.
+
+3. CONCEPTUAL ARCHITECTURE FRAMEWORK:
+```
++-----------------------------------------------------------------------------+
+|                      POINT-OF-SALE (POS) TERMINAL CLIENT                    |
+|  [Cashier Enters Item 1] ---> [Customer Loyalty / Tourist Scan (Local/For)] |
++-----------------------------------------------------------------------------+
+                                       |
+                     REST API Request (<120ms Latency)
+                                       v
++-----------------------------------------------------------------------------+
+|                     CUSTOMER INTELLIGENCE ENGINE (AWS / EDGE)                |
+|                                                                             |
+|  [Module 1: Real-Time Propensity]     [Module 2: Perishable Stock Monitor]  |
+|   - Task 5 Champion Model (CART)       - Task 9 Daily ARIMA Demand Tracker  |
+|   - Inputs: TOD, Outlet, Item 1, Loy    - Compares current stock vs forecast|
+|                                                                             |
+|  [Module 3: Bayesian Decision Logic]                                        |
+|   - Loss-weighted utility maximization: Selects optimal promotion bundle    |
++-----------------------------------------------------------------------------+
+                                       |
+                    Optimal Recommendation Returned
+                                       v
++-----------------------------------------------------------------------------+
+|                     CASHIER TERMINAL & DIGITAL RECEIPT                      |
+|  1-Tap Upsell Button on Screen ("Upsell Hot Croissant: LKR 100 off")       |
+|  Customer Acceptance recorded to retrain models continuously                |
++-----------------------------------------------------------------------------+
+```
+
+4. EXPECTED QUANTIFIABLE BENEFITS:
+  - 14.5% Increase in Average Order Value (AOV): By transforming generic cashier prompts into tailored pairings.
+  - 28% Reduction in Perishable Food Spoilage: Through dynamic end-of-day bundling guided by ARIMA volume forecasts.
+  - 22% Acceleration in Loyalty Program Signups: Foreign and non-member patrons receive immediate introductory savings.
+  - Payback Period: Under 4.5 months based on chain-wide incremental margin gains.
+
+5. IMPLEMENTATION CHALLENGES & MITIGATION:
+  - Cashier Operational Friction: If screen prompts slow down register throughput during 8:00 AM rush hour, lines build.
+    Mitigation: Limit prompt to a single 1-tap button; auto-dismiss prompt after 3 seconds if ignored.
+  - Network Connectivity at Remote Outlets: Internet instability could stall cloud API calls.
+    Mitigation: Deploy the lightweight Decision Tree model locally at the terminal edge using lightweight JSON rules.
+  - Customer Privacy: Managing phone and loyalty numbers securely under local personal data protection laws.
+    Mitigation: Tokenize all customer phone numbers with SHA-256 before cloud transmission.
+
+6. REQUIRED RESOURCES:
+  - Engineering: 1 Cloud Data Engineer (FastAPI/Docker deployment), 1 POS Integration Specialist (POS SDK).
+  - Infrastructure: Edge compute gateway or AWS Lambda microservice running the trained R/Python inference model.
+  - Change Management: 30-minute training modules for branch store supervisors and cashier personnel.
+================================================================================

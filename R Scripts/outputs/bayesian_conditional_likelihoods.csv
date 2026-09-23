@@ -1,0 +1,17 @@
+"","Y","TimeOfTheDay","Freq"
+"1","Beverage","Afternoon",0.2412
+"2","Deals","Afternoon",0.3483
+"3","Food","Afternoon",0.3661
+"4","Merchandizing","Afternoon",0.332
+"5","Beverage","Evening",0.2355
+"6","Deals","Evening",0.3153
+"7","Food","Evening",0.2763
+"8","Merchandizing","Evening",0.222
+"9","Beverage","Morning",0.4252
+"10","Deals","Morning",0.2325
+"11","Food","Morning",0.2641
+"12","Merchandizing","Morning",0.326
+"13","Beverage","Night",0.0982
+"14","Deals","Night",0.1039
+"15","Food","Night",0.0935
+"16","Merchandizing","Night",0.12

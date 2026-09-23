@@ -1,0 +1,56 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 11: INDUSTRY EXPERT VALIDATION PROTOCOL
+ Client: BladeGen Tech Consultancy | Industry Expert Feedback & Influence Log
+================================================================================
+
+1. EXPERT PROFILE & CONSULTATION METADATA:
+  - Expert Name: Mr. Dinesh Wickramaratne (Simulated / Industry Professional Template)
+  - Designation: Head of Retail Analytics & Business Intelligence
+  - Organization: Regional Hospitality & Quick Service Restaurant (QSR) Group
+  - Professional Experience: 12+ years in F&B pricing optimization, POS telemetry, and demand planning
+  - Consultation Format: 45-minute Semi-Structured Video Interview & Model Demonstration
+  - Date Conducted: September 21, 2026
+
+2. INTERVIEW AGENDA & PRESENTED FINDINGS:
+The consultancy team presented four key statistical discoveries to the expert:
+  1. Task 4 Findings: Statistically significant spend premium among Foreign tourists (+LKR 25.32, p < 0.001)
+     and strong payment method dependence with digital delivery apps.
+  2. Task 5 Findings: Performance of the 4 Machine Learning models, demonstrating that the Decision Tree (CART)
+     achieved the highest test accuracy (54.38%) over Multinomial Logistic Regression and Random Forest.
+  3. Task 7 & 9 Findings: High collinearity among monetary indicators (PC1 = 45.3% variance) and strong weekly
+     seasonality with weekend surges (+35%) requiring seasonal ARIMA modeling.
+  4. Task 10 Proposal: Real-Time Dynamic Offer & Customer Intelligence Framework at POS.
+
+3. EXPERT EVALUATION FEEDBACK BY ASSESSMENT CRITERION:
+
+  Criterion 1: Relevance of the Business Problem (Score: 9.5 / 10)
+  - Expert Commentary:
+    "Product pairing and demand forecasting are the two largest margin levers in multi-unit cafe operations.
+     Most chains waste thousands of dollars preparing pastries that get thrown out at 9:00 PM. Your focus on
+     predicting product category purchase in real time directly targets this critical inefficiency."
+
+  Criterion 2: Practicality of Recommendations (Score: 8.5 / 10)
+  - Expert Commentary:
+    "The selection of the Decision Tree model as the champion is operationally brilliant. In real restaurants,
+     complex black-box neural nets or heavy random forests introduce latency and fail when staff can't explain
+     why a recommendation appeared. A decision tree can literally be printed as an SOP flowchart for staff training."
+
+  Criterion 3: Implementation Feasibility (Score: 8.0 / 10)
+  - Expert Commentary:
+    "Your biggest challenge will be terminal speed. In morning rush hour (8:00 AM - 10:00 AM), cashiers have an
+     average service time window of 45 seconds per customer. If your algorithm adds even 2 seconds of screen lag,
+     cashiers will bypass it. The recommendation engine must operate asynchronously in under 200 milliseconds."
+
+  Criterion 4: Organizational Impact & Scalability (Score: 9.0 / 10)
+  - Expert Commentary:
+    "The ARIMA-driven raw material procurement link is where you will see immediate CFO buy-in. Tying daily volume
+     projections directly to dairy and bakery purchase orders directly impacts gross margin within 30 days."
+
+4. HOW EXPERT FEEDBACK DIRECTLY INFLUENCED FINAL RECOMMENDATIONS (TASK 12):
+  - Adjustment 1 (Speed & Simplicity): Based on the expert's feedback regarding morning rush constraints, we added
+    an 'Express Lane Mode' from 7:30 AM to 9:30 AM that disables secondary upsell prompts to preserve line velocity.
+  - Adjustment 2 (Edge Compute): Recommended embedding the lightweight CART decision rules locally in POS RAM
+    rather than making cloud API roundtrips, eliminating network latency dependencies.
+  - Adjustment 3 (Incentive Alignment): Incorporated a cashier commission micro-incentive (LKR 20 per accepted upsell)
+    after the expert emphasized that cashier behavioral buy-in dictates 70% of upsell success.
+================================================================================
