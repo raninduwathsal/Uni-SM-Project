@@ -19,7 +19,16 @@ cat(" BladeGen Tech Dataset - Loading & Cleaning\n")
 cat("==============================================\n\n")
 
 # --- 1. LOAD DATA ---
-data_path <- "../Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv"
+synthetic_path <- "../Courseweb Documents/SampleDataset/synthetic_restaurant_transactions.csv"
+raw_path <- "../Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv"
+
+if (file.exists(synthetic_path)) {
+  data_path <- synthetic_path
+  cat("✔ Using multi-period expanded dataset: synthetic_restaurant_transactions.csv\n")
+} else {
+  data_path <- raw_path
+  cat("✔ Using original dataset: temp_org_all_tables_rows.csv\n")
+}
 
 df_raw <- read_csv(data_path, show_col_types = FALSE)
 
@@ -69,13 +78,19 @@ df_clean <- df_raw %>%
 
   # Standardise categorical columns
   mutate(
-    MainCategory   = str_to_title(str_trim(MainCategory)),
+    MainCategory   = case_when(
+      str_detect(str_to_lower(MainCategory), "bever") ~ "Beverage",
+      str_detect(str_to_lower(MainCategory), "food") ~ "Food",
+      str_detect(str_to_lower(MainCategory), "merch") ~ "Merchandizing",
+      str_detect(str_to_lower(MainCategory), "deal") ~ "Deals",
+      TRUE ~ str_to_title(str_trim(MainCategory))
+    ),
     SubCategory    = str_to_title(str_trim(SubCategory)),
     CustomerType   = str_to_title(str_trim(CustomerType)),
     PaymentMethod  = str_to_upper(str_trim(PaymentMethod)),
     OrderType      = case_when(
-      OrderType == "R" ~ "Dine-In",
-      OrderType == "T" ~ "Takeaway",
+      OrderType %in% c("R", "D", "Dine-In", "Dine In") ~ "Dine-In",
+      OrderType %in% c("T", "K", "Takeaway", "Take Away") ~ "Takeaway",
       TRUE ~ OrderType
     ),
     TimeOfTheDay   = factor(TimeOfTheDay,

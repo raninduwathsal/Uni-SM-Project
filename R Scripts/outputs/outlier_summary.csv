@@ -1,0 +1,7 @@
+Variable,N_Evaluated,IQR_Lower_Threshold,IQR_Upper_Threshold,IQR_Outlier_Count,IQR_Outlier_Pct,Z_Score_Outliers_AbsGt3,Z_Score_Outlier_Pct
+Qty1,29465,1,1,5870,19.92,1200,4.07
+AdjustedRate,29465,755.14,919.03,228,0.77,73,0.25
+Discount,29465,0,0,4068,13.81,670,2.27
+ServiceCharge,29465,-127.65,212.75,656,2.23,547,1.86
+Revenue,29465,709.22,982.34,6888,23.38,1038,3.52
+Age,15544,-7.5,92.5,0,0,0,0

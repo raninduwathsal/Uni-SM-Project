@@ -1,0 +1,32 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 5: PREDICTIVE MODELLING REPORT
+ Multi-Model Evaluation & Group Member Assignment
+================================================================================
+
+1. EXECUTIVE OVERVIEW:
+Four distinct statistical and machine learning algorithms were trained to predict customer
+purchasing category (MainCategory: Beverage, Food, Merchandizing, Deals).
+Each algorithm was assigned to one group member to evaluate architectural trade-offs.
+
+2. GROUP MEMBER ASSIGNMENTS & ARCHITECTURES:
+  - Member 1: Multinomial Logistic Regression (Generalized Linear Model / Log-odds)
+  - Member 2: Decision Tree / CART (Interpretable Hierarchical Decision Splits)
+  - Member 3: Random Forest (Bagging Ensemble of 100 De-correlated Decision Trees)
+  - Member 4: Naïve Bayes Classifier (Probabilistic Bayesian Prior-Likelihood Estimator)
+
+3. EVALUATION RESULTS SUMMARY:
+    Member                           Model Accuracy Macro_Precision
+1 Member 2            Decision Tree (CART)    54.38           51.91
+2 Member 1 Multinomial Logistic Regression    54.18           51.16
+3 Member 4          Naïve Bayes Classifier    53.72           50.58
+4 Member 3        Random Forest (Ensemble)    53.60           25.15
+  Macro_Recall Macro_F1  Kappa Training_Time_Sec
+1        27.93    52.86 0.1022              0.77
+2        27.22    50.48 0.0792              2.81
+3        26.98    50.00 0.0703              1.23
+4        27.03    50.33 0.0737              5.91
+
+4. CHAMPION MODEL SELECTION:
+  The highest performing model is 'Decision Tree (CART)' (Member 2) with an accuracy of 54.38% and Macro-F1 of 52.86%.
+  Decision rationale: Provides superior discrimination on multi-class boundary with robust generalization.
+================================================================================

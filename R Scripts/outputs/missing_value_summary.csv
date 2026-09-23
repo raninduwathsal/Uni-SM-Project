@@ -1,12 +1,12 @@
 Column,Missing_Count,Missing_Pct
-Contact No,15937,100
-Registered Outlet,15937,100
-End,15937,100
-AddressLine1,15731,98.71
-Name,9568,60.04
-DOB,9568,60.04
-SubMenu,9380,58.86
-CustomerLoyaltyNumber,8274,51.92
+AddressLine1,29465,100
+Contact No,29465,100
+Registered Outlet,29465,100
+SubMenu,19632,66.63
+CustomerLoyaltyNumber,18480,62.72
+Name,18480,62.72
+DOB,13921,47.25
+Age,13921,47.25
 Outlet,0,0
 OrderNo,0,0
 OrderDate,0,0
@@ -27,4 +27,3 @@ TimeOfTheDay,0,0
 MainCategory,0,0
 SubCategory,0,0
 CoffeeOrNonCoffee,0,0
-Age,0,0

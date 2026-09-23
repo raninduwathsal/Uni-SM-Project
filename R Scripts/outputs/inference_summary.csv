@@ -1,0 +1,7 @@
+Test_ID,Domain,Variables,Null_Hypothesis,Test_Statistic_Name,Test_Statistic_Value,Degrees_of_Freedom,P_Value,Effect_Size,Decision
+T1_Welch_t_test,Comparison of Means,Revenue ~ CustomerType,mu_Foreign == mu_Local,t,3.581,6140.37,0.00034489,Cohen's d = 0.059,Reject H0 (Statistically Significant at alpha = 0.05)
+T2_F_test_variances,Comparison of Variances,Revenue ~ OrderType,Var(DineIn) == Var(Takeaway),F,0.9687,"17364, 12099",0.057232,Variance Ratio = 0.969,Fail to Reject H0
+T3_One_Way_ANOVA,ANOVA (Multiple Groups),Revenue ~ Outlet (Top 8),mu_Outlet1 == ... == mu_Outlet8,F,1.4044,"7, 5745",0.19863,Eta^2 = 0.0017,Fail to Reject H0
+T4_Chi_Square_Independence,Comparison of Proportions,PaymentMethod x CustomerType,PaymentMethod _|_ CustomerType,Chi-Square,4270.1991,6,< 1e-04,Cramer's V = 0.381,Reject H0 (Statistically Significant)
+T5_Kruskal_Wallis,Non-Parametric Group Test,Qty1 ~ TimeOfTheDay,Median(Qty1) identical across TOD,Kruskal-Wallis H,0.7777,3,0.85479,Rank-based non-parametric,Fail to Reject H0
+T6_Correlation_Analysis,Linear & Monotonic Association,Discount <-> Revenue,"rho(Discount, Revenue) == 0",Pearson t,5.7624,29463,< 1e-04,"r = 0.034, rho = -0.360",Reject H0 (Statistically Significant)
