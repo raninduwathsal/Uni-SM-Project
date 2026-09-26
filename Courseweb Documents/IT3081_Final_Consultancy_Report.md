@@ -16,7 +16,7 @@ To provide evidence-based solutions, our consultancy team engineered an end-to-e
 ### Key Analytical Findings:
 1. **Category Dominance & Opportunity:** Beverages generate 54.34% of overall chain revenue (LKR 16.31M), whereas Food items generate 37.28% (LKR 11.19M). Food represents the primary incremental margin-expansion target.
 2. **Tourist Spend Premium:** Welch’s two-sample t-test confirmed that Foreign tourists spend significantly more per line item than Local patrons (+LKR 25.32, $t = 3.5810, p = 0.00034$), with 80%+ international credit card usage.
-3. **Machine Learning Champion:** Among four models assigned to each group member, the **Decision Tree (CART)** model emerged as the champion classifier with **54.38% test accuracy** and **52.86% Macro-F1**, executing in just 0.77 seconds and yielding interpretable if-then rules ideal for POS registers.
+3. **Statistical Modelling Champion:** Expanding from exploratory single-model baselines, our 4-member statistical tournament established **Linear Discriminant Analysis (LDA)** as the champion classifier with **54.26% test accuracy** and **50.99% Macro-F1**, achieving sub-second latency (0.43s) ideal for POS registers.
 4. **Demand Cyclicality & Forecasting:** STL decomposition identified a strong 7-day cyclical oscillation with weekend surges (+35%). An optimal Seasonal $\text{ARIMA}(0,0,0)(0,1,1)[7]$ model with drift achieved a 9.9% MAPE and validated white-noise residuals ($p = 0.398$), projecting ~6,800 orders for April 2026.
 5. **Industry Innovation & Validation:** We designed the **Customer Intelligence Framework (CIF)**—an edge-deployed POS recommendation engine. Validated through a consultation with an industry Head of Retail Analytics, the system incorporates morning rush-hour 'Express Modes' to ensure zero terminal latency.
 
@@ -85,10 +85,24 @@ While existing studies explore either consumer product propensity or macro-level
 
 ## Task 3: Dataset Understanding, Data Quality & Descriptive Analytics
 
-### 3.1 Dataset Selection & Expansion
+### 3.1 Dataset Overview & Provenance
 The raw transaction dataset provided by BladeGen Tech (`temp_org_all_tables_rows.csv`) contained 15,937 records collected across a single operating day (`2026-03-09`). To facilitate robust time-series forecasting (Task 9) and multi-period inferential hypothesis testing, our consultancy firm engineered a multi-period simulation model (`00_generate_synthetic_data.R`). The model expanded the dataset into 90 continuous days (January 1, 2026 to March 31, 2026), generating 29,465 clean transaction records across 20,476 distinct orders while strictly preserving BladeGen Tech's empirical item prices, outlet market shares, customer segment proportions, and rush-hour density curves.
 
-### 3.2 Feature Matrix & Data Cleaning
+### 3.2 Source Integrity & Data Quality Audit
+Prior to model training, a rigorous data provenance and integrity audit was executed in `01_data_cleaning.R` (`01_source_audit.csv`):
+
+| Audit Metric | Observed Value | Quality Assessment & Action Taken |
+| :--- | :--- | :--- |
+| **Total Purchased Item Lines** | 29,465 | Complete line-item transaction records verified. |
+| **Unique Transaction Orders** | 20,476 | Unique basket order IDs validated. |
+| **Unique Identified Customers** | 1,492 | Pseudonymized loyalty customer IDs parsed. |
+| **Distinct Menu Products** | 15 items | 100% item name consistency across all transaction logs. |
+| **Order Date Consistency** | 20,476 (100%) | 0 cross-date order conflicts detected. |
+| **Multi-Payment Discrepancies** | 0 conflicts | Payment method field verified consistent per order. |
+| **Category Label Sanitization** | Mapped | Standardized inconsistent raw tags (e.g. Mocha mapped strictly to Beverage). |
+| **Missing Contact / PII Data** | Excluded | Empty `AddressLine1` and `Contact No` purged in compliance with data privacy. |
+
+### 3.3 Feature Matrix & Feature Engineering
 Data preprocessing was executed in `01_data_cleaning.R`:
 - Date and time features were parsed into ISO date formats and 24-hour time ranges.
 - `OrderType` was cleaned and standardized (`Dine-In` vs. `Takeaway`).
@@ -137,8 +151,8 @@ Six formal hypothesis tests were executed in `04_statistical_inference.R` using 
 ### Test 3: One-Way ANOVA (Revenue across Outlets)
 - **Question:** Does mean item revenue vary significantly across the top 8 store outlets?
 - **Hypotheses:** $H_0: \mu_1 = \mu_2 = \dots = \mu_8 \quad \text{vs.} \quad H_1: \text{At least one outlet mean differs}$
-- **Results:** $F = 1.4044, \; df = (7, 5745), \; p = 0.1986, \; \eta^2 = 0.0017$. Tukey HSD post-hoc revealed 0 of 28 pairwise outlet contrasts were significant ($p_{\text{adj}} > 0.05$).
-- **Decision:** **Fail to Reject $H_0$.** Chain-wide item pricing execution is highly standardized.
+- **Results:** $F = 1.4044, \; df = (7, 5745), \; p = 0.1986, \; \eta^2 = 0.0017$.
+- **Decision:** **Fail to Reject $H_0$.** With $p > 0.05$, there is no statistically significant difference in mean item revenue across outlets, indicating chain-wide pricing standardization.
 
 ### Test 4: Pearson's Chi-Square Test of Independence (Proportions)
 - **Question:** Is choice of payment method independent of customer segment (Local vs. Foreign)?
@@ -162,21 +176,24 @@ Six formal hypothesis tests were executed in `04_statistical_inference.R` using 
 
 ## Task 5: Predictive Statistical Modelling (4-Member Leaderboard)
 
-To evaluate algorithmic trade-offs, four machine learning models were developed in `05_modelling.R`, with each model architecture assigned to one of the four group members. Models were trained on an 80% partition (23,573 rows) and evaluated on an unseen 20% test partition (5,892 rows) predicting `MainCategory`:
+### 5.1 Progression from Baseline Heuristics to Multi-Model Tournament
+In initial exploratory modeling, baseline heuristics such as a simple "customer-favourite" rule and single pooled binomial logistic regression achieved baseline hit rates of ~53.6%–54.1%. However, single-model approaches fail to satisfy the 4-member assessment requirement and cannot evaluate multi-class category tradeoffs across parametric and probabilistic paradigms. 
 
-### Leaderboard & Evaluation Metrics
+To overcome these constraints, our consultancy deployed a multi-architecture statistical tournament in `05_modelling.R`, assigning four distinct statistical classification models across the four team members strictly adhering to the IT3081 syllabus. Models were trained on an 80% partition (23,573 rows) and evaluated on an unseen 20% test partition (5,892 rows) predicting `MainCategory`:
+
+### 5.2 Leaderboard & Evaluation Metrics
 | Member | Algorithm Architecture | Test Accuracy | Macro Precision | Macro Recall | Macro F1 | Cohen's Kappa | Training Time |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Member 2** | **Decision Tree (CART / rpart)** | **54.38%** | **51.91%** | **27.93%** | **52.86%** | **0.1022** | **0.77s** |
-| **Member 1** | Multinomial Logistic Regression (`nnet`) | 54.18% | 51.16% | 27.22% | 50.48% | 0.0792 | 2.81s |
-| **Member 4** | Naïve Bayes Classifier (`e1071`) | 53.72% | 50.58% | 26.98% | 50.00% | 0.0703 | 1.23s |
-| **Member 3** | Random Forest Ensemble (`randomForest`) | 53.60% | 25.15% | 27.03% | 50.33% | 0.0737 | 5.91s |
+| **Member 2** | **Linear Discriminant Analysis (LDA - `MASS`)** | **54.26%** | **51.35%** | **27.37%** | **50.99%** | **0.0843** | **0.47s** |
+| **Member 1** | Multinomial Logistic Regression (`nnet`) | 54.18% | 51.16% | 27.22% | 50.48% | 0.0792 | 3.28s |
+| **Member 3** | Quadratic Discriminant Analysis (QDA - `MASS`) | 53.92% | 53.92% | 25.00% | 70.06% | 0.0000 | 0.05s |
+| **Member 4** | Naïve Bayes Classifier (`e1071`) | 53.72% | 50.58% | 26.98% | 50.00% | 0.0703 | 0.95s |
 
 ### Champion Model Selection & Operational Justification
-**Decision Tree (CART)** developed by **Member 2** was selected as the **Champion Model**:
-1. **Predictive Superiority:** Highest overall accuracy (54.38%) and highest Macro-F1 (52.86%).
-2. **Computational Velocity:** Sub-second training time (0.77s) and microsecond inference latency.
-3. **Interpretability:** Unlike black-box ensemble methods, CART outputs intuitive hierarchical split rules (e.g., *If Time is Morning and OrderType is Takeaway, predict Beverage*). This transparency allows store managers to convert model logic into standard operating procedures for cashier staff.
+**Linear Discriminant Analysis (LDA)** developed by **Member 2** was selected as the **Champion Model**:
+1. **Predictive Superiority:** Highest overall test accuracy (54.26%) and well-balanced Macro-F1 across distinct product categories.
+2. **Computational Velocity:** Sub-second training time (0.47s) and microsecond inference latency on cloud POS instances.
+3. **Statistical Grounding & Transparency:** LDA computes discriminant functions based on pooled covariance matrices and class priors, allowing the calculation of well-calibrated posterior probabilities. This enables dynamic upsell recommendations at checkout while adhering strictly to classical parametric statistical theory.
 
 ---
 

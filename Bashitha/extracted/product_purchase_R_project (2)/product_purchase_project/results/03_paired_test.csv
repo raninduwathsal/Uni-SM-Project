@@ -1,0 +1,2 @@
+"test","n_customers","mean_difference","statistic","p_value","ci_low","ci_high"
+"Paired t-test: customer mean distinct products/order",486,-0.00814633935490405,-0.474830071709273,0.635121835418285,-0.0418562424569915,0.0255635637471834

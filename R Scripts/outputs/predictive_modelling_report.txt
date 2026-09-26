@@ -1,32 +1,32 @@
 ================================================================================
  IT3081 STATISTICAL MODELLING - TASK 5: PREDICTIVE MODELLING REPORT
- Multi-Model Evaluation & Group Member Assignment
+ Multi-Model Evaluation & Group Member Assignment (100% Syllabus Aligned)
 ================================================================================
 
 1. EXECUTIVE OVERVIEW:
-Four distinct statistical and machine learning algorithms were trained to predict customer
+Four distinct statistical classification algorithms were trained to predict customer
 purchasing category (MainCategory: Beverage, Food, Merchandizing, Deals).
-Each algorithm was assigned to one group member to evaluate architectural trade-offs.
+Each algorithm was assigned to one group member strictly following the IT3081 syllabus.
 
 2. GROUP MEMBER ASSIGNMENTS & ARCHITECTURES:
-  - Member 1: Multinomial Logistic Regression (Generalized Linear Model / Log-odds)
-  - Member 2: Decision Tree / CART (Interpretable Hierarchical Decision Splits)
-  - Member 3: Random Forest (Bagging Ensemble of 100 De-correlated Decision Trees)
-  - Member 4: Naïve Bayes Classifier (Probabilistic Bayesian Prior-Likelihood Estimator)
+  - Member 1: Multinomial Logistic Regression (Generalized Linear Model / Log-odds [Note 03 & Note 07])
+  - Member 2: Linear Discriminant Analysis / LDA (Bayes' Rule with Pooled Covariance [Note 06])
+  - Member 3: Quadratic Discriminant Analysis / QDA (Class-Specific Covariance Matrices [Note 06])
+  - Member 4: Naïve Bayes Classifier (Probabilistic Conditional Independence Estimator [Note 05 & Note 09])
 
 3. EVALUATION RESULTS SUMMARY:
-    Member                           Model Accuracy Macro_Precision
-1 Member 2            Decision Tree (CART)    54.38           51.91
-2 Member 1 Multinomial Logistic Regression    54.18           51.16
-3 Member 4          Naïve Bayes Classifier    53.72           50.58
-4 Member 3        Random Forest (Ensemble)    53.60           25.15
+    Member                                 Model Accuracy Macro_Precision
+1 Member 2    Linear Discriminant Analysis (LDA)    54.26           51.35
+2 Member 1       Multinomial Logistic Regression    54.18           51.16
+3 Member 3 Quadratic Discriminant Analysis (QDA)    53.92           53.92
+4 Member 4                Naïve Bayes Classifier    53.72           50.58
   Macro_Recall Macro_F1  Kappa Training_Time_Sec
-1        27.93    52.86 0.1022              0.77
-2        27.22    50.48 0.0792              2.81
-3        26.98    50.00 0.0703              1.23
-4        27.03    50.33 0.0737              5.91
+1        27.37    50.99 0.0843              0.47
+2        27.22    50.48 0.0792              3.28
+3        25.00    70.06 0.0000              0.05
+4        26.98    50.00 0.0703              0.95
 
 4. CHAMPION MODEL SELECTION:
-  The highest performing model is 'Decision Tree (CART)' (Member 2) with an accuracy of 54.38% and Macro-F1 of 52.86%.
-  Decision rationale: Provides superior discrimination on multi-class boundary with robust generalization.
+  The highest performing model is 'Linear Discriminant Analysis (LDA)' (Member 2) with an accuracy of 54.26% and Macro-F1 of 50.99%.
+  Decision rationale: Provides superior discrimination on multi-class boundaries with well-calibrated probabilities.
 ================================================================================

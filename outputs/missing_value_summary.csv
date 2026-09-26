@@ -1,0 +1,29 @@
+Column,Missing_Count,Missing_Pct
+AddressLine1,29465,100
+Contact No,29465,100
+Registered Outlet,29465,100
+SubMenu,19632,66.63
+CustomerLoyaltyNumber,18480,62.72
+Name,18480,62.72
+DOB,13921,47.25
+Age,13921,47.25
+Outlet,0,0
+OrderNo,0,0
+OrderDate,0,0
+OrderTime,0,0
+ItemName,0,0
+Qty1,0,0
+AdjustedRate,0,0
+Discount,0,0
+ServiceCharge,0,0
+OrderType,0,0
+PaymentMethod,0,0
+CustomerType,0,0
+OutletType,0,0
+TimeRange,0,0
+Day,0,0
+Month,0,0
+TimeOfTheDay,0,0
+MainCategory,0,0
+SubCategory,0,0
+CoffeeOrNonCoffee,0,0

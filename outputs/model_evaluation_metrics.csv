@@ -1,0 +1,5 @@
+Member,Model,Accuracy,Macro_Precision,Macro_Recall,Macro_F1,Kappa,Training_Time_Sec
+Member 2,Linear Discriminant Analysis (LDA),54.26,51.35,27.37,50.99,0.0843,0.43
+Member 1,Multinomial Logistic Regression,54.18,51.16,27.22,50.48,0.0792,3.55
+Member 3,Quadratic Discriminant Analysis (QDA),53.92,53.92,25,70.06,0,0.06
+Member 4,Naïve Bayes Classifier,53.72,50.58,26.98,50,0.0703,1.19

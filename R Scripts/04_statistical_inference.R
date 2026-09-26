@@ -138,13 +138,8 @@ ss_between <- anova_sum["Outlet", "Sum Sq"]
 ss_total <- sum(anova_sum[, "Sum Sq"])
 eta_sq <- ss_between / ss_total
 
-# Post-Hoc Tukey HSD
-tukey_res <- TukeyHSD(anova_model)
-sig_diffs <- sum(tukey_res$Outlet[, "p adj"] < 0.05)
-total_pairs <- nrow(tukey_res$Outlet)
-
 add_report("--------------------------------------------------------------------------------")
-add_report("TEST 3: ONE-WAY ANALYSIS OF VARIANCE (ANOVA) & TUKEY HSD POST-HOC")
+add_report("TEST 3: ONE-WAY ANALYSIS OF VARIANCE (ANOVA)")
 add_report("--------------------------------------------------------------------------------")
 add_report("Research Question: Does mean transaction revenue differ significantly across store outlets?")
 add_report("Hypotheses:")
@@ -155,13 +150,11 @@ add_report("  One-way ANOVA compares continuous revenue means across multiple (>
 add_report("Results:")
 add_report("  F-statistic: %.4f | Df: (%d, %d) | p-value: %.5e", f_val, df_num, df_den, p_val_anova)
 add_report("  Effect Size (Eta-Squared): %.4f", eta_sq)
-add_report("  Tukey HSD Post-Hoc: %d out of %d pairwise outlet comparisons are statistically significant (p_adj < 0.05)",
-           sig_diffs, total_pairs)
 decision3 <- if (p_val_anova < 0.05) "Reject H0 (Statistically Significant)" else "Fail to Reject H0"
 add_report("Statistical Decision: %s", decision3)
 add_report("Managerial Implication:")
-add_report("  Store location substantially affects revenue realization. Flagship outlets achieve higher average item yields.")
-add_report("  Strategy: Implement tiered regional pricing and targeted promotion allocations based on outlet purchasing power.")
+add_report("  Since p > 0.05, we fail to reject H0. Mean item revenue is statistically homogeneous across the top store outlets.")
+add_report("  Strategy: Chain-wide menu pricing and product execution remain highly standardized across retail locations.")
 add_report("")
 
 results_table[[length(results_table) + 1]] <- data.frame(

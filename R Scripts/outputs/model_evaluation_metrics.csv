@@ -1,5 +1,5 @@
 Member,Model,Accuracy,Macro_Precision,Macro_Recall,Macro_F1,Kappa,Training_Time_Sec
-Member 2,Decision Tree (CART),54.38,51.91,27.93,52.86,0.1022,0.77
-Member 1,Multinomial Logistic Regression,54.18,51.16,27.22,50.48,0.0792,2.81
-Member 4,Naïve Bayes Classifier,53.72,50.58,26.98,50,0.0703,1.23
-Member 3,Random Forest (Ensemble),53.6,25.15,27.03,50.33,0.0737,5.91
+Member 2,Linear Discriminant Analysis (LDA),54.26,51.35,27.37,50.99,0.0843,0.47
+Member 1,Multinomial Logistic Regression,54.18,51.16,27.22,50.48,0.0792,3.28
+Member 3,Quadratic Discriminant Analysis (QDA),53.92,53.92,25,70.06,0,0.05
+Member 4,Naïve Bayes Classifier,53.72,50.58,26.98,50,0.0703,0.95

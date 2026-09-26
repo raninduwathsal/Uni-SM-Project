@@ -1,0 +1,2 @@
+"metric","difference","low_95","high_95"
+"Test recall@3 minus customer favourite; cluster bootstrap",-0.000205065108171865,-0.00202063635819403,0.00166698384516829

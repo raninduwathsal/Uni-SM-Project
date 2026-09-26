@@ -1,0 +1,12 @@
+Selected GLM using October validation recall@3:  simple 
+Note: GLM coefficient p-values assume independent rows; candidate rows and orders 
+repeat by customer. Treat these p-values as exploratory; inference uses customer aggregates. 
+Observed rows:  64059 ; orders:  40009 ; customers:  500 ; products:  15 
+Outcome: whether each product appears in the NEXT observed order 
+Time split: Jan-Sep train, October validation, Nov-Dec final test 
+Recommendations for future next orders: historical customers and existing items only 
+Source provenance/public availability and category mapping require manual verification 
+This file has purchases only: it cannot identify visitors who chose not to buy 
+Sections on literature, CRD/RCBD, Bayesian methods, ARIMA, expert evidence 
+and management recommendations require written work and documented feedback 
+This file has purchases only: it cannot identify visitors who chose not to buy 
