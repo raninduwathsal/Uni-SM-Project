@@ -1,0 +1,44 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 8: CRITICAL EVALUATION OF BAYESIAN METHODS
+ Client: BladeGen Tech Consultancy | Probabilistic Analytics Evaluation
+================================================================================
+
+1. EXECUTIVE OVERVIEW:
+Bayesian statistical paradigms formulate inference through Bayes' Theorem: P(Theta | Data) propto P(Data | Theta) * P(Theta).
+This section critically evaluates the suitability of Naïve Bayes classifiers, Bayesian generalized linear
+regression, and Bayesian decision theory for retail and restaurant analytics.
+
+2. EMPIRICAL BAYESIAN CLASSIFICATION FINDINGS:
+  - Base Prior Probabilities: Beverage = 53.91%, Food = 4.60%, Deals = 37.26%, Merchandizing = 4.23%.
+  - Overall Predictive Accuracy on Test Set: 53.72% (Cohen's Kappa = 0.0703).
+  - Laplace Smoothing (alpha = 1) prevents zero-frequency conditional likelihood collapse for sparse category-outlet pairs.
+
+3. EVALUATION OF CORE BAYESIAN METHODS:
+  A. Naïve Bayes Classification:
+     - Mechanism: Assumes conditional independence between predictors given the class label.
+     - Viability: Computationally trivial (O(n * p)), supports incremental real-time updating at the POS terminal as new
+       transactions stream in.
+     - Limitation: Feature independence assumption is violated between Qty1 and Revenue (they are naturally correlated),
+       leading to overconfident posterior probability estimates.
+
+  B. Bayesian Generalized Linear Regression (MCMC):
+     - Mechanism: Estimates full posterior parameter distributions beta ~ Normal(mu, sigma) rather than fixed point estimates.
+     - Advantage: Quantifies epistemic parameter uncertainty, providing credible intervals for promotion price elasticity.
+     - Limitation: High computational overhead; Markov Chain Monte Carlo (MCMC / Gibbs sampling) requires significant CPU time.
+
+  C. Bayesian Decision Making (Loss-Function Optimization):
+     - Mechanism: Integrates posterior probabilities with an asymmetric business utility / loss matrix L(actual, predicted).
+     - High Value Application: In restaurant operations, misclassifying a Food item as a Beverage causes kitchen stockout
+       (costly: customer churn), whereas over-preparing coffee beans is relatively cheap. Bayesian loss minimization
+       adjusts classification decision thresholds to minimize expected monetary cost rather than raw misclassification error.
+
+4. COMPARISON: BAYESIAN VS. FREQUENTIST APPROACHES:
+  - Strengths of Bayesian Methods:
+    1. Prior Knowledge Integration: Historical sales distributions from past quarters can be formalized as informative priors.
+    2. Small Sample Robustness: In newly opened store outlets with sparse data, Bayesian priors prevent extreme parameter estimates.
+    3. Intuitive Probabilistic Interpretation: 'There is a 95% probability that revenue will exceed LKR 1,000' is mathematically
+       sound in Bayesian inference, unlike frequentist confidence intervals.
+  - Situations Where Bayesian Approaches Outperform Traditional Methods:
+    1. Cold-start problem for newly launched menu items or newly opened outlets.
+    2. Asymmetric financial cost scenarios where false positives and false negatives carry vastly different financial penalties.
+================================================================================

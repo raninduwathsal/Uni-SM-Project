@@ -1,0 +1,10 @@
+Audit_Metric,Value
+Total Purchased Item Lines,29465
+Unique Transaction Orders,20476
+Unique Identified Customers,1492
+Distinct Products Recorded,15
+Orders with Date Consistency,20476
+Orders with Multi-Payment Entries,0
+Orders with Multi-OrderType Entries,0
+Missing Customer Loyalty Numbers,18480
+Missing Address / Contact Info,29465
