@@ -1,0 +1,67 @@
+To cite R in publications use:
+
+  R Core Team (2025). _R: A Language and Environment for Statistical
+  Computing_. R Foundation for Statistical Computing, Vienna, Austria.
+  <https://www.R-project.org/>.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {R: A Language and Environment for Statistical Computing},
+    author = {{R Core Team}},
+    organization = {R Foundation for Statistical Computing},
+    address = {Vienna, Austria},
+    year = {2025},
+    url = {https://www.R-project.org/},
+  }
+
+We have invested a lot of time and effort in creating R, please cite it
+when using it for data analysis. See also ‘citation("pkgname")’ for
+citing R packages.
+To cite glmnet in publications use:
+
+  Friedman J, Hastie T, Tibshirani R (2010). “Regularization Paths for
+  Generalized Linear Models via Coordinate Descent.” _Journal of
+  Statistical Software_, *33*(1), 1-22. doi:10.18637/jss.v033.i01
+  <https://doi.org/10.18637/jss.v033.i01>.
+
+If coxnet is used, please also cite:
+
+  Simon N, Friedman J, Hastie T, Tibshirani R (2011). “Regularization
+  Paths for Cox's Proportional Hazards Model via Coordinate Descent.”
+  _Journal of Statistical Software_, *39*(5), 1-13.
+  doi:10.18637/jss.v039.i05 <https://doi.org/10.18637/jss.v039.i05>.
+
+If glmnet is used for generalized linear models, please also cite:
+
+  Tay JK, Narasimhan B, Hastie T (2023). “Elastic Net Regularization
+  Paths for All Generalized Linear Models.” _Journal of Statistical
+  Software_, *106*(1), 1-31. doi:10.18637/jss.v106.i01
+  <https://doi.org/10.18637/jss.v106.i01>.
+
+To see these entries in BibTeX format, use 'print(<citation>,
+bibtex=TRUE)', 'toBibtex(.)', or set
+'options(citation.bibtex.max=999)'.
+To cite sandwich in publications use:
+
+  Zeileis A, Köll S, Graham N (2020). “Various Versatile Variances: An
+  Object-Oriented Implementation of Clustered Covariances in R.”
+  _Journal of Statistical Software_, *95*(1), 1-36.
+  doi:10.18637/jss.v095.i01 <https://doi.org/10.18637/jss.v095.i01>.
+
+If sandwich is applied to lm() models, please also cite:
+
+  Zeileis A (2004). “Econometric Computing with HC and HAC Covariance
+  Matrix Estimators.” _Journal of Statistical Software_, *11*(10),
+  1-17. doi:10.18637/jss.v011.i10
+  <https://doi.org/10.18637/jss.v011.i10>.
+
+If sandwich is applied to models other than lm(), please also cite:
+
+  Zeileis A (2006). “Object-Oriented Computation of Sandwich
+  Estimators.” _Journal of Statistical Software_, *16*(9), 1-16.
+  doi:10.18637/jss.v016.i09 <https://doi.org/10.18637/jss.v016.i09>.
+
+To see these entries in BibTeX format, use 'print(<citation>,
+bibtex=TRUE)', 'toBibtex(.)', or set
+'options(citation.bibtex.max=999)'.

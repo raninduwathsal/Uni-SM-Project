@@ -1,0 +1,4 @@
+"test","purpose","assumption"
+"Chi-square proportions","Compare binary purchase proportions by group","Independent orders; Monte Carlo only addresses small expected counts"
+"Adjusted time-band Wald","Evaluate time-band association controlling for outlet and weekday","Adequate outlet/date clusters; additive log odds; no causal identification"
+"Outlet bootstrap rate CI","Estimate uncertainty in the overall purchase rate","Independent outlet clusters; does not fully capture cross-outlet customer dependence"

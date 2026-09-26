@@ -1,0 +1,2 @@
+"rate","lower","upper","method"
+0.0969127712246978,0.0915913672397696,0.102583084142038,"Outlet-cluster percentile bootstrap; 1000 resamples"

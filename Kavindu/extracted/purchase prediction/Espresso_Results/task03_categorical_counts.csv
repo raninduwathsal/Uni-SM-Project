@@ -1,0 +1,20 @@
+"variable","category","item_rows"
+"OrderType","Dine-In",17365
+"OrderType","Takeaway",12100
+"PaymentMethod","AMEX",1175
+"PaymentMethod","CASH",6847
+"PaymentMethod","MASTER",4492
+"PaymentMethod","MINTPAY",763
+"PaymentMethod","PICK ME",1056
+"PaymentMethod","UBER EATS",2440
+"PaymentMethod","VISA",12692
+"CustomerType","Foreign",4524
+"CustomerType","Local",24941
+"OutletType","Regular",29465
+"MainCategory","Beverage",15886
+"MainCategory","Deals",1355
+"MainCategory","Food",10980
+"MainCategory","Merchandizing",1244
+"CoffeeOrNonCoffee","0",13579
+"CoffeeOrNonCoffee","N",8131
+"CoffeeOrNonCoffee","Y",7755

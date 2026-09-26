@@ -1,0 +1,357 @@
+"model","term","coefficient"
+"Logistic","(Intercept)",-2.18836142308818
+"Logistic","outletAurora Falls",0.0115034666516225
+"Logistic","outletBronze Bluff",-0.19721933577669
+"Logistic","outletCopper Creek",0.150031339435755
+"Logistic","outletCrystal Valley",0.189472445867943
+"Logistic","outletDesert Rose",-0.123847012119035
+"Logistic","outletDiamond District",0.0507506257431234
+"Logistic","outletEmerald Coast",-0.486778081702781
+"Logistic","outletFalcon Ridge",0.281741278396826
+"Logistic","outletGlacier Point",-0.333484153384031
+"Logistic","outletGolden Peak",-0.0387199332320478
+"Logistic","outletIron Isle",0.00781991556167503
+"Logistic","outletIvory Tower",-0.707598713733037
+"Logistic","outletJade Junction",-0.35664794437138
+"Logistic","outletLocation 29",-0.0660524937763367
+"Logistic","outletLocation 30",-0.331109294853349
+"Logistic","outletLocation 31",-0.0840420664292516
+"Logistic","outletLocation 32",0.238916884401035
+"Logistic","outletLocation 33",0.154368666718532
+"Logistic","outletLocation 35",0.030618541558889
+"Logistic","outletLocation 36",0.107772333299425
+"Logistic","outletLocation 37",0.295786553936563
+"Logistic","outletLocation 38",-0.132042265511542
+"Logistic","outletLocation 39",-0.0246873691852463
+"Logistic","outletLocation 40",0.180024451936203
+"Logistic","outletLocation 41",0.141360700722071
+"Logistic","outletLocation 42",-0.352261884631093
+"Logistic","outletLocation 43",0.082606007247475
+"Logistic","outletLocation 44",-0.496342071101014
+"Logistic","outletLocation 45",0.0613764434994495
+"Logistic","outletLocation 46",0.138144559248464
+"Logistic","outletLocation 47",-0.720197862554099
+"Logistic","outletLocation 48",0.208726579324091
+"Logistic","outletLocation 49",-0.0357570970020923
+"Logistic","outletLocation 50",-0.256840350535679
+"Logistic","outletLocation 51",-0.243713221990307
+"Logistic","outletLocation 52",0.0549048877840418
+"Logistic","outletLocation 53",-0.557693301275719
+"Logistic","outletLocation 55",0.550212016263642
+"Logistic","outletLocation 56",-0.61337462318569
+"Logistic","outletLocation 57",0.23341643283566
+"Logistic","outletLocation 58",0.473138667008793
+"Logistic","outletLocation 59",-0.354931086839517
+"Logistic","outletLocation 60",-0.564251104072793
+"Logistic","outletLocation 62",-0.313422291225874
+"Logistic","outletLocation 63",0.149532238972873
+"Logistic","outletLocation 64",0.0751200459634551
+"Logistic","outletLocation 65",0.175761807835722
+"Logistic","outletLocation 66",-0.260391111372755
+"Logistic","outletLocation 67",0.379222317150385
+"Logistic","outletLocation 68",-0.0799681462682966
+"Logistic","outletLocation 69",-0.35315541397946
+"Logistic","outletLocation 70",0.104880678712181
+"Logistic","outletLocation 71",0.054537368671904
+"Logistic","outletLocation 72",0.180286082193733
+"Logistic","outletLocation 73",0.0642767006888063
+"Logistic","outletLocation 74",0.252663055127848
+"Logistic","outletLocation 75",-12.2463340010519
+"Logistic","outletLocation 76",0.0156123292833226
+"Logistic","outletLocation 77",-0.0375506372299531
+"Logistic","outletLocation 78",0.322806938564891
+"Logistic","outletLocation 80",-0.50704052291303
+"Logistic","outletLocation 81",0.381975070142483
+"Logistic","outletLocation 83",0.0206734018952862
+"Logistic","outletLocation 85",-0.232437026653529
+"Logistic","outletLocation 86",0.239796073855069
+"Logistic","outletLocation 87",0.666842288405073
+"Logistic","outletMarble Harbor",0.25902865703889
+"Logistic","outletMidnight Bay",0.2070183157594
+"Logistic","outletOpal Oasis",0.322280754812528
+"Logistic","outletPearl Port",0.386685534920841
+"Logistic","outletPine Shadows",0.56554040149634
+"Logistic","outletQuartz Quarry",0.116340807737864
+"Logistic","outletRuby Ridge",-0.237709294546753
+"Logistic","outletSapphire Springs",0.30985550257462
+"Logistic","outletShadow Ridge",0.351558618647626
+"Logistic","outletSilver Grove",0.32421686462306
+"Logistic","outletSunset Valley",-0.0903934490627585
+"Logistic","outletTopaz Town",0.296650007434356
+"Logistic","outletWillow Creek",0.49671694181506
+"Logistic","weekdayMonday",-0.226384832796424
+"Logistic","weekdaySaturday",0.0213955749844586
+"Logistic","weekdaySunday",0.0260066595104131
+"Logistic","weekdayThursday",-0.192416669157796
+"Logistic","weekdayTuesday",0.0246396181688154
+"Logistic","weekdayWednesday",-0.239720033735608
+"Logistic","time_bandEvening",-0.0578877530736604
+"Logistic","time_bandMorning",-0.0844860808618619
+"Logistic","time_bandNight",-0.0115289883583361
+"Ridge","(Intercept)",-2.22543840747791
+"Ridge","outletAurora Falls",-0.0106699907397894
+"Ridge","outletBronze Bluff",-0.0588101894323472
+"Ridge","outletCopper Creek",0.020763928049019
+"Ridge","outletCrystal Valley",0.0307968047743643
+"Ridge","outletDesert Rose",-0.0429106158108135
+"Ridge","outletDiamond District",-0.00280891063391557
+"Ridge","outletEmerald Coast",-0.107991109399664
+"Ridge","outletFalcon Ridge",0.0581238109511445
+"Ridge","outletGlacier Point",-0.081409152793189
+"Ridge","outletGolden Peak",-0.0230867977982489
+"Ridge","outletIron Isle",-0.0151808081171567
+"Ridge","outletIvory Tower",-0.137298562233424
+"Ridge","outletJade Junction",-0.0841462400141522
+"Ridge","outletLocation 29",-0.0304475824131636
+"Ridge","outletLocation 30",-0.0801181748968562
+"Ridge","outletLocation 31",-0.0317171565554804
+"Ridge","outletLocation 32",0.0437633420908955
+"Ridge","outletLocation 33",0.0231555583948196
+"Ridge","outletLocation 35",-0.00909156798553555
+"Ridge","outletLocation 36",0.0123259556164191
+"Ridge","outletLocation 37",0.0613686264971404
+"Ridge","outletLocation 38",-0.0444176793982357
+"Ridge","outletLocation 39",-0.0216865079479566
+"Ridge","outletLocation 40",0.0277399378384389
+"Ridge","outletLocation 41",0.0203679884143107
+"Ridge","outletLocation 42",-0.0855823108279206
+"Ridge","outletLocation 43",0.00372591173174018
+"Ridge","outletLocation 44",-0.107537912547376
+"Ridge","outletLocation 45",0.00041815822813097
+"Ridge","outletLocation 46",0.0149708450565157
+"Ridge","outletLocation 47",-0.139086773423082
+"Ridge","outletLocation 48",0.0361910004771711
+"Ridge","outletLocation 49",-0.0223693359982481
+"Ridge","outletLocation 50",-0.068143093834555
+"Ridge","outletLocation 51",-0.0657854989557466
+"Ridge","outletLocation 52",-0.00317229591904757
+"Ridge","outletLocation 53",-0.117698973122294
+"Ridge","outletLocation 55",0.14120746408605
+"Ridge","outletLocation 56",-0.124928192555838
+"Ridge","outletLocation 57",0.0427447266545545
+"Ridge","outletLocation 58",0.108889992707103
+"Ridge","outletLocation 59",-0.0852944736315052
+"Ridge","outletLocation 60",-0.11741241241677
+"Ridge","outletLocation 62",-0.0790084162579456
+"Ridge","outletLocation 63",0.0202500111609934
+"Ridge","outletLocation 64",0.00471793262800252
+"Ridge","outletLocation 65",0.02612294292233
+"Ridge","outletLocation 66",-0.0649714532460305
+"Ridge","outletLocation 67",0.0819225070162068
+"Ridge","outletLocation 68",-0.0326271058561266
+"Ridge","outletLocation 69",-0.0851368332783518
+"Ridge","outletLocation 70",0.0106561023645913
+"Ridge","outletLocation 71",-0.00214711158727222
+"Ridge","outletLocation 72",0.0285954757563586
+"Ridge","outletLocation 73",-0.00136009217382302
+"Ridge","outletLocation 74",0.0502588140152329
+"Ridge","outletLocation 75",-0.26918534813014
+"Ridge","outletLocation 76",-0.0116302530379798
+"Ridge","outletLocation 77",-0.0233865584956837
+"Ridge","outletLocation 78",0.0725475763755644
+"Ridge","outletLocation 80",-0.110567633236593
+"Ridge","outletLocation 81",0.0908297560504396
+"Ridge","outletLocation 83",-0.00980172825549531
+"Ridge","outletLocation 85",-0.0613214136823758
+"Ridge","outletLocation 86",0.0455999381048412
+"Ridge","outletLocation 87",0.176022093072628
+"Ridge","outletMarble Harbor",0.0437290962458821
+"Ridge","outletMidnight Bay",0.0336698212458046
+"Ridge","outletOpal Oasis",0.0673141144230986
+"Ridge","outletPearl Port",0.0887264967741068
+"Ridge","outletPine Shadows",0.148134651169537
+"Ridge","outletQuartz Quarry",0.0114100301717669
+"Ridge","outletRuby Ridge",-0.0641439802506762
+"Ridge","outletSapphire Springs",0.0666604247487292
+"Ridge","outletShadow Ridge",0.0773402464194828
+"Ridge","outletSilver Grove",0.069710176859725
+"Ridge","outletSunset Valley",-0.0359397812268603
+"Ridge","outletTopaz Town",0.0618420994609831
+"Ridge","outletWillow Creek",0.119578782241519
+"Ridge","weekdayMonday",-0.0401202710063693
+"Ridge","weekdaySaturday",0.0217030114294431
+"Ridge","weekdaySunday",0.0250709600605724
+"Ridge","weekdayThursday",-0.0324351456596676
+"Ridge","weekdayTuesday",0.025759527835246
+"Ridge","weekdayWednesday",-0.0428445748560127
+"Ridge","time_bandEvening",-0.00676207916072852
+"Ridge","time_bandMorning",-0.0137828716941986
+"Ridge","time_bandNight",0.00758787557872874
+"LASSO","(Intercept)",-2.23386999776838
+"LASSO","outletAurora Falls",0
+"LASSO","outletBronze Bluff",0
+"LASSO","outletCopper Creek",0
+"LASSO","outletCrystal Valley",0
+"LASSO","outletDesert Rose",0
+"LASSO","outletDiamond District",0
+"LASSO","outletEmerald Coast",0
+"LASSO","outletFalcon Ridge",0
+"LASSO","outletGlacier Point",0
+"LASSO","outletGolden Peak",0
+"LASSO","outletIron Isle",0
+"LASSO","outletIvory Tower",0
+"LASSO","outletJade Junction",0
+"LASSO","outletLocation 29",0
+"LASSO","outletLocation 30",0
+"LASSO","outletLocation 31",0
+"LASSO","outletLocation 32",0
+"LASSO","outletLocation 33",0
+"LASSO","outletLocation 35",0
+"LASSO","outletLocation 36",0
+"LASSO","outletLocation 37",0
+"LASSO","outletLocation 38",0
+"LASSO","outletLocation 39",0
+"LASSO","outletLocation 40",0
+"LASSO","outletLocation 41",0
+"LASSO","outletLocation 42",0
+"LASSO","outletLocation 43",0
+"LASSO","outletLocation 44",0
+"LASSO","outletLocation 45",0
+"LASSO","outletLocation 46",0
+"LASSO","outletLocation 47",0
+"LASSO","outletLocation 48",0
+"LASSO","outletLocation 49",0
+"LASSO","outletLocation 50",0
+"LASSO","outletLocation 51",0
+"LASSO","outletLocation 52",0
+"LASSO","outletLocation 53",0
+"LASSO","outletLocation 55",0.0250499755577806
+"LASSO","outletLocation 56",0
+"LASSO","outletLocation 57",0
+"LASSO","outletLocation 58",0
+"LASSO","outletLocation 59",0
+"LASSO","outletLocation 60",0
+"LASSO","outletLocation 62",0
+"LASSO","outletLocation 63",0
+"LASSO","outletLocation 64",0
+"LASSO","outletLocation 65",0
+"LASSO","outletLocation 66",0
+"LASSO","outletLocation 67",0
+"LASSO","outletLocation 68",0
+"LASSO","outletLocation 69",0
+"LASSO","outletLocation 70",0
+"LASSO","outletLocation 71",0
+"LASSO","outletLocation 72",0
+"LASSO","outletLocation 73",0
+"LASSO","outletLocation 74",0
+"LASSO","outletLocation 75",0
+"LASSO","outletLocation 76",0
+"LASSO","outletLocation 77",0
+"LASSO","outletLocation 78",0
+"LASSO","outletLocation 80",0
+"LASSO","outletLocation 81",0
+"LASSO","outletLocation 83",0
+"LASSO","outletLocation 85",0
+"LASSO","outletLocation 86",0
+"LASSO","outletLocation 87",0
+"LASSO","outletMarble Harbor",0
+"LASSO","outletMidnight Bay",0
+"LASSO","outletOpal Oasis",0
+"LASSO","outletPearl Port",0
+"LASSO","outletPine Shadows",0.0315330241045369
+"LASSO","outletQuartz Quarry",0
+"LASSO","outletRuby Ridge",0
+"LASSO","outletSapphire Springs",0
+"LASSO","outletShadow Ridge",0
+"LASSO","outletSilver Grove",0
+"LASSO","outletSunset Valley",0
+"LASSO","outletTopaz Town",0
+"LASSO","outletWillow Creek",0.0426476612578585
+"LASSO","weekdayMonday",0
+"LASSO","weekdaySaturday",0
+"LASSO","weekdaySunday",0
+"LASSO","weekdayThursday",0
+"LASSO","weekdayTuesday",0
+"LASSO","weekdayWednesday",0
+"LASSO","time_bandEvening",0
+"LASSO","time_bandMorning",0
+"LASSO","time_bandNight",0
+"ElasticNet","(Intercept)",-2.23503086862235
+"ElasticNet","outletAurora Falls",0
+"ElasticNet","outletBronze Bluff",0
+"ElasticNet","outletCopper Creek",0
+"ElasticNet","outletCrystal Valley",0
+"ElasticNet","outletDesert Rose",0
+"ElasticNet","outletDiamond District",0
+"ElasticNet","outletEmerald Coast",-0.0109333396646034
+"ElasticNet","outletFalcon Ridge",0
+"ElasticNet","outletGlacier Point",0
+"ElasticNet","outletGolden Peak",0
+"ElasticNet","outletIron Isle",0
+"ElasticNet","outletIvory Tower",0
+"ElasticNet","outletJade Junction",0
+"ElasticNet","outletLocation 29",0
+"ElasticNet","outletLocation 30",0
+"ElasticNet","outletLocation 31",0
+"ElasticNet","outletLocation 32",0
+"ElasticNet","outletLocation 33",0
+"ElasticNet","outletLocation 35",0
+"ElasticNet","outletLocation 36",0
+"ElasticNet","outletLocation 37",0
+"ElasticNet","outletLocation 38",0
+"ElasticNet","outletLocation 39",0
+"ElasticNet","outletLocation 40",0
+"ElasticNet","outletLocation 41",0
+"ElasticNet","outletLocation 42",0
+"ElasticNet","outletLocation 43",0
+"ElasticNet","outletLocation 44",0
+"ElasticNet","outletLocation 45",0
+"ElasticNet","outletLocation 46",0
+"ElasticNet","outletLocation 47",0
+"ElasticNet","outletLocation 48",0
+"ElasticNet","outletLocation 49",0
+"ElasticNet","outletLocation 50",0
+"ElasticNet","outletLocation 51",0
+"ElasticNet","outletLocation 52",0
+"ElasticNet","outletLocation 53",0
+"ElasticNet","outletLocation 55",0.0540528879527028
+"ElasticNet","outletLocation 56",0
+"ElasticNet","outletLocation 57",0
+"ElasticNet","outletLocation 58",0
+"ElasticNet","outletLocation 59",0
+"ElasticNet","outletLocation 60",0
+"ElasticNet","outletLocation 62",0
+"ElasticNet","outletLocation 63",0
+"ElasticNet","outletLocation 64",0
+"ElasticNet","outletLocation 65",0
+"ElasticNet","outletLocation 66",0
+"ElasticNet","outletLocation 67",0
+"ElasticNet","outletLocation 68",0
+"ElasticNet","outletLocation 69",0
+"ElasticNet","outletLocation 70",0
+"ElasticNet","outletLocation 71",0
+"ElasticNet","outletLocation 72",0
+"ElasticNet","outletLocation 73",0
+"ElasticNet","outletLocation 74",0
+"ElasticNet","outletLocation 75",0
+"ElasticNet","outletLocation 76",0
+"ElasticNet","outletLocation 77",0
+"ElasticNet","outletLocation 78",0
+"ElasticNet","outletLocation 80",0
+"ElasticNet","outletLocation 81",0
+"ElasticNet","outletLocation 83",0
+"ElasticNet","outletLocation 85",0
+"ElasticNet","outletLocation 86",0
+"ElasticNet","outletLocation 87",0
+"ElasticNet","outletMarble Harbor",0
+"ElasticNet","outletMidnight Bay",0
+"ElasticNet","outletOpal Oasis",0
+"ElasticNet","outletPearl Port",0
+"ElasticNet","outletPine Shadows",0.0612801712452316
+"ElasticNet","outletQuartz Quarry",0
+"ElasticNet","outletRuby Ridge",0
+"ElasticNet","outletSapphire Springs",0
+"ElasticNet","outletShadow Ridge",0
+"ElasticNet","outletSilver Grove",0
+"ElasticNet","outletSunset Valley",0
+"ElasticNet","outletTopaz Town",0
+"ElasticNet","outletWillow Creek",0.0642900713002287
+"ElasticNet","weekdayMonday",0
+"ElasticNet","weekdaySaturday",0
+"ElasticNet","weekdaySunday",0
+"ElasticNet","weekdayThursday",0
+"ElasticNet","weekdayTuesday",0
+"ElasticNet","weekdayWednesday",0
+"ElasticNet","time_bandEvening",0
+"ElasticNet","time_bandMorning",0
+"ElasticNet","time_bandNight",0
