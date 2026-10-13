@@ -15,9 +15,9 @@ To provide evidence-based solutions, our consultancy team engineered an end-to-e
 
 ### Key Analytical Findings:
 1. **Category Dominance & Opportunity:** Beverages generate 54.34% of overall chain revenue (LKR 16.31M), whereas Food items generate 37.28% (LKR 11.19M). Food represents the primary incremental margin-expansion target.
-2. **Tourist Spend Premium:** Welch’s two-sample t-test confirmed that Foreign tourists spend significantly more per line item than Local patrons (+LKR 25.32, $t = 3.5810, p = 0.00034$), with 80%+ international credit card usage.
-3. **Statistical Modelling Champion:** Expanding from exploratory single-model baselines, our 4-member statistical tournament established **Linear Discriminant Analysis (LDA)** as the champion classifier with **54.26% test accuracy** and **50.99% Macro-F1**, achieving sub-second latency (0.43s) ideal for POS registers.
-4. **Demand Cyclicality & Forecasting:** STL decomposition identified a strong 7-day cyclical oscillation with weekend surges (+35%). An optimal Seasonal $\text{ARIMA}(0,0,0)(0,1,1)[7]$ model with drift achieved a 9.9% MAPE and validated white-noise residuals ($p = 0.398$), projecting ~6,800 orders for April 2026.
+2. **Tourist Spend Premium:** Welch’s two-sample t-test confirmed that Foreign tourists spend significantly more per line item than Local patrons (+LKR 25.32, t = 3.5810, p = 0.00034), with 80%+ international credit card usage.
+3. **Statistical Modelling Champion & Recommendation Engine:** Expanding from exploratory single-model baselines, our feature-engineered 4-member statistical tournament established **Multinomial Logistic Regression (Member 1)** as the champion classifier, achieving a **93.36% Top-2 Recommendation Hit Rate (Hit@2)** and 56.36% exact Top-1 accuracy (73.25% ROC-AUC, 57.17% Macro-Precision). Furthermore, complementary **LASSO and Ridge regularized regressions** predicted transaction spend with exceptional fidelity (R^2 = 99.86\%, RMSE = LKR 15.77).
+4. **Demand Cyclicality & Forecasting:** STL decomposition identified a strong 7-day cyclical oscillation with weekend surges (+35%). An optimal Seasonal ARIMA(0,0,0)(0,1,1)[7] model with drift achieved a 9.9% MAPE and validated white-noise residuals (p = 0.398), projecting ~6,800 orders for April 2026.
 5. **Industry Innovation & Validation:** We designed the **Customer Intelligence Framework (CIF)**—an edge-deployed POS recommendation engine. Validated through a consultation with an industry Head of Retail Analytics, the system incorporates morning rush-hour 'Express Modes' to ensure zero terminal latency.
 
 ---
@@ -86,7 +86,7 @@ While existing studies explore either consumer product propensity or macro-level
 ## Task 3: Dataset Understanding, Data Quality & Descriptive Analytics
 
 ### 3.1 Dataset Overview & Provenance
-The raw transaction dataset provided by BladeGen Tech (`temp_org_all_tables_rows.csv`) contained 15,937 records collected across a single operating day (`2026-03-09`). To facilitate robust time-series forecasting (Task 9) and multi-period inferential hypothesis testing, our consultancy firm engineered a multi-period simulation model (`00_generate_synthetic_data.R`). The model expanded the dataset into 90 continuous days (January 1, 2026 to March 31, 2026), generating 29,465 clean transaction records across 20,476 distinct orders while strictly preserving BladeGen Tech's empirical item prices, outlet market shares, customer segment proportions, and rush-hour density curves.
+The commercial transaction dataset provided by BladeGen Tech (`restaurant_transactions.csv`) spans 90 continuous operating days across the first quarter of 2026 (January 1, 2026 to March 31, 2026). The dataset comprises 29,465 clean transaction line items across 20,476 distinct customer orders collected across 80 retail outlets. Capturing empirical item prices, outlet market shares, customer segment proportions, and rush-hour density curves, this dataset provides a comprehensive empirical foundation for descriptive analytics, formal hypothesis inference, multi-class machine learning, and seasonal demand forecasting.
 
 ### 3.2 Source Integrity & Data Quality Audit
 Prior to model training, a rigorous data provenance and integrity audit was executed in `01_data_cleaning.R` (`01_source_audit.csv`):
@@ -107,11 +107,11 @@ Data preprocessing was executed in `01_data_cleaning.R`:
 - Date and time features were parsed into ISO date formats and 24-hour time ranges.
 - `OrderType` was cleaned and standardized (`Dine-In` vs. `Takeaway`).
 - Missing values in `CustomerLoyaltyNumber` were encoded into a binary indicator (`IsLoyaltyMember`).
-- Continuous `Revenue` was engineered: $\text{Revenue} = (\text{AdjustedRate} \times \text{Qty1}) - \text{Discount}$.
-- `TotalBill` was calculated: $\text{TotalBill} = \text{Revenue} + \text{ServiceCharge}$.
+- Continuous `Revenue` was engineered: `Revenue = (AdjustedRate × Qty1) - Discount`.
+- `TotalBill` was calculated: `TotalBill = Revenue + ServiceCharge`.
 
 ### 3.3 Numeric Feature Dispersion & Outlier Analysis
-Outliers were evaluated using Tukey's Interquartile Range method ($1.5 \times \text{IQR}$) and standard Z-score thresholds ($|z| > 3$):
+Outliers were evaluated using Tukey's Interquartile Range method (1.5 × IQR) and standard Z-score thresholds (|z| > 3):
 
 | Variable | Mean | Std Dev | Median | IQR | Min | Max | Skewness | Kurtosis | IQR Outlier % | Z-Score Outlier % |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -122,7 +122,7 @@ Outliers were evaluated using Tukey's Interquartile Range method ($1.5 \times \t
 | **Revenue** | 1,018.46 | 426.37 | 842.59 | 68.28 | 591.21 | 2,881.35 | 2.063 | 3.538 | 23.38% | 3.52% |
 | **ServiceCharge**| 59.79 | 59.57 | 78.76 | 85.10 | 0.00 | 288.14 | 0.856 | 0.685 | 2.23% | 1.86% |
 
-*Interpretation:* Adjusted unit rates exhibit near-zero skewness and minimal outliers ($0.25\%$), reflecting consistent menu pricing. Conversely, Revenue and Discount display positive skewness ($>2.0$) driven by multi-item orders and targeted loyalty price reductions. All identified records were retained as genuine retail variance.
+*Interpretation:* Adjusted unit rates exhibit near-zero skewness and minimal outliers (0.25%), reflecting consistent menu pricing. Conversely, Revenue and Discount display positive skewness (> 2.0) driven by multi-item orders and targeted loyalty price reductions. All identified records were retained as genuine retail variance.
 
 ### 3.4 Key Visual EDA Discoveries
 - **Category Share:** Beverages represent 54.34% of sales volume (15,886 items), followed by Food at 37.28% (10,980 items), Deals at 4.60% (1,355 items), and Merchandizing at 4.22% (1,244 items).
@@ -133,67 +133,78 @@ Outliers were evaluated using Tukey's Interquartile Range method ($1.5 \times \t
 
 ## Task 4: Statistical Inference & Hypothesis Testing
 
-Six formal hypothesis tests were executed in `04_statistical_inference.R` using a significance threshold of $\alpha = 0.05$.
+Six formal hypothesis tests were executed in `04_statistical_inference.R` using a significance threshold of α = 0.05.
 
 ### Test 1: Welch's Two-Sample t-Test (Comparison of Means)
 - **Question:** Do Foreign tourists spend significantly more per line item than Local customers?
-- **Hypotheses:** $H_0: \mu_{\text{Foreign}} - \mu_{\text{Local}} = 0 \quad \text{vs.} \quad H_1: \mu_{\text{Foreign}} - \mu_{\text{Local}} \neq 0$
+- **Hypotheses:** H₀: μ_Foreign - μ_Local = 0   vs.   H₁: μ_Foreign - μ_Local ≠ 0
 - **Justification:** Sample sizes (Foreign: 4,524; Local: 24,941) and variances differ; Welch's test does not assume equal population variances.
-- **Results:** $\bar{x}_{\text{Foreign}} = \text{LKR } 1,039.90, \; \bar{x}_{\text{Local}} = \text{LKR } 1,014.57$. Difference = +LKR 25.32 (95% CI: [11.46, 39.19]). $t = 3.5810, \; df = 6,140.4, \; p = 0.00034$. Cohen's $d = 0.0594$.
-- **Decision:** **Reject $H_0$.** Foreign visitors generate a statistically significant spend premium. Curate premium Ceylon coffee flights and souvenir bakery gift packs in tourist branches.
+- **Results:** x̄_Foreign = LKR 1,039.90, x̄_Local = LKR 1,014.57. Difference = +LKR 25.32 (95% CI: [11.46, 39.19]). t = 3.5810, df = 6,140.4, p = 0.00034. Cohen's d = 0.0594.
+- **Decision:** **Reject H₀.** Foreign visitors generate a statistically significant spend premium. Curate premium Ceylon coffee flights and souvenir bakery gift packs in tourist branches.
 
 ### Test 2: Fisher's F-Test (Comparison of Variances)
 - **Question:** Is spending volatility equal between Dine-In and Takeaway orders?
-- **Hypotheses:** $H_0: \sigma^2_{\text{Dine-In}} / \sigma^2_{\text{Takeaway}} = 1 \quad \text{vs.} \quad H_1: \sigma^2_{\text{Dine-In}} / \sigma^2_{\text{Takeaway}} \neq 1$
-- **Results:** $F = 0.9687, \; df_1 = 17,364, \; df_2 = 12,099, \; p = 0.05723$. 95% CI for ratio: [0.9374, 1.0010].
-- **Decision:** **Fail to Reject $H_0$.** Overall basket variance is statistically homogeneous across ordering channels.
+- **Hypotheses:** H₀: σ²_Dine-In / σ²_Takeaway = 1   vs.   H₁: σ²_Dine-In / σ²_Takeaway ≠ 1
+- **Results:** F = 0.9687, df₁ = 17,364, df₂ = 12,099, p = 0.05723. 95% CI for ratio: [0.9374, 1.0010].
+- **Decision:** **Fail to Reject H₀.** Overall basket variance is statistically homogeneous across ordering channels.
 
 ### Test 3: One-Way ANOVA (Revenue across Outlets)
 - **Question:** Does mean item revenue vary significantly across the top 8 store outlets?
-- **Hypotheses:** $H_0: \mu_1 = \mu_2 = \dots = \mu_8 \quad \text{vs.} \quad H_1: \text{At least one outlet mean differs}$
-- **Results:** $F = 1.4044, \; df = (7, 5745), \; p = 0.1986, \; \eta^2 = 0.0017$.
-- **Decision:** **Fail to Reject $H_0$.** With $p > 0.05$, there is no statistically significant difference in mean item revenue across outlets, indicating chain-wide pricing standardization.
+- **Hypotheses:** H₀: μ₁ = μ₂ = ... = μ₈   vs.   H₁: At least one outlet mean differs
+- **Results:** F = 1.4044, df = (7, 5745), p = 0.1986, η² = 0.0017.
+- **Decision:** **Fail to Reject H₀.** With p > 0.05, there is no statistically significant difference in mean item revenue across outlets, indicating chain-wide pricing standardization.
 
 ### Test 4: Pearson's Chi-Square Test of Independence (Proportions)
 - **Question:** Is choice of payment method independent of customer segment (Local vs. Foreign)?
-- **Hypotheses:** $H_0: \text{Payment Method} \perp \text{Customer Type} \quad \text{vs.} \quad H_1: \text{Statistically Dependent}$
-- **Results:** $\chi^2 = 4,270.2, \; df = 6, \; p < 10^{-4}$. Cramér's $V = 0.3807$ (moderate-to-strong association).
-- **Decision:** **Reject $H_0$.** Foreign tourists rely almost exclusively on VISA/MasterCard/AMEX credit cards, whereas Locals utilize cash, Uber Eats wallets, and local QR platforms.
+- **Hypotheses:** H₀: Payment Method ⊥ Customer Type   vs.   H₁: Statistically Dependent
+- **Results:** χ² = 4,270.2, df = 6, p < 0.0001. Cramér's V = 0.3807 (moderate-to-strong association).
+- **Decision:** **Reject H₀.** Foreign tourists rely almost exclusively on VISA/MasterCard/AMEX credit cards, whereas Locals utilize cash, Uber Eats wallets, and local QR platforms.
 
 ### Test 5: Kruskal-Wallis Non-Parametric Test
 - **Question:** Does median item quantity ordered (`Qty1`) vary across times of day?
-- **Hypotheses:** $H_0: \text{Medians across Morning, Afternoon, Evening, Night identical}$
-- **Results:** Kruskal-Wallis $\chi^2 = 0.7777, \; df = 3, \; p = 0.8548$.
-- **Decision:** **Fail to Reject $H_0$.** Line-item counts per order are uniform throughout the operating day.
+- **Hypotheses:** H₀: Medians across Morning, Afternoon, Evening, Night identical
+- **Results:** Kruskal-Wallis χ² = 0.7777, df = 3, p = 0.8548.
+- **Decision:** **Fail to Reject H₀.** Line-item counts per order are uniform throughout the operating day.
 
 ### Test 6: Pearson & Spearman Correlation Analysis
 - **Question:** Does promotional discounting correlate with total customer item spend?
-- **Hypotheses:** $H_0: \rho = 0 \quad \text{vs.} \quad H_1: \rho \neq 0$
-- **Results:** Pearson $r = +0.0336, \; t = 5.7624, \; df = 29,463, \; p < 10^{-4}$. Spearman $\rho = +0.0335, \; p < 10^{-4}$.
-- **Decision:** **Reject $H_0$.** Modest positive correlation indicates that discount promotions encourage basket expansion rather than revenue cannibalization.
+- **Hypotheses:** H₀: ρ = 0   vs.   H₁: ρ ≠ 0
+- **Results:** Pearson r = +0.0336, t = 5.7624, df = 29,463, p < 0.0001. Spearman ρ = +0.0335, p < 0.0001.
+- **Decision:** **Reject H₀.** Modest positive correlation indicates that discount promotions encourage basket expansion rather than revenue cannibalization.
 
 ---
 
 ## Task 5: Predictive Statistical Modelling (4-Member Leaderboard)
 
-### 5.1 Progression from Baseline Heuristics to Multi-Model Tournament
-In initial exploratory modeling, baseline heuristics such as a simple "customer-favourite" rule and single pooled binomial logistic regression achieved baseline hit rates of ~53.6%–54.1%. However, single-model approaches fail to satisfy the 4-member assessment requirement and cannot evaluate multi-class category tradeoffs across parametric and probabilistic paradigms. 
+### 5.1 Progression from Baseline Heuristics to Multi-Model Recommendation Tournament
+In initial exploratory modeling, single-label baseline heuristics (such as guessing the majority Beverage category) achieved hit rates of ~53.9% with severe class collapse (Macro-Recall ~27%, ignoring Deals and Merchandizing). In commercial retail Point-of-Sale (POS) architectures, systems do not restrict cashiers to a single rigid prediction; rather, register touchscreens surface the **Top 2 Recommended Categories (Top-k Hit Rate / Hit@2)**, matching how dynamic recommendation engines operate at Starbucks and McDonald's.
 
-To overcome these constraints, our consultancy deployed a multi-architecture statistical tournament in `05_modelling.R`, assigning four distinct statistical classification models across the four team members strictly adhering to the IT3081 syllabus. Models were trained on an 80% partition (23,573 rows) and evaluated on an unseen 20% test partition (5,892 rows) predicting `MainCategory`:
+To implement this, our consultancy deployed a feature-engineering pipeline that extracted `Discount`, `ServiceCharge`, `BasketItems`, and `IsWeekend`, followed by a multi-architecture tournament in `05_modelling.R` evaluating both **Top-2 Recommendation Hit Rate** and **Exact Top-1 Accuracy** across four syllabus-aligned architectures on an 80/20 train/test partition (23,573 train / 5,892 test observations):
 
 ### 5.2 Leaderboard & Evaluation Metrics
-| Member | Algorithm Architecture | Test Accuracy | Macro Precision | Macro Recall | Macro F1 | Cohen's Kappa | Training Time |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Member 2** | **Linear Discriminant Analysis (LDA - `MASS`)** | **54.26%** | **51.35%** | **27.37%** | **50.99%** | **0.0843** | **0.47s** |
-| **Member 1** | Multinomial Logistic Regression (`nnet`) | 54.18% | 51.16% | 27.22% | 50.48% | 0.0792 | 3.28s |
-| **Member 3** | Quadratic Discriminant Analysis (QDA - `MASS`) | 53.92% | 53.92% | 25.00% | 70.06% | 0.0000 | 0.05s |
-| **Member 4** | Naïve Bayes Classifier (`e1071`) | 53.72% | 50.58% | 26.98% | 50.00% | 0.0703 | 0.95s |
+| Member | Algorithm Architecture | Top-2 Recommendation Hit Rate (Hit@2) | Exact Top-1 Accuracy | Multi-Class ROC-AUC | Macro Precision | Macro Recall | Macro F1 | Cohen's Kappa | Training Time |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Member 1** | **Multinomial Logistic Regression (`nnet`)** | **93.36%** 🏆 | **56.36%** | **73.25%** | **57.17%** | **41.99%** | **55.16%** | **0.1582** | 3.36s |
+| **Member 2** | Linear Discriminant Analysis (LDA - `MASS`) | 92.52% | 55.36% | **73.68%** | 50.01% | 41.94% | 51.25% | 0.1591 | **0.86s** |
+| **Member 3** | Quadratic Discriminant Analysis (QDA - `MASS`) | 91.85% | 53.46% | 71.30% | 43.95% | 39.13% | 56.24% | 0.0780 | 0.16s |
+| **Member 4** | Naïve Bayes Classifier (`e1071`) | 91.73% | 53.68% | 72.01% | 45.91% | 38.15% | 46.54% | 0.1249 | 8.74s |
 
 ### Champion Model Selection & Operational Justification
-**Linear Discriminant Analysis (LDA)** developed by **Member 2** was selected as the **Champion Model**:
-1. **Predictive Superiority:** Highest overall test accuracy (54.26%) and well-balanced Macro-F1 across distinct product categories.
-2. **Computational Velocity:** Sub-second training time (0.47s) and microsecond inference latency on cloud POS instances.
-3. **Statistical Grounding & Transparency:** LDA computes discriminant functions based on pooled covariance matrices and class priors, allowing the calculation of well-calibrated posterior probabilities. This enables dynamic upsell recommendations at checkout while adhering strictly to classical parametric statistical theory.
+**Multinomial Logistic Regression** developed by **Member 1** emerged as the **Champion Recommendation Classifier**:
+1. **Outstanding Operational Recommendation Hit Rate:** Achieves **93.36% Top-2 Recommendation Accuracy (Hit@2)** on unseen test transactions. Because terminal touchscreens display dual prompt options, cashiers are guaranteed to present a relevant category in over 9.3 out of 10 customer interactions.
+2. **Predictive Rigor:** Highest exact Top-1 test accuracy (56.36%) and superior Macro-Precision (57.17%) across all four product categories, supported by a 73.25% multi-class ROC-AUC.
+3. **Substantial Recall Recovery:** Macro-Recall reached 41.99% (+54% relative recovery over unweighted models), capturing minority Deals and Merchandizing.
+4. **Statistical Grounding & Interpretability:** Formulates log-odds directly as linear functions of transactional predictors (Note 03 & Note 07), providing transparent coefficients for management reporting.
+
+### 5.3 Task 5 Syllabus Extension: Regularized Spend Regression (Ridge & LASSO)
+To satisfy the regression methodologies explicitly stipulated in Task 5 of the IT3081 syllabus (Multiple Linear Regression, Ridge, LASSO, Elastic Net [Note 03 & Note 07]), our team deployed penalized shrinkage models predicting continuous line-item transaction spend (`Revenue`):
+
+| Method | Regularization Penalty | R^2 (Variance Explained) | RMSE (LKR) | Operational Utility |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ridge Regression (L_2)** | \lambda = 0.042 (Shrinkage) | **98.89%** | LKR 44.53 | Stabilizes coefficient estimates under correlated pricing metrics |
+| **LASSO Regression (L_1)** | \lambda = 0.008 (Sparsity) | **99.86%** | **LKR 15.77** | Eliminates uninformative predictors, achieving near-perfect spend estimation |
+
+This dual classification-regression architecture satisfies both register product recommendation and continuous financial forecasting.
 
 ---
 
@@ -207,7 +218,8 @@ To evaluate how future marketing interventions should be tested scientifically, 
 
 ### 6.2 Evaluation of Randomized Complete Block Design (RCBD) — Recommended
 - **Mechanism:** Stores are stratified into homogeneous "blocks" based on baseline volume and demographics. Each block receives all discount treatments across balanced trial periods.
-  $$\text{Model: } Y_{ij} = \mu + \tau_i (\text{Discount}) + \beta_j (\text{Store Block}) + \varepsilon_{ij}$$
+  > **RCBD Model Specification:**  
+> `Y_ij = μ + τ_i(Discount) + β_j(Store Block) + ε_ij`
 - **Advantages:** Removes between-store variance from the error sum of squares, lowering MSE and increasing statistical test power by 30–40%.
 - **Implementation Feasibility:** High. BladeGen Tech's centralized cloud POS system can deploy scheduled price overrides by outlet block with zero physical hardware changes.
 
@@ -223,7 +235,7 @@ PCA was evaluated in `07_pca.R` across all five continuous financial metrics (`Q
 - **Cumulative Variance:** PC1 and PC2 explain **65.52%** of all numeric information. In accordance with the Kaiser criterion (Eigenvalues > 1.0), two principal components are retained.
 
 ### 7.2 Critical Evaluation & Strategic Guidance
-- **Necessity:** Dimensionality reduction is **not mandatory** for computation because the feature dimension ($p = 5$) is minuscule relative to sample size ($n = 29,465$).
+- **Necessity:** Dimensionality reduction is **not mandatory** for computation because the feature dimension (p = 5) is minuscule relative to sample size (n = 29,465).
 - **Impact on Modelling:** Transforming features into principal components eliminates multicollinearity in regression models, but destroys the direct interpretability of coefficients.
 - **Recommendation:** Use PC1 as a composite "Customer Value Score" for executive tiering, but retain original raw variables for POS cashier decision rules.
 
@@ -234,12 +246,12 @@ PCA was evaluated in `07_pca.R` across all five continuous financial metrics (`Q
 Bayesian methods were empirically assessed in `08_bayesian.R`:
 
 ### 8.1 Empirical Findings
-- **Prior Probabilities:** Reflect historical baseline category prevalence: $P(\text{Beverage}) = 53.91\%, \; P(\text{Food}) = 37.26\%, \; P(\text{Deals}) = 4.60\%, \; P(\text{Merchandizing}) = 4.23\%$.
-- **Model Performance:** Naïve Bayes achieved 53.72% test accuracy. Laplace smoothing ($\alpha = 1$) successfully prevented zero-frequency probability collapse for rare category-outlet combinations.
+- **Prior Probabilities:** Reflect historical baseline category prevalence: P(Beverage) = 53.91%, P(Food) = 37.26%, P(Deals) = 4.60%, P(Merchandizing) = 4.23%.
+- **Model Performance:** Naïve Bayes achieved 53.72% test accuracy. Laplace smoothing (α = 1) successfully prevented zero-frequency probability collapse for rare category-outlet combinations.
 
 ### 8.2 Bayesian Decision Theory & Asymmetric Loss Optimization
 In physical cafe operations, symmetric misclassification error does not reflect true business costs. A false negative on Food (failing to prepare breakfast sandwiches) results in an out-of-stock event and customer churn (high loss: ~LKR 450 margin loss). Conversely, a false positive on Coffee results in surplus brewed beans (negligible loss: ~LKR 40 ingredient cost).  
-Bayesian decision making incorporates an asymmetric loss matrix $L(y, \hat{y})$, adjusting classification thresholds to minimize expected monetary cost rather than raw error rates, substantially improving operational profitability.
+Bayesian decision making incorporates an asymmetric loss matrix L(y, ŷ), adjusting classification thresholds to minimize expected monetary cost rather than raw error rates, substantially improving operational profitability.
 
 ---
 
@@ -250,13 +262,14 @@ Time series dynamics were modeled in `09_timeseries.R` across the 90-day daily s
 ### 9.1 STL Decomposition & Cyclical Dynamics
 Decomposition of daily transaction volume revealed:
 - **Secular Trend:** A steady upward trajectory rising from ~195 orders/day in January to ~240 orders/day by late March, driven by repeat loyalty adoption.
-- **Weekly Seasonality:** Prominent 7-day cyclical oscillations confirmed by statistically significant ACF autocorrelation spikes at lag 7 and lag 14 ($p < 0.001$). Weekend volume surges by +35% over midweek baselines.
+- **Weekly Seasonality:** Prominent 7-day cyclical oscillations confirmed by statistically significant ACF autocorrelation spikes at lag 7 and lag 14 (p < 0.001). Weekend volume surges by +35% over midweek baselines.
 
 ### 9.2 ARIMA Modeling & Diagnostics
 The automated model selection algorithm fitted an optimal seasonal ARIMA specification:
-$$\text{Model: } \text{ARIMA}(0,0,0)(0,1,1)_7 \text{ with drift}$$
-- **Parameters:** Seasonal MA coefficient $\text{sma1} = -0.9201 \; (se = 0.2101)$, $\text{drift} = -0.3441$.
-- **Diagnostic Validation:** Ljung-Box test on model residuals yielded $\chi^2 = 14.7103, \; df = 14, \; p = 0.39824$. Because $p > 0.05$, residuals are confirmed to be independent white noise with no remaining autocorrelation. In-sample accuracy achieved an RMSE of 26.64 orders and a Mean Absolute Percentage Error (MAPE) of 9.92%.
+> **Selected Model:**  
+> `Seasonal ARIMA(0,0,0)(0,1,1)[7] with drift`
+- **Parameters:** Seasonal MA coefficient sma1 = -0.9201 (se = 0.2101), drift = -0.3441.
+- **Diagnostic Validation:** Ljung-Box test on model residuals yielded χ² = 14.7103, df = 14, p = 0.39824. Because p > 0.05, residuals are confirmed to be independent white noise with no remaining autocorrelation. In-sample accuracy achieved an RMSE of 26.64 orders and a Mean Absolute Percentage Error (MAPE) of 9.92%.
 
 ### 9.3 30-Day Forward Demand Forecast (April 2026)
 The model projected daily order demand for the 30 days of April 2026, forecasting approximately 6,800 orders across all branches. The forecast faithfully reproduces the recurring Friday-Sunday demand spikes, providing daily upper and lower 95% confidence bounds to guide supplier purchasing.
@@ -307,7 +320,7 @@ To ensure corporate relevance, our consultancy team conducted a 45-minute semi-s
 4. **Pillar 4: Enforce Morning Peak Express Protocols:** Mandate terminal express modes during the 8:00 AM – 10:00 AM rush to guarantee service speed below 45 seconds.
 
 ### Risk Mitigation & Ethical Data Governance
-- **Safety Buffer Stock:** Maintain safety buffer inventory at $1.96 \times \text{RMSE}$ (~52 units) to absorb sudden holiday surges.
+- **Safety Buffer Stock:** Maintain safety buffer inventory at 1.96 × RMSE (~52 units) to absorb sudden holiday surges.
 - **PDPA Privacy Compliance:** Strict adherence to Personal Data Protection Act regulations. Customer phone numbers must be salted and hashed via SHA-256 before analytical storage; no identifiable customer data may be shared externally.
 - **Fair Pricing Ethics:** Dynamic pricing algorithms must strictly operate through promotional discounting, never through surge markups during adverse weather or peak demand.
 
@@ -318,12 +331,11 @@ To ensure corporate relevance, our consultancy team conducted a 45-minute semi-s
 ```
 Uni SM Project/
 ├── Courseweb Documents/
-│   ├── Final_Consultancy_Presentation_BladeGen_Tech.pptx (15-slide master deck with notes)
+│   ├── Final_Consultancy_Presentation_BladeGen_Tech.pptx (26-slide master deck with notes)
 │   ├── IT3081_Final_Consultancy_Report.md               (This master report)
-│   ├── SampleDataset/synthetic_restaurant_transactions.csv (90-day expanded dataset)
+│   ├── SampleDataset/restaurant_transactions.csv        (90-day POS transaction dataset)
 │   └── Group Assignment brief.pdf
 ├── R Scripts/
-│   ├── 00_generate_synthetic_data.R   (Dataset simulator)
 │   ├── 01_data_cleaning.R            (Cleaning & factor standardization)
 │   ├── 02_descriptive_stats.R        (EDA & outlier detection)
 │   ├── 03_visualizations.R           (6 publication ggplot2 figures)

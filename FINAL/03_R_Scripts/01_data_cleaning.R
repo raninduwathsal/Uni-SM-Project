@@ -16,19 +16,18 @@ cat(" BladeGen Tech Dataset - Loading, Auditing & Cleaning\n")
 cat("====================================================\n\n")
 
 # --- 1. LOAD DATA ---
-synthetic_path <- "../Courseweb Documents/SampleDataset/synthetic_restaurant_transactions.csv"
-raw_path <- "../Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv"
-local_synth <- "Courseweb Documents/SampleDataset/synthetic_restaurant_transactions.csv"
-local_raw <- "Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv"
+data_candidates <- c(
+  "../04_Data/restaurant_transactions.csv",
+  "04_Data/restaurant_transactions.csv",
+  "../Courseweb Documents/SampleDataset/restaurant_transactions.csv",
+  "Courseweb Documents/SampleDataset/restaurant_transactions.csv",
+  "../Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv",
+  "Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv"
+)
 
-data_path <- if (file.exists(synthetic_path)) {
-  synthetic_path
-} else if (file.exists(local_synth)) {
-  local_synth
-} else if (file.exists(raw_path)) {
-  raw_path
-} else {
-  local_raw
+data_path <- data_candidates[file.exists(data_candidates)][1]
+if (is.na(data_path)) {
+  stop("Error: restaurant_transactions.csv could not be found.")
 }
 
 df_raw <- read_csv(data_path, show_col_types = FALSE)

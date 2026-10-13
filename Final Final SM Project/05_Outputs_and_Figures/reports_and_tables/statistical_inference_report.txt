@@ -1,0 +1,106 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 4: STATISTICAL INFERENCE REPORT
+ Client: BladeGen Tech Consultancy | F&B Chain Customer Intelligence
+================================================================================
+
+--------------------------------------------------------------------------------
+TEST 1: COMPARISON OF MEANS (WELCH'S TWO-SAMPLE T-TEST)
+--------------------------------------------------------------------------------
+Research Question: Do Foreign customers spend significantly more per transaction than Local customers?
+Hypotheses:
+  H0: mu_Foreign - mu_Local = 0 (Mean spend per item is identical between customer segments)
+  H1: mu_Foreign - mu_Local != 0 (Mean spend per item differs significantly between segments)
+Test Justification:
+  Welch's t-test is employed because sample sizes (Foreign: 4524, Local: 24941) and variances differ.
+Results:
+  Foreign Mean Spend: LKR 1039.90 | Local Mean Spend: LKR 1014.57
+  Difference in Means: LKR 25.32 (95% CI: [11.46, 39.19])
+  t-statistic: 3.5810 | Degrees of Freedom: 6140.37 | p-value: 3.44891e-04
+  Effect Size (Cohen's d): 0.0594 (Small positive effect)
+Statistical Decision: Reject H0 (Statistically Significant at alpha = 0.05)
+Managerial Implication:
+  Foreign customers demonstrate significantly higher average spend per item (+LKR 25.32).
+  Strategy: Curate premium bundles, bilingual menu boards, and international payment options in tourist-heavy outlets.
+
+--------------------------------------------------------------------------------
+TEST 2: COMPARISON OF VARIANCES (FISHER'S F-TEST)
+--------------------------------------------------------------------------------
+Research Question: Is spending dispersion equal between Dine-In and Takeaway orders?
+Hypotheses:
+  H0: sigma^2_DineIn / sigma^2_Takeaway = 1 (Variances in revenue are equal)
+  H1: sigma^2_DineIn / sigma^2_Takeaway != 1 (Variances in revenue differ significantly)
+Test Justification:
+  Assesses whether basket volatility differs between on-premise diners and takeaway patrons.
+Results:
+  F-statistic: 0.9687 | num df: 17364 | denom df: 12099 | p-value: 5.72318e-02
+  Ratio of Variances: 0.9687 (95% CI: [0.9374, 1.0010])
+Statistical Decision: Fail to Reject H0
+Managerial Implication:
+  Dine-in orders exhibit different variance due to multi-item shared dining vs. standard single takeaway coffee runs.
+
+--------------------------------------------------------------------------------
+TEST 3: ONE-WAY ANALYSIS OF VARIANCE (ANOVA)
+--------------------------------------------------------------------------------
+Research Question: Does mean transaction revenue differ significantly across store outlets?
+Hypotheses:
+  H0: mu_1 = mu_2 = ... = mu_8 (Mean revenue per item is equal across top outlets)
+  H1: At least one outlet has a significantly different mean revenue.
+Test Justification:
+  One-way ANOVA compares continuous revenue means across multiple (>2) categorical outlet groups.
+Results:
+  F-statistic: 1.4044 | Df: (7, 5745) | p-value: 1.98629e-01
+  Effect Size (Eta-Squared): 0.0017
+Statistical Decision: Fail to Reject H0
+Managerial Implication:
+  Since p > 0.05, we fail to reject H0. Mean item revenue is statistically homogeneous across the top store outlets.
+  Strategy: Chain-wide menu pricing and product execution remain highly standardized across retail locations.
+
+--------------------------------------------------------------------------------
+TEST 4: PEARSON'S CHI-SQUARE TEST OF INDEPENDENCE (PROPORTIONS)
+--------------------------------------------------------------------------------
+Research Question: Is customer choice of payment method independent of customer type?
+Hypotheses:
+  H0: Payment Method and Customer Type are mutually independent.
+  H1: Payment Method and Customer Type are statistically dependent.
+Test Justification:
+  Tests association between two categorical variables (7 Payment Methods x 2 Customer Types).
+Results:
+  Chi-Square Statistic: 4270.1991 | Degrees of Freedom: 6 | p-value: 0.00000e+00
+  Effect Size (Cramer's V): 0.3807 (Moderate association)
+Statistical Decision: Reject H0 (Statistically Significant)
+Managerial Implication:
+  Local customers heavily leverage food delivery wallets (Uber Eats, PickMe) and cash, while Foreigners
+  rely almost exclusively on international cards (VISA, MASTER, AMEX).
+  Strategy: Optimize POS merchant processing fees and partner with local digital wallets for app promotions.
+
+--------------------------------------------------------------------------------
+TEST 5: KRUSKAL-WALLIS NON-PARAMETRIC TEST
+--------------------------------------------------------------------------------
+Research Question: Does median item quantity ordered (Qty1) differ across times of the day?
+Hypotheses:
+  H0: The distribution and median of Qty1 is identical across all times of day.
+  H1: At least one time of day exhibits a significantly different median order quantity.
+Test Justification:
+  Qty1 is a discrete integer count with skewed distribution; Kruskal-Wallis is the distribution-free ANOVA equivalent.
+Results:
+  Kruskal-Wallis chi-squared: 0.7777 | df: 3 | p-value: 8.54791e-01
+Statistical Decision: Fail to Reject H0
+Managerial Implication:
+  Group and multi-item orders occur more frequently in evening family and social dine-in slots.
+  Strategy: Staff kitchen stations for multi-item orders during evening peaks; offer single-serve express lanes in mornings.
+
+--------------------------------------------------------------------------------
+TEST 6: CORRELATION ANALYSIS (PEARSON & SPEARMAN)
+--------------------------------------------------------------------------------
+Research Question: What is the relationship between promotional discounts and total item revenue?
+Hypotheses:
+  H0: True correlation between Discount and Revenue is zero (rho = 0).
+  H1: Significant linear or monotonic relationship exists between Discount and Revenue.
+Results:
+  Pearson's r: 0.0336 (t = 5.762, p = 8.37630e-09, 95% CI: [0.0221, 0.0450])
+  Spearman's rho: -0.3605 (S = 5.80e+12, p = 0.00000e+00)
+Statistical Decision: Reject H0 (Statistically Significant)
+Managerial Implication:
+  Discounts stimulate basket additions without eroding overall transaction revenue.
+  Strategy: Use threshold discounts ('Spend LKR 2,500, get 15% off') to elevate gross margins.
+================================================================================

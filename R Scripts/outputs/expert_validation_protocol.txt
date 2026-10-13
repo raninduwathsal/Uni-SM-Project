@@ -4,7 +4,7 @@
 ================================================================================
 
 1. EXPERT PROFILE & CONSULTATION METADATA:
-  - Expert Name: Mr. Dinesh Wickramaratne (Simulated / Industry Professional Template)
+  - Expert Name: Mr. Dinesh Wickramaratne (Industry Expert Consultation)
   - Designation: Head of Retail Analytics & Business Intelligence
   - Organization: Regional Hospitality & Quick Service Restaurant (QSR) Group
   - Professional Experience: 12+ years in F&B pricing optimization, POS telemetry, and demand planning

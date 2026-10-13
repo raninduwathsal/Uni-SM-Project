@@ -1,0 +1,3 @@
+Method,R_Squared,RMSE_LKR,Variance_Explained
+Ridge Regression (L2),0.9889,44.53,98.89%
+LASSO Regression (L1),0.9986,15.77,99.86%

@@ -1,5 +1,5 @@
-Member,Model,Accuracy,Macro_Precision,Macro_Recall,Macro_F1,Kappa,Training_Time_Sec
-Member 2,Linear Discriminant Analysis (LDA),54.26,51.35,27.37,50.99,0.0843,0.47
-Member 1,Multinomial Logistic Regression,54.18,51.16,27.22,50.48,0.0792,3.28
-Member 3,Quadratic Discriminant Analysis (QDA),53.92,53.92,25,70.06,0,0.05
-Member 4,Naïve Bayes Classifier,53.72,50.58,26.98,50,0.0703,0.95
+Member,Model,Top2_Accuracy,Top1_Accuracy,ROC_AUC,Macro_Precision,Macro_Recall,Macro_F1,Kappa,Training_Time_Sec
+Member 1,Multinomial Logistic Regression,93.36,56.36,73.25,57.17,41.99,55.16,0.1582,3.36
+Member 2,Linear Discriminant Analysis (LDA),92.52,55.36,73.68,50.01,41.94,51.25,0.1591,0.86
+Member 3,Quadratic Discriminant Analysis (QDA),91.85,53.46,71.3,43.95,39.13,56.24,0.078,0.16
+Member 4,Naïve Bayes Classifier,91.73,53.68,72.01,45.91,38.15,46.54,0.1249,8.74

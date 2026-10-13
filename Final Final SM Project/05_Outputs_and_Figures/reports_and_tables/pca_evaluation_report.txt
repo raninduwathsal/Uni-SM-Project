@@ -1,0 +1,42 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 7: CRITICAL EVALUATION OF PCA
+ Client: BladeGen Tech Consultancy | Dimensionality Reduction Analysis
+================================================================================
+
+1. DIMENSIONALITY ASSESSMENT:
+  - The transaction dataset contains only 5 primary continuous numeric variables (Qty1, AdjustedRate,
+    Discount, ServiceCharge, Revenue). The remaining 20+ variables are categorical factors (Outlet,
+    ItemName, PaymentMethod, CustomerType, TimeOfTheDay, Day).
+  - Conclusion: Dimensionality reduction is NOT strictly necessary for computational reasons because
+    5 numeric features present no risk of the 'curse of dimensionality' (p << n, where n = 29,465).
+
+2. MATHEMATICAL VARIANCE BREAKDOWN:
+  - PC1 accounts for 45.30% of total variance, dominated by Revenue, Qty1, and ServiceCharge.
+  - PC2 accounts for 20.22% of total variance, driven by AdjustedRate vs. Discount contrasts.
+  - Together, PC1 + PC2 explain 65.52% of variance, retaining the majority of numeric information.
+
+3. ADVANTAGES OF PCA IN THIS CONTEXT:
+  - Orthogonalization: Eliminates exact multicollinearity between Revenue, Qty1, and ServiceCharge.
+  - Multi-Dimensional Visualization: Enables 2D plotting of complex basket profiles across categories.
+  - Index Construction: PC1 can serve as an overall 'Basket Magnitude Index' for customer scoring.
+
+4. CRITICAL LIMITATIONS OF PCA:
+  - Loss of Interpretability: Principal components are linear combinations of features, making it hard
+    for restaurant store managers to understand why a promotion triggered a recommendation.
+  - Incompatibility with High-Cardinality Categoricals: PCA is mathematically designed for continuous
+    Gaussian data; applying it to one-hot encoded categorical variables creates sparse, distorted spaces.
+  - Information Loss: Discarding PC3–PC5 sacrifices nuanced promotional discount variance (%.2f%%).
+34.47
+
+5. EXPECTED IMPACT ON PREDICTIVE MODELLING:
+  - Tree-based models (CART, Random Forest) already perform intrinsic feature selection and handle non-linear
+    interactions natively. Replacing original features with PCs degrades tree interpretability.
+  - For Logistic Regression, replacing collinear predictors with PC1 and PC2 stabilizes coefficient estimates
+    and prevents variance inflation, but at the cost of direct odds-ratio interpretation.
+
+6. SITUATIONS WHERE PCA SHOULD AND SHOULD NOT BE USED:
+  - SHOULD BE USED: When building an automated composite customer spending score, clustering stores based on
+    aggregate volume/pricing profiles, or pre-processing high-dimensional continuous sensor/spectral data.
+  - SHOULD NOT BE USED: For point-of-sale recommendation engines where cashiers need clear business rules
+    (e.g., 'If Customer is Local and Time is Morning, recommend Coffee Combo').
+================================================================================
