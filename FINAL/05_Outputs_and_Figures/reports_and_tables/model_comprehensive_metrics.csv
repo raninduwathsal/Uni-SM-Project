@@ -1,0 +1,5 @@
+Member,Model,Accuracy,Balanced_Acc,Macro_F1,Macro_Precision,Macro_Recall,ROC_AUC,Cohen_Kappa,MCC,Log_Loss,Brier_Score
+Member 2,Linear Discriminant Analysis (LDA) 🏆,76.23%,73.75%,76.14%,80.08%,73.75%,91.18%,0.5963,0.5985,0.5261,0.3299
+Member 1,Multinomial Logistic Regression,76.21%,73.29%,76.02%,80.96%,73.29%,91.19%,0.5949,0.5975,0.5242,0.3295
+Member 3,Quadratic Discriminant Analysis (QDA),75.21%,74.10%,75.82%,78.25%,74.10%,90.66%,0.5825,0.5833,0.5538,0.3455
+Member 4,Naïve Bayes Classifier,71.47%,72.56%,72.35%,72.17%,72.56%,88.74%,0.5303,0.5306,0.6834,0.4110
