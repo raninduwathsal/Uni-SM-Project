@@ -743,8 +743,8 @@ set_speaker_notes(s23, "Member 4", "13:45 - 14:15",
 s24 = prs.slides[23]
 set_slide_header(s24, "Task 11", "24", "Task 11: Industry Expert Consultation & Validation", "Consultation with Head of Retail Analytics and architectural modifications made")
 set_shape_text(s24.shapes[8], "Expert Consultation Profile", [
-    "Expert: Dr. Kasun Dissanayake | PhD in Retail Supply Chain Analytics",
-    "Role: Head of Business Intelligence, QSR Retail Chain",
+    "Expert: Mr. Kusan Edirisinghe | CEO, BladeGen Tech (Enterprise Retail Data Analytics)",
+    "Role: CEO, BladeGen Tech (Enterprise Retail Data Analytics Partner)",
     "Method: Structured Video Consultation & Review (Sept 20, 2026)"
 ])
 set_shape_text(s24.shapes[10], "Expert Feedback Received", [
@@ -763,7 +763,7 @@ set_shape_text(s24.shapes[14], "Validation Significance", [
     "Bridges mathematical models with physical store reality"
 ])
 set_speaker_notes(s24, "Member 4", "14:15 - 14:40",
-    "In Task 11, we validated our findings with Dr. Kasun Dissanayake, Head of Retail Analytics for a major QSR chain. His feedback led to critical adjustments: "
+    "In Task 11, we validated our findings with Mr. Kusan Edirisinghe, CEO of BladeGen Tech, our enterprise data analytics client partner. His feedback led to critical adjustments: "
     "we integrated real-time inventory checks so sold-out pastries are never suggested, and incorporated an Express Mode to eliminate peak queue friction. "
     "This genuine validation proves our solution is ready for commercial deployment.")
 

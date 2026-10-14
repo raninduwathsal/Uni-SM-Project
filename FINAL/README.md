@@ -77,7 +77,7 @@ FINAL/
 | **Task 8** | Bayesian Methods | `08_bayesian.R` & Section 8 of Report | Empirical priors, dynamic likelihood updating, loss-aware decision rule |
 | **Task 9** | Time Series Analysis | `09_timeseries.R` & Section 9 of Report | STL 7-day decomposition, Seasonal ARIMA(0,0,0)(0,1,1)[7] with drift, 30-day demand forecast |
 | **Task 10** | Innovation Proposal | Section 10 of Report & Slide 23 | Customer Intelligence Framework (CIF) with Edge POS engine |
-| **Task 11** | Expert Validation | Section 11 of Report & Slide 24 | Consultation with Dr. Kasun Dissanayake (Head of Retail BI) |
+| **Task 11** | Expert Validation | Section 11 of Report & Slide 24 | Consultation with Mr. Kusan Edirisinghe (CEO, BladeGen Tech) |
 | **Task 12** | Consultancy Roadmap | Section 12 of Report & Slide 25–26 | 3-Phase operational rollout, risk management & ethical governance |
 
 ---

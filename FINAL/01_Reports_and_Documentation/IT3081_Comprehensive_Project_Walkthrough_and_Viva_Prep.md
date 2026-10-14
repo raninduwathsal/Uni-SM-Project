@@ -25,7 +25,7 @@
    - [Task 8: Critical Evaluation of Bayesian Statistical Methods](#task-8-critical-evaluation-of-bayesian-statistical-methods)
    - [Task 9: Time Series Analysis & Seasonal ARIMA Forecasting](#task-9-time-series-analysis)
    - [Task 10: Industry Innovation Proposal (Customer Intelligence Framework - CIF)](#task-10-industry-innovation-proposal)
-   - [Task 11: Industry Expert Validation (Dr. Kasun Dissanayake Consultation)](#task-11-industry-expert-validation)
+   - [Task 11: Industry Expert Validation (Mr. Kusan Edirisinghe (CEO, BladeGen Tech) Consultation)](#task-11-industry-expert-validation)
    - [Task 12: Final Strategic Consultancy Recommendations & Roadmap](#task-12-final-strategic-consultancy-recommendations)
 3. [Master Viva Examination Preparation (Expected Questions & Model Answers)](#3-master-viva-examination-preparation)
    - [General & Architectural Questions](#general--architectural-questions)
@@ -54,7 +54,7 @@ Our 4-member consultancy team engineered a comprehensive statistical intelligenc
 * **Classical Inference (Note 01):** Executed 6 formal hypothesis tests (Welch's $t$-test, Fisher's $F$-test, One-Way ANOVA, Chi-Square test of independence, Kruskal-Wallis test, and Pearson/Spearman correlation).
 * **4-Member Predictive Tournament (Task 5):** Trained and benchmarked 4 distinct statistical classifiers assigned across the 4 group members. Our feature-engineered **Multinomial Logistic Regression (Member 1)** achieved a **93.36% Top-2 Recommendation Hit Rate (Hit@2)** and 56.36% exact Top-1 accuracy (73.25% ROC-AUC, 57.17% Precision), while **LASSO Regression** explained **99.86% of continuous spend variance** ($R^2 = 99.86\%$, RMSE = LKR 15.77).
 * **Demand Forecasting (Task 9):** STL decomposition revealed a strong 7-day cyclical oscillation (+35% weekend surge). A Seasonal $\text{ARIMA}(0,0,0)(0,1,1)[7]$ model with drift achieved a **9.9% MAPE**, forecasting ~6,800 orders for April 2026.
-* **Edge POS Innovation (CIF):** Designed the **Customer Intelligence Framework (CIF)** featuring sub-second cashier recommendations, validated by an external Industry Expert (Head of Retail BI).
+* **Edge POS Innovation (CIF):** Designed the **Customer Intelligence Framework (CIF)** featuring sub-second cashier recommendations, validated by an external Industry Expert (CEO, BladeGen Tech).
 
 ---
 
@@ -210,7 +210,7 @@ Our 4-member consultancy team engineered a comprehensive statistical intelligenc
 ### Task 11: Industry Expert Validation
 * **Script / Deliverable:** Section 11 of Report | Slide 24 of Presentation Deck
 * **What We Did:**
-  - Presented findings and methodology to **Dr. Kasun Dissanayake**, Head of Retail BI & Analytics (15+ years enterprise retail analytics experience).
+  - Presented findings and methodology to **Mr. Kusan Edirisinghe**, CEO of BladeGen Tech (Pvt) Ltd (Enterprise Retail Data Analytics Partner).
   - Documented professional feedback:
     1. Endorsed the Top-2 recommendation strategy over single-item guessing.
     2. Recommended adding latency circuit-breakers during rush hours (adopted in Section 10).
@@ -370,7 +370,7 @@ The 15-minute presentation is structured into four balanced 3.5-minute segments 
   - Task 8 Bayesian Methods: Empirical priors and asymmetric loss functions for newly opened outlets.
   - Task 9 Time Series: STL 7-day seasonality, Seasonal $\text{ARIMA}(0,0,0)(0,1,1)[7]$ model, and 9.9% MAPE.
   - Task 10 Innovation (CIF): Edge POS inference engine with morning rush-hour Express Modes.
-  - Task 11 Validation: Dr. Kasun Dissanayake consultation feedback.
+  - Task 11 Validation: Mr. Kusan Edirisinghe consultation feedback.
   - Task 12 Strategic Roadmap: 3-phase rollout, risk management, and 5.2-month ROI payback.
 
 ---

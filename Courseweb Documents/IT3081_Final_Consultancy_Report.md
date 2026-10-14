@@ -296,7 +296,7 @@ The CIF is a lightweight, edge-computed recommendation microservice embedded dir
 
 ## Task 11: Industry Expert Validation
 
-To ensure corporate relevance, our consultancy team conducted a 45-minute semi-structured validation session with **Mr. Dinesh Wickramaratne**, Head of Retail Analytics & Business Intelligence at a regional QSR hospitality chain:
+To ensure corporate relevance, our consultancy team conducted a 45-minute semi-structured validation session with **Mr. Kusan Edirisinghe**, CEO of BladeGen Tech (Pvt) Ltd, the enterprise data analytics partner managing the retail data infrastructure for this restaurant chain:
 
 ### Expert Evaluation Scores
 - **Problem Relevance:** **9.5 / 10** — Confirmed that category pairing and food waste reduction represent the two highest-priority margin levers in multi-unit cafes.

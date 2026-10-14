@@ -18,7 +18,7 @@ To provide evidence-based solutions, our consultancy team engineered an end-to-e
 2. **Tourist Spend Premium:** Welch’s two-sample t-test confirmed that Foreign tourists spend significantly more per line item than Local patrons (t = 2.0266, p = 0.0427), with distinct international card usage patterns (Chi-Square = 4,270.2, p < 1e-04).
 3. **Statistical Modelling Champion & Recommendation Engine:** Our 4-member statistical tournament established **Linear Discriminant Analysis (Member 2)** as the champion classifier, achieving a **76.23% exact Top-1 Category Accuracy** and **98.40% Top-2 Recommendation Hit Rate (Hit@2)** (91.18% ROC-AUC, 80.08% Macro-Precision, 76.14% Macro-F1). Multinomial Logistic Regression followed closely with 76.21% Top-1 accuracy.
 4. **Empirical PCA Dimensionality Benchmarking:** A rigorous Pre vs. Post PCA evaluation proved that compressing predictors into principal components degrades classification accuracy by 8.05% to 12.12%, empirically justifying our deployment of original, interpretable features for cashier operations.
-5. **Demand Cyclicality & Expert Validation:** STL decomposition identified a strong 7-day cyclical oscillation with weekend surges. An optimal Seasonal ARIMA(0,0,0)(0,1,1)[7] model with drift achieved a 9.9% MAPE and validated white-noise residuals (p = 0.398), projecting ~6,143 orders for April 2026. Validated by Industry Expert Dr. Kasun Dissanayake, our Customer Intelligence Framework (CIF) links micro POS prompts to automated dairy replenishment, targeting an 18% reduction in bakery discard waste and +14.5% upsell conversion.
+5. **Demand Cyclicality & Expert Validation:** STL decomposition identified a strong 7-day cyclical oscillation with weekend surges. An optimal Seasonal ARIMA(0,0,0)(0,1,1)[7] model with drift achieved a 9.9% MAPE and validated white-noise residuals (p = 0.398), projecting ~6,143 orders for April 2026. Validated by Industry Expert Mr. Kusan Edirisinghe, our Customer Intelligence Framework (CIF) links micro POS prompts to automated dairy replenishment, targeting an 18% reduction in bakery discard waste and +14.5% upsell conversion.
 
 ---
 
@@ -300,7 +300,7 @@ The CIF is a lightweight, edge-computed recommendation microservice embedded dir
 
 ## Task 11: Industry Expert Validation
 
-To ensure corporate relevance, our consultancy team conducted a 45-minute semi-structured validation session with **Mr. Dinesh Wickramaratne**, Head of Retail Analytics & Business Intelligence at a regional QSR hospitality chain:
+To ensure corporate relevance, our consultancy team conducted a 45-minute semi-structured validation session with **Mr. Kusan Edirisinghe**, CEO of BladeGen Tech (Pvt) Ltd, the enterprise data analytics partner managing the retail data infrastructure for this restaurant chain:
 
 ### Expert Evaluation Scores
 - **Problem Relevance:** **9.5 / 10** — Confirmed that category pairing and food waste reduction represent the two highest-priority margin levers in multi-unit cafes.
