@@ -25,7 +25,7 @@ df <- read_csv(data_path, show_col_types = FALSE)
 # Select numerical features for PCA
 pca_vars <- c("Qty1", "AdjustedRate", "Discount", "ServiceCharge", "Revenue")
 df_pca_input <- df %>%
-  select(all_of(pca_vars)) %>%
+  dplyr::select(all_of(pca_vars)) %>%
   drop_na()
 
 cat(sprintf("Running PCA on %d observations across %d numeric variables:\n", nrow(df_pca_input), length(pca_vars)))
@@ -55,7 +55,7 @@ cat("\n")
 # Loadings (Eigenvectors)
 pca_loadings <- as.data.frame(round(pca_fit$rotation, 4))
 pca_loadings$Variable <- rownames(pca_loadings)
-pca_loadings <- pca_loadings %>% select(Variable, everything())
+pca_loadings <- pca_loadings %>% dplyr::select(Variable, everything())
 
 cat("--- PCA Feature Loadings ---\n")
 print(pca_loadings)

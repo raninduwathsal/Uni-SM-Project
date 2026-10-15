@@ -258,7 +258,7 @@ set_shape_text(s7.shapes[8], "Hourly Traffic Curves", [
 set_shape_text(s7.shapes[10], "Payment Method Share", [
     "VISA (43.1%) and Cash (23.2%) represent core checkout methods",
     "Digital Delivery Apps (Uber Eats 8.3%, PickMe 3.6%) surge at night",
-    "Cardholders exhibit LKR 25.32 higher average spend than cash"
+    "Cardholders exhibit LKR 14.57 higher average spend than cash"
 ])
 set_shape_text(s7.shapes[12], "Demographic Patterns", [
     "Average customer age: 42.9 years (IQR = 25.0 years)",
@@ -311,7 +311,7 @@ set_slide_header(s9, "Task 4", "09", "Inference Tests 1 & 2: Spend Differences &
 set_shape_text(s9.shapes[8], "Test 1: Foreign vs. Local Spend", [
     "Research Question: Do Foreign visitors exhibit higher item spend?",
     "Test: Welch's Two-Sample t-test (unequal variances assumed)",
-    "Foreign Mean: LKR 1,039.90 | Local Mean: LKR 1,014.57 (+LKR 25.32)",
+    "Foreign Mean: LKR 1,044.57 | Local Mean: LKR 1,030.00 (+LKR 14.57)",
     "Results: t = 2.0266, df = 29463, p = 0.0427 (p < 0.05)",
     "Effect Size: Cohen's d = 0.033 | Decision: REJECT H0"
 ])

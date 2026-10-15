@@ -42,6 +42,10 @@ local_spend = df[df['CustomerType'] == 'Local']['Revenue']
 t_stat, p_val_t = stats.ttest_ind(foreign_spend, local_spend, equal_var=False)
 cohen_d = (foreign_spend.mean() - local_spend.mean()) / np.sqrt((foreign_spend.std()**2 + local_spend.std()**2) / 2)
 
+s1_sq, s2_sq = foreign_spend.var(ddof=1), local_spend.var(ddof=1)
+n1, n2 = len(foreign_spend), len(local_spend)
+df_welch = ((s1_sq/n1 + s2_sq/n2)**2) / (((s1_sq/n1)**2)/(n1-1) + ((s2_sq/n2)**2)/(n2-1))
+
 inference_rows.append({
     'Test_ID': 'T1_Welch_t_test',
     'Domain': 'Comparison of Means',
@@ -49,7 +53,7 @@ inference_rows.append({
     'Null_Hypothesis': 'mu_Foreign == mu_Local',
     'Test_Statistic_Name': 't',
     'Test_Statistic_Value': round(float(t_stat), 4),
-    'Degrees_of_Freedom': f"{len(foreign_spend)+len(local_spend)-2:.1f}",
+    'Degrees_of_Freedom': f"{df_welch:.2f}",
     'P_Value': f"{p_val_t:.5e}",
     'Effect_Size': f"Cohen's d = {cohen_d:.3f}",
     'Decision': 'Reject H0 (Statistically Significant at alpha = 0.05)' if p_val_t < 0.05 else 'Fail to Reject H0'

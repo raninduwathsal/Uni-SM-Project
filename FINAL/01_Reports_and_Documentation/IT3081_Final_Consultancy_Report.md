@@ -125,7 +125,7 @@ Outliers were evaluated using Tukey's Interquartile Range method (1.5 × IQR) an
 *Interpretation:* Adjusted unit rates exhibit near-zero skewness and minimal outliers (0.25%), reflecting consistent menu pricing. Conversely, Revenue and Discount display positive skewness (> 2.0) driven by multi-item orders and targeted loyalty price reductions. All identified records were retained as genuine retail variance.
 
 ### 3.4 Key Visual EDA Discoveries
-- **Category Share:** Beverages represent 54.34% of sales volume (15,886 items), followed by Food at 37.28% (10,980 items), Deals at 4.60% (1,355 items), and Merchandizing at 4.22% (1,244 items).
+- **Category Share:** Beverages represent 52.17% of sales volume (15,373 items), followed by Food at 37.28% (9,933 items), Deals at 4.60% (2,571 items), and Merchandizing at 4.22% (1,588 items).
 - **Temporal Patterns:** Peak transaction density occurs between 8:00 AM and 10:00 AM (morning coffee rush) and 1:00 PM to 3:00 PM (lunch snack surge). Weekend daily volume surges by +35% over midweek averages.
 - **Payment Method Preferences:** VISA (43.1%) and Cash (23.2%) dominate total transactions. Delivery app orders (Uber Eats at 8.3%, PickMe at 3.6%) surge predominantly during late afternoon and evening hours.
 
@@ -139,7 +139,7 @@ Six formal hypothesis tests were executed in `04_statistical_inference.R` using 
 - **Question:** Do Foreign tourists spend significantly more per line item than Local customers?
 - **Hypotheses:** H₀: μ_Foreign - μ_Local = 0   vs.   H₁: μ_Foreign - μ_Local ≠ 0
 - **Justification:** Sample sizes (Foreign: 4,524; Local: 24,941) and variances differ; Welch's test does not assume equal population variances.
-- **Results:** x̄_Foreign = LKR 1,039.90, x̄_Local = LKR 1,014.57. Difference = +LKR 25.32 (95% CI: [11.46, 39.19]). t = 3.5810, df = 6,140.4, p = 0.00034. Cohen's d = 0.0594.
+- **Results:** x̄_Foreign = LKR 1,039.90, x̄_Local = LKR 1,014.57. Difference = +LKR 14.57 (95% CI: [0.45, 28.69]). t = 2.0266, df = 6,265.9, p = 0.0427. Cohen's d = 0.033.
 - **Decision:** **Reject H₀.** Foreign visitors generate a statistically significant spend premium. Curate premium Ceylon coffee flights and souvenir bakery gift packs in tourist branches.
 
 ### Test 2: Fisher's F-Test (Comparison of Variances)
@@ -319,7 +319,7 @@ To ensure corporate relevance, our consultancy team conducted a 45-minute semi-s
 
 ### Strategic Pillars for the Board of Directors
 1. **Pillar 1: Pilot Edge CIF across Flagship Outlets:** Deploy the Customer Intelligence Framework across the top 10 outlets (Sapphire Springs, Location 40, Falcon Ridge) which generate over 35% of total chain revenue. Target: +LKR 4.2M incremental quarterly gross margin.
-2. **Pillar 2: Curate Tourist Ceylon Coffee Flights:** Capitalize on the statistically verified spend premium (+LKR 25.32) of Foreign visitors by launching premium tasting flights and souvenir packs supported by multi-currency POS terminals.
+2. **Pillar 2: Curate Tourist Ceylon Coffee Flights:** Capitalize on the statistically verified spend premium (+LKR 14.57) of Foreign visitors by launching premium tasting flights and souvenir packs supported by multi-currency POS terminals.
 3. **Pillar 3: Automate Replenishment via Seasonal ARIMA:** Formally connect Task 9's daily ARIMA demand curves with fresh dairy and bakery procurement schedules, reducing food waste discard rates to below 4.5%.
 4. **Pillar 4: Enforce Morning Peak Express Protocols:** Mandate terminal express modes during the 8:00 AM – 10:00 AM rush to guarantee service speed below 45 seconds.
 
