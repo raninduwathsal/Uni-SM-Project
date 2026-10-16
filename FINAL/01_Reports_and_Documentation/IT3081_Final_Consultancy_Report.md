@@ -239,9 +239,10 @@ To provide rigorous scientific proof for whether PCA should be adopted in produc
 | PCA Reduced (k = 5) | 5 | 48.3% | 67.74% | 61.26% | Rejected (-8.49% Accuracy Drop) |
 | PCA Reduced (k = 3) | 3 | 33.0% | 64.11% | 53.06% | Rejected (-12.12% Accuracy Drop) |
 
-### 7.3 Methodological Justification
-- **Why PCA Degrades Accuracy:** As established by *Larsson et al. (2023, p. 204, ln. 31)*, PCA is an unsupervised technique that maximizes *total global variance*, not *between-class separation*. In retail transaction data where categorical boundaries (meal hours and dining channels) provide critical discriminative signal, projecting features onto orthogonal axes obscures class separability, dropping classification accuracy by 8–12%.
-- **Consultancy Decision:** We formally **reject PCA for Point-of-Sale classification**. Original features are retained for cashier scoring, while PCA is reserved strictly for macro executive customer segmentation dashboards.
+### 7.3 Methodological Justification & Dimensionality Trade-offs
+- **Assessment of Dimensionality Reduction Necessity:** With  = 29,465 transactions and  = 18 dummy-encoded features, our sample size vastly exceeds feature dimensionality ( \gg p$). The classical 'curse of dimensionality' is not present. Dimensionality reduction is therefore **not computationally mandatory**.
+- **When PCA Is Statistically Valuable:** PCA is vital when  > n$, when severe multicollinearity inflates parameter standard errors in unregularized regression, or when compressing continuous multi-metric profiles for macro store clustering.
+- **Classification Trade-off:** Standard linear PCA operates on continuous metric features. Applying it to binary categorical indicators creates geometric distortions. Furthermore, PCA maximizes *total global variance*, not *between-class separation*. Replacing original features with principal components dropped downstream classification accuracy from 76.2% to 68.2%. This expected trade-off illustrates information loss from discarded components, confirming that original interpretable features should be retained for register-level scoring.
 
 ---
 

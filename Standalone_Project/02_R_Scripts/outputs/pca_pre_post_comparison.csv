@@ -1,6 +1,6 @@
-Feature_Set,Dimensions,Variance_Retained,Top1_Accuracy,Macro_F1,Accuracy_Diff_pp,Recommendation
-Original Features (Pre-PCA),18,100.0%,76.29,76.18,0.00 pp,Champion Deployment
-PCA Reduced (k=10),10,76.2%,67.76,60.04,-8.54 pp,Rejected (8.54 pp drop)
-PCA Reduced (k=8),8,64.8%,67.83,59.59,-8.47 pp,Rejected (8.47 pp drop)
-PCA Reduced (k=5),5,46.1%,67.11,57.99,-9.18 pp,Rejected (9.18 pp drop)
-PCA Reduced (k=3),3,31.3%,64.38,53.15,-11.91 pp,Rejected (11.91 pp drop)
+Feature_Set,Dimensions,Variance_Retained,Top1_Accuracy,Macro_F1,Recommendation
+Original Features (Pre-PCA),19,100.0%,76.23,76.14,Champion Deployment
+PCA Reduced (k=10),10,77.0%,68.18,62.65,Rejected (-8.05% Acc Drop)
+PCA Reduced (k=8),8,66.2%,68.4,63.34,Rejected (-7.83% Acc Drop)
+PCA Reduced (k=5),5,48.3%,67.74,61.26,Rejected (-8.49% Acc Drop)
+PCA Reduced (k=3),3,33.0%,64.11,53.06,Rejected (-12.12% Acc Drop)

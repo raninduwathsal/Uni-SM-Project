@@ -24,9 +24,9 @@
   - Loss of Interpretability: Principal components are linear combinations of features, making it hard
     for restaurant store managers to understand why a promotion triggered a recommendation.
   - Incompatibility with High-Cardinality Categoricals: PCA is mathematically designed for continuous
-    Gaussian data; applying it to one-hot encoded categorical variables creates sparse, distorted spaces.
-  - Information Loss: Discarding PC3–PC5 sacrifices nuanced promotional discount variance (%.2f%%).
-34.47
+    quantitative variables; applying it to one-hot encoded categorical variables creates sparse, distorted spaces
+    (where Multiple Correspondence Analysis / MCA is theoretically more appropriate).
+  - Information Loss: Discarding higher components sacrifices subtle promotional discount variance.
 
 5. EXPECTED IMPACT ON PREDICTIVE MODELLING:
   - Tree-based models (CART, Random Forest) already perform intrinsic feature selection and handle non-linear

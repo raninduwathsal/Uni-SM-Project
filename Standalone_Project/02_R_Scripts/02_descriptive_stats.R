@@ -17,7 +17,9 @@ cat("====================================================\n\n")
 
 # --- 1. LOAD CLEANED DATA ---
 data_path <- "outputs/df_clean.csv"
-
+if (!file.exists(data_path)) {
+  data_path <- "R Scripts/outputs/df_clean.csv"
+}
 
 df <- read_csv(data_path, show_col_types = FALSE)
 cat(sprintf("✔ Loaded dataset: %d rows × %d columns\n\n", nrow(df), ncol(df)))

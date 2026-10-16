@@ -18,7 +18,9 @@ cat("====================================================\n\n")
 
 # --- 1. LOAD DATA & AGGREGATE DAILY SERIES ---
 data_path <- "outputs/df_clean.csv"
-
+if (!file.exists(data_path)) {
+  data_path <- "R Scripts/outputs/df_clean.csv"
+}
 
 df <- read_csv(data_path, show_col_types = FALSE)
 
@@ -92,7 +94,7 @@ acf_vals <- acf(tx_ts, lag.max = 21, plot = FALSE)
 pacf_vals <- pacf(tx_ts, lag.max = 21, plot = FALSE)
 
 acf_df <- data.frame(
-  Lag = as.numeric(acf_vals$lag)[-1],
+  Lag = as.numeric(acf_vals$lag)[-1] * 7,
   ACF = as.numeric(acf_vals$acf)[-1],
   PACF = c(as.numeric(pacf_vals$acf), rep(NA, length(as.numeric(acf_vals$lag)[-1]) - length(as.numeric(pacf_vals$acf))))
 )
@@ -104,10 +106,10 @@ p_acf <- ggplot(acf_df %>% filter(!is.na(Lag)), aes(x = Lag, y = ACF)) +
   geom_hline(yintercept = c(-ci_val, ci_val), linetype = "dashed", color = "#e53e3e") +
   geom_segment(aes(x = Lag, xend = Lag, y = 0, yend = ACF), color = "#3182ce", linewidth = 1) +
   geom_point(color = "#3182ce", size = 2) +
-  scale_x_continuous(breaks = seq(1, 21, 2)) +
+  scale_x_continuous(breaks = seq(7, 147, 14)) +
   labs(
     title = "Autocorrelation Function (ACF) with 95% Confidence Bounds",
-    subtitle = "Distinct statutory spikes at lag 7 and lag 14 confirm strong 7-day cyclical seasonality",
+    subtitle = "Distinct statutory spikes at 7-day cyclical intervals confirm recurring weekly seasonality",
     x = "Lag (Days)",
     y = "Autocorrelation Coefficient",
     caption = "BladeGen Tech F&B Analytics Pipeline | Task 9 Time Series"
@@ -214,13 +216,13 @@ report_lines <- c(
   "and produces a 30-day forward demand forecast using an optimal Seasonal ARIMA framework.",
   "",
   "2. TREND ANALYSIS:",
-  "  - The STL decomposition reveals a robust, steadily ascending trendline across Q1 2026, driven by",
-  "    growing customer loyalty adoption and repeat visits.",
-  "  - Average daily order volume increased from ~195 orders/day in early January to ~240 orders/day by late March.",
+  "  - Empirical daily transaction volume indicates a moderate post-holiday normalization across Q1 2026,",
+  "    with monthly mean daily orders moving from ~237.7 orders/day in January to ~227.3 in February and ~217.5 in March.",
+  "  - This trend highlights seasonal retail fluctuations following peak New Year customer influx.",
   "",
   "3. SEASONAL ANALYSIS (DAY-OF-WEEK CYCLES):",
-  "  - Autocorrelation analysis (ACF) exhibits prominent statutory spikes at lag 7 and lag 14 (p < 0.001),",
-  "    confirming strong weekly seasonality.",
+  "  - Autocorrelation analysis (ACF) exhibits prominent spikes at lag 7 and lag 14 (p < 0.001),",
+  "    confirming strong 7-day cyclical seasonality.",
   "  - Fridays (+20%) and Weekends (+35%) consistently outperform midweek baselines (Tuesdays/Wednesdays).",
   "  - Intra-day cycles also demonstrate consistent breakfast (8-10 AM) and lunch (12-2 PM) peaks.",
   "",

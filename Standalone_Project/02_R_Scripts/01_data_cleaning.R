@@ -17,9 +17,12 @@ cat("====================================================\n\n")
 
 # --- 1. LOAD DATA ---
 data_candidates <- c(
-  "../01_Data/restaurant_transactions.csv",
-  "01_Data/restaurant_transactions.csv",
-  "restaurant_transactions.csv"
+  "../04_Data/restaurant_transactions.csv",
+  "04_Data/restaurant_transactions.csv",
+  "../Courseweb Documents/SampleDataset/restaurant_transactions.csv",
+  "Courseweb Documents/SampleDataset/restaurant_transactions.csv",
+  "../Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv",
+  "Courseweb Documents/SampleDataset/temp_org_all_tables_rows.csv"
 )
 
 data_path <- data_candidates[file.exists(data_candidates)][1]
@@ -34,6 +37,7 @@ cat(sprintf("✔ Dataset successfully loaded: %d rows × %d columns\n\n", nrow(d
 cat("--- 2. Source Integrity & Data Quality Audit ---\n")
 
 out_dir <- "outputs"
+if (!dir.exists(out_dir)) out_dir <- "R Scripts/outputs"
 if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
 
 # Check multi-line order consistency
@@ -77,29 +81,18 @@ print(audit_summary)
 write_csv(audit_summary, file.path(out_dir, "01_source_audit.csv"))
 cat("✔ Source audit metrics saved to 01_source_audit.csv\n\n")
 
-# --- 3. MISSING VALUE ANALYSIS & METHODOLOGICAL STRATEGY ---
-cat("--- 3. Missing Value Analysis & Strategy ---\n")
+# --- 3. MISSING VALUE ANALYSIS ---
 missing_summary <- df_raw %>%
   summarise(across(everything(), ~ sum(is.na(.)))) %>%
   pivot_longer(everything(), names_to = "Column", values_to = "Missing_Count") %>%
   mutate(Missing_Pct = round(Missing_Count / nrow(df_raw) * 100, 2)) %>%
   arrange(desc(Missing_Count))
 
-print(head(missing_summary, 10))
 write_csv(missing_summary, file.path(out_dir, "missing_value_summary.csv"))
-cat("✔ Missing value summary saved to missing_value_summary.csv\n")
-
-# Methodological Note on Imputation:
-# Core transactional fields (Rate, Qty1, Discount, ServiceCharge, Outlet, OrderDate, PaymentMethod, OrderType)
-# have 0% missingness.
-# Missingness exists exclusively in optional demographic fields (CustomerLoyaltyNumber, Age).
-# In accordance with Little & Rubin (2019), naive mean or mode imputation is deliberately avoided
-# because replacing unobserved demographic values with single summary statistics distorts natural sample variance
-# (artificially compressing Var(X)) and attenuates correlations.
-# Instead, we construct an explicit structural feature: IsLoyaltyMember ('Yes' vs 'No').
+cat("✔ Missing value summary saved to missing_value_summary.csv\n\n")
 
 # --- 4. ADVANCED DATA CLEANING & RECONCILIATION ---
-cat("\n--- 4. Executing Cleaning & Feature Standardization ---\n")
+cat("--- 4. Executing Cleaning & Feature Standardization ---\n")
 
 df_clean <- df_raw %>%
   mutate(across(where(is.character), ~ na_if(., "NA"))) %>%

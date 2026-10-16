@@ -16,7 +16,7 @@ To provide evidence-based solutions, our consultancy team engineered an end-to-e
 ### Key Analytical Findings:
 1. **Category Dominance & Opportunity:** Beverages represent 52.17% of volume, whereas Food items represent 33.71%, Deals 8.73%, and Merchandising 5.39%. Food and Combos represent the primary margin-expansion targets.
 2. **Tourist Spend Premium:** Welch’s two-sample t-test confirmed that Foreign tourists spend significantly more per line item than Local patrons (t = 2.0266, p = 0.0427), with distinct international card usage patterns (Chi-Square = 4,270.2, p < 1e-04).
-3. **Statistical Modelling Champion & Recommendation Engine:** Our 4-member statistical tournament established **Linear Discriminant Analysis (Member 2)** as the champion classifier, achieving a **76.29% exact Top-1 Category Accuracy** and **98.39% Top-2 Recommendation Hit Rate (Hit@2)** (91.18% ROC-AUC, 80.13% Macro-Precision, 76.18% Macro-F1). Multinomial Logistic Regression followed closely with 76.18% Top-1 accuracy.
+3. **Statistical Modelling Champion & Recommendation Engine:** Our 4-member statistical tournament established **Linear Discriminant Analysis (Member 2)** as the champion classifier, achieving a **76.23% exact Top-1 Category Accuracy** and **98.40% Top-2 Recommendation Hit Rate (Hit@2)** (91.18% ROC-AUC, 80.08% Macro-Precision, 76.14% Macro-F1). Multinomial Logistic Regression followed closely with 76.21% Top-1 accuracy.
 4. **Empirical PCA Dimensionality Benchmarking:** A rigorous Pre vs. Post PCA evaluation proved that compressing predictors into principal components degrades classification accuracy by 8.05% to 12.12%, empirically justifying our deployment of original, interpretable features for cashier operations.
 5. **Demand Cyclicality & Expert Validation:** STL decomposition identified a strong 7-day cyclical oscillation with weekend surges. An optimal Seasonal ARIMA(0,0,0)(0,1,1)[7] model with drift achieved a 9.9% MAPE and validated white-noise residuals (p = 0.398), projecting ~6,143 orders for April 2026. Validated by Industry Expert Mr. Kusan Edirisinghe, our Customer Intelligence Framework (CIF) links micro POS prompts to automated dairy replenishment, targeting an 18% reduction in bakery discard waste and +14.5% upsell conversion.
 
@@ -125,7 +125,7 @@ Outliers were evaluated using Tukey's Interquartile Range method (1.5 × IQR) an
 *Interpretation:* Adjusted unit rates exhibit near-zero skewness and minimal outliers (0.25%), reflecting consistent menu pricing. Conversely, Revenue and Discount display positive skewness (> 2.0) driven by multi-item orders and targeted loyalty price reductions. All identified records were retained as genuine retail variance.
 
 ### 3.4 Key Visual EDA Discoveries
-- **Category Share:** Beverages represent 54.34% of sales volume (15,886 items), followed by Food at 37.28% (10,980 items), Deals at 4.60% (1,355 items), and Merchandizing at 4.22% (1,244 items).
+- **Category Share:** Beverages represent 52.17% of sales volume (15,373 items), followed by Food at 37.28% (9,933 items), Deals at 4.60% (2,571 items), and Merchandizing at 4.22% (1,588 items).
 - **Temporal Patterns:** Peak transaction density occurs between 8:00 AM and 10:00 AM (morning coffee rush) and 1:00 PM to 3:00 PM (lunch snack surge). Weekend daily volume surges by +35% over midweek averages.
 - **Payment Method Preferences:** VISA (43.1%) and Cash (23.2%) dominate total transactions. Delivery app orders (Uber Eats at 8.3%, PickMe at 3.6%) surge predominantly during late afternoon and evening hours.
 
@@ -139,7 +139,7 @@ Six formal hypothesis tests were executed in `04_statistical_inference.R` using 
 - **Question:** Do Foreign tourists spend significantly more per line item than Local customers?
 - **Hypotheses:** H₀: μ_Foreign - μ_Local = 0   vs.   H₁: μ_Foreign - μ_Local ≠ 0
 - **Justification:** Sample sizes (Foreign: 4,524; Local: 24,941) and variances differ; Welch's test does not assume equal population variances.
-- **Results:** x̄_Foreign = LKR 1,039.90, x̄_Local = LKR 1,014.57. Difference = +LKR 25.32 (95% CI: [11.46, 39.19]). t = 3.5810, df = 6,140.4, p = 0.00034. Cohen's d = 0.0594.
+- **Results:** x̄_Foreign = LKR 1,039.90, x̄_Local = LKR 1,014.57. Difference = +LKR 14.57 (95% CI: [0.45, 28.69]). t = 2.0266, df = 6,265.9, p = 0.0427. Cohen's d = 0.033.
 - **Decision:** **Reject H₀.** Foreign visitors generate a statistically significant spend premium. Curate premium Ceylon coffee flights and souvenir bakery gift packs in tourist branches.
 
 ### Test 2: Fisher's F-Test (Comparison of Variances)
@@ -184,21 +184,21 @@ To implement this, our consultancy deployed a feature-engineering pipeline that 
 ### 5.2 Leaderboard & Evaluation Metrics
 | Member | Algorithm Architecture | Top-1 Exact Accuracy | Top-2 Recommendation Hit Rate (Hit@2) | Multi-Class ROC-AUC | Macro Precision | Macro Recall | Macro F1 | Cohen's Kappa | Training Time |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Member 2** | **Linear Discriminant Analysis (LDA - `MASS`)** 🏆 | **76.29%** | 98.39% | **91.18%** | **80.13%** | **73.79%** | **76.18%** | **0.5974** | **0.86s** |
-| **Member 1** | Multinomial Logistic Regression (`nnet`) | 76.18% | **98.51%** 🏆 | 91.19% | 80.89% | 73.14% | 75.87% | 0.5949 | 1.20s |
-| **Member 3** | Quadratic Discriminant Analysis (QDA - `MASS`) | 73.53% | 98.47% | 90.66% | 77.75% | 72.56% | 74.60% | 0.5543 | 0.95s |
-| **Member 4** | Naïve Bayes Classifier (`e1071`) | 72.56% | 97.90% | 88.74% | 73.59% | 72.56% | 73.16% | 0.5442 | 1.15s |
+| **Member 2** | **Linear Discriminant Analysis (LDA - `MASS`)** 🏆 | **76.23%** | 98.40% | **91.18%** | **80.08%** | **73.75%** | **76.14%** | **0.5963** | **0.86s** |
+| **Member 1** | Multinomial Logistic Regression (`nnet`) | 76.21% | **98.51%** 🏆 | 91.19% | 80.96% | 73.29% | 76.02% | 0.5949 | 1.20s |
+| **Member 3** | Quadratic Discriminant Analysis (QDA - `MASS`) | 75.21% | 98.47% | 90.66% | 78.25% | 74.10% | 75.82% | 0.5825 | 0.95s |
+| **Member 4** | Naïve Bayes Classifier (`e1071`) | 71.47% | 97.34% | 88.74% | 72.17% | 72.56% | 72.35% | 0.5303 | 1.15s |
 
 ### Champion Model Selection & Operational Justification
 **Linear Discriminant Analysis (LDA)** developed by **Member 2** emerged as the **Overall Tournament Champion**:
-1. **Superior Accuracy & Generalization:** Achieves **76.29% exact Top-1 test accuracy** and **98.39% Top-2 Recommendation Hit Rate (Hit@2)** on 5,893 unseen test transactions, backed by a **91.18% multi-class ROC-AUC** and **76.18% Macro-F1**.
+1. **Superior Accuracy & Generalization:** Achieves **76.23% exact Top-1 test accuracy** and **98.40% Top-2 Recommendation Hit Rate (Hit@2)** on 5,893 unseen test transactions, backed by a **91.18% multi-class ROC-AUC** and **76.14% Macro-F1**.
 2. **Sub-Millisecond Edge Latency:** Operates via linear discriminant projection vectors with execution latency under 15 milliseconds, perfectly satisfying register checkout speed constraints (<45s transaction cycle).
 3. **Literature Validation:** As established by *Tan & Lim (2023, p. 112, ln. 14)*, a 70–80% Top-1 accuracy represents the empirical gold standard in 4-class retail consumer choice, while *Kumar & Patel (2023, p. 45, ln. 22)* proved that a 98% Top-2 Hit Rate provides near-perfect coverage for dual-recommendation touchscreens.
 
 ### 5.3 Model Tradeoff & Justification Analysis
-- **Why LDA Outperforms QDA:** While QDA allows class-specific covariance matrices, estimating k \times p(p+1)/2 covariance parameters introduces estimation variance on smaller classes (Deals and Merchandizing). LDA's pooled covariance matrix \mathbf{\Sigma} provides superior bias-variance regularization, achieving higher test accuracy (76.29% vs. 73.53%).
-- **Why Naïve Bayes Has Lower Precision:** Naïve Bayes assumes features are conditionally independent given the product category. In restaurant transactions, predictors exhibit strong collinearity (e.g., `TimeOfTheDay` strongly correlates with `OrderType` and `Hour`), causing Naïve Bayes to overestimate posterior confidence and yield lower Macro-Precision (73.59%).
-- **Multinomial Logistic Regression:** Demonstrates near-identical performance to LDA (76.18% accuracy, 80.89% precision), serving as a fully interpretable alternative with explicit log-odds coefficients for management reporting.
+- **Why LDA Outperforms QDA:** While QDA allows class-specific covariance matrices, estimating k \times p(p+1)/2 covariance parameters introduces estimation variance on smaller classes (Deals and Merchandizing). LDA's pooled covariance matrix \mathbf{\Sigma} provides superior bias-variance regularization, achieving higher test accuracy (76.23% vs. 75.21%).
+- **Why Naïve Bayes Has Lower Precision:** Naïve Bayes assumes features are conditionally independent given the product category. In restaurant transactions, predictors exhibit strong collinearity (e.g., `TimeOfTheDay` strongly correlates with `OrderType` and `Hour`), causing Naïve Bayes to overestimate posterior confidence and yield lower Macro-Precision (72.17%).
+- **Multinomial Logistic Regression:** Demonstrates near-identical performance to LDA (76.21% accuracy, 80.96% precision), serving as a fully interpretable alternative with explicit log-odds coefficients for management reporting.
 
 ---
 
@@ -233,15 +233,16 @@ To provide rigorous scientific proof for whether PCA should be adopted in produc
 
 | Feature Representation | Total Dims | Variance Retained | Exact Top-1 Accuracy | Macro F1 | Recommendation & Decision |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| **Original Features (Pre-PCA)** | **19** | **100.0%** | **76.29%** | **76.18%** | **Champion Deployment for Register Scoring** |
+| **Original Features (Pre-PCA)** | **19** | **100.0%** | **76.23%** | **76.14%** | **Champion Deployment for Register Scoring** |
 | PCA Reduced (k = 10) | 10 | 77.0% | 68.18% | 62.65% | Rejected (-8.05% Accuracy Drop) |
 | PCA Reduced (k = 8) | 8 | 66.2% | 68.40% | 63.34% | Rejected (-7.83% Accuracy Drop) |
 | PCA Reduced (k = 5) | 5 | 48.3% | 67.74% | 61.26% | Rejected (-8.49% Accuracy Drop) |
 | PCA Reduced (k = 3) | 3 | 33.0% | 64.11% | 53.06% | Rejected (-12.12% Accuracy Drop) |
 
-### 7.3 Methodological Justification
-- **Why PCA Degrades Accuracy:** As established by *Larsson et al. (2023, p. 204, ln. 31)*, PCA is an unsupervised technique that maximizes *total global variance*, not *between-class separation*. In retail transaction data where categorical boundaries (meal hours and dining channels) provide critical discriminative signal, projecting features onto orthogonal axes obscures class separability, dropping classification accuracy by 8–12%.
-- **Consultancy Decision:** We formally **reject PCA for Point-of-Sale classification**. Original features are retained for cashier scoring, while PCA is reserved strictly for macro executive customer segmentation dashboards.
+### 7.3 Methodological Justification & Dimensionality Trade-offs
+- **Assessment of Dimensionality Reduction Necessity:** With  = 29,465 transactions and  = 18 dummy-encoded features, our sample size vastly exceeds feature dimensionality ( \gg p$). The classical 'curse of dimensionality' is not present. Dimensionality reduction is therefore **not computationally mandatory**.
+- **When PCA Is Statistically Valuable:** PCA is vital when  > n$, when severe multicollinearity inflates parameter standard errors in unregularized regression, or when compressing continuous multi-metric profiles for macro store clustering.
+- **Classification Trade-off:** Standard linear PCA operates on continuous metric features. Applying it to binary categorical indicators creates geometric distortions. Furthermore, PCA maximizes *total global variance*, not *between-class separation*. Replacing original features with principal components dropped downstream classification accuracy from 76.2% to 68.2%. This expected trade-off illustrates information loss from discarded components, confirming that original interpretable features should be retained for register-level scoring.
 
 ---
 
@@ -319,7 +320,7 @@ To ensure corporate relevance, our consultancy team conducted a 45-minute semi-s
 
 ### Strategic Pillars for the Board of Directors
 1. **Pillar 1: Pilot Edge CIF across Flagship Outlets:** Deploy the Customer Intelligence Framework across the top 10 outlets (Sapphire Springs, Location 40, Falcon Ridge) which generate over 35% of total chain revenue. Target: +LKR 4.2M incremental quarterly gross margin.
-2. **Pillar 2: Curate Tourist Ceylon Coffee Flights:** Capitalize on the statistically verified spend premium (+LKR 25.32) of Foreign visitors by launching premium tasting flights and souvenir packs supported by multi-currency POS terminals.
+2. **Pillar 2: Curate Tourist Ceylon Coffee Flights:** Capitalize on the statistically verified spend premium (+LKR 14.57) of Foreign visitors by launching premium tasting flights and souvenir packs supported by multi-currency POS terminals.
 3. **Pillar 3: Automate Replenishment via Seasonal ARIMA:** Formally connect Task 9's daily ARIMA demand curves with fresh dairy and bakery procurement schedules, reducing food waste discard rates to below 4.5%.
 4. **Pillar 4: Enforce Morning Peak Express Protocols:** Mandate terminal express modes during the 8:00 AM – 10:00 AM rush to guarantee service speed below 45 seconds.
 
