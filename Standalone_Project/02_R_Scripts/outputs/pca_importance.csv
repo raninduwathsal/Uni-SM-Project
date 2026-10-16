@@ -1,0 +1,6 @@
+Principal_Component,Eigenvalue,Variance_Explained_Pct,Cumulative_Variance_Pct
+PC1,2.2649,45.3,45.3
+PC2,1.011,20.22,65.52
+PC3,0.9942,19.88,85.4
+PC4,0.7292,14.58,99.98
+PC5,7e-4,0.01,99.99

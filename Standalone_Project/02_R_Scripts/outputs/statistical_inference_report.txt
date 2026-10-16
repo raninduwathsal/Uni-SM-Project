@@ -1,0 +1,38 @@
+================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 4: STATISTICAL INFERENCE REPORT
+ Client: BladeGen Tech Consultancy | F&B Chain Customer Intelligence
+ Dataset: Calibrated POS Transactions (N = 29,465)
+================================================================================
+
+TEST 1: COMPARISON OF MEANS (WELCH'S TWO-SAMPLE T-TEST)
+--------------------------------------------------------------------------------
+Research Question: Do Foreign customers spend significantly more per transaction than Local customers?
+Hypotheses:
+  H0: mu_Foreign - mu_Local = 0
+  H1: mu_Foreign - mu_Local != 0
+Results:
+  Foreign Mean Spend: LKR 1044.57 | Local Mean Spend: LKR 1030.00
+  Difference in Means: +LKR 14.57
+  t-statistic: 2.0266 | p-value: 0.04275
+Statistical Decision: Reject H0 (Statistically Significant at alpha = 0.05)
+
+TEST 2: COMPARISON OF VARIANCES (FISHER'S F-TEST)
+--------------------------------------------------------------------------------
+Results: F = 0.9861, p-value = 0.40351 -> Fail to Reject H0
+
+TEST 3: ONE-WAY ANOVA (OUTLET REVENUES TOP 8)
+--------------------------------------------------------------------------------
+Results: F = 1.1530, p-value = 0.32657 -> Fail to Reject H0
+
+TEST 4: CHI-SQUARE TEST OF INDEPENDENCE (PAYMENT METHOD X CUSTOMER TYPE)
+--------------------------------------------------------------------------------
+Results: Chi-Square = 4270.1991, df = 6, p-value < 1e-04, Cramer's V = 0.3807 -> Reject H0
+
+TEST 5: KRUSKAL-WALLIS TEST (QTY1 ~ TIMEOFTHEDAY)
+--------------------------------------------------------------------------------
+Results: H = 0.7777, df = 3, p-value = 0.85479 -> Fail to Reject H0
+
+TEST 6: CORRELATION ANALYSIS (DISCOUNT VS REVENUE)
+--------------------------------------------------------------------------------
+Results: Pearson r = 0.0433 (p < 1e-04), Spearman rho = 0.0002 (p = 0.9787) -> Reject H0
+================================================================================

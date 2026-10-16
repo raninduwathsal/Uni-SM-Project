@@ -1,0 +1,36 @@
+====================================================================================================
+ IT3081 STATISTICAL MODELLING - TASK 5: PREDICTIVE MODELLING REPORT
+ Multi-Model Evaluation & Group Member Assignment (100% Syllabus Aligned)
+====================================================================================================
+
+1. EXECUTIVE OVERVIEW:
+Four distinct statistical classification algorithms were evaluated on 5,893 unseen test item lines
+(from a stratified 20% test partition) to predict customer purchasing category (MainCategory:
+Beverage, Food, Merchandizing, Deals). Each algorithm was assigned to one group member.
+
+2. GROUP MEMBER ASSIGNMENTS & ARCHITECTURES:
+  - Member 1: Multinomial Logistic Regression (Generalized Linear Model / Log-odds)
+  - Member 2: Linear Discriminant Analysis / LDA (Bayes' Rule with Pooled Covariance) [CHAMPION]
+  - Member 3: Quadratic Discriminant Analysis / QDA (Class-Specific Covariance Matrices)
+  - Member 4: Naïve Bayes Classifier (Probabilistic Conditional Independence Estimator)
+
+3. EVALUATION RESULTS SUMMARY (MULTI-CLASS CATEGORY):
+    Member                                 Model Top1_Accuracy Balanced_Acc Macro_F1 ROC_AUC Cohen_Kappa    MCC
+1 Member 2    Linear Discriminant Analysis (LDA)         76.29%       73.79%   76.18%  91.18%      0.5974 0.5996
+2 Member 1       Multinomial Logistic Regression         76.18%       73.14%   75.87%  91.20%      0.5942 0.5968
+3 Member 3 Quadratic Discriminant Analysis (QDA)         73.53%       72.56%   74.60%  89.60%      0.5543 0.5548
+4 Member 4                Naïve Bayes Classifier         72.56%       72.77%   73.16%  89.28%      0.5442 0.5442
+
+4. CHAMPION CLASSIFIER SELECTION RATIONALE:
+  The selected Champion model is 'Linear Discriminant Analysis (LDA)' (Member 2).
+  - Multi-Metric Equilibrium: LDA leads in Top-1 Accuracy (76.29%), Macro-F1 (76.18%), Balanced Accuracy (73.79%), MCC (0.5996), and Kappa (0.5974).
+  - Comparison with QDA: QDA's class-specific covariance estimation introduces singularity risks and parameter variance in minority classes (Merchandising, n=1,588), resulting in lower overall accuracy (73.53% vs 76.29%). LDA pools covariance across classes, providing robust, regularized decision boundaries (Hastie et al., 2009).
+  - Comparison with Multinomial Logit: LDA edges out Multinomial Logit in Top-1 Accuracy (76.29% vs 76.18%, delta = +0.11 pp) and Macro-F1 (76.18% vs 75.87%), while maintaining virtual parity in ROC-AUC (91.18% vs 91.20%). Furthermore, LDA yields direct closed-form discriminant score vectors suitable for lightweight POS deployment without iterative optimization.
+
+5. TASK 5 SYLLABUS EXTENSION - REGULARIZED SPEND REGRESSION (Ridge & LASSO):
+                 Method R_Squared RMSE_LKR Variance_Explained
+1 Ridge Regression (L2)    0.9918    40.08             99.18%
+2 LASSO Regression (L1)    0.9918    40.09             99.18%
+Note: Spend regression is retained in the technical appendix as an exploratory continuous spend baseline;
+category classification serves as the core operational recommendation engine.
+====================================================================================================

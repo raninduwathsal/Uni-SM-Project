@@ -1,0 +1,32 @@
+Variable,Category,Frequency,Percentage
+MainCategory,Beverage,15373,52.17
+MainCategory,Food,9933,33.71
+MainCategory,Deals,2571,8.73
+MainCategory,Merchandizing,1588,5.39
+CustomerType,Local,24941,84.65
+CustomerType,Foreign,4524,15.35
+PaymentMethod,VISA,12692,43.07
+PaymentMethod,CASH,6847,23.24
+PaymentMethod,MASTER,4492,15.25
+PaymentMethod,UBER EATS,2440,8.28
+PaymentMethod,AMEX,1175,3.99
+PaymentMethod,PICK ME,1056,3.58
+PaymentMethod,MINTPAY,763,2.59
+OrderType,Dine-In,17365,58.93
+OrderType,Takeaway,12100,41.07
+TimeOfTheDay,Morning,10411,35.33
+TimeOfTheDay,Afternoon,8745,29.68
+TimeOfTheDay,Evening,7413,25.16
+TimeOfTheDay,Night,2896,9.83
+Day,Sunday,5049,17.14
+Day,Saturday,4948,16.79
+Day,Friday,4654,15.8
+Day,Tuesday,3832,13.01
+Day,Monday,3786,12.85
+Day,Thursday,3676,12.48
+Day,Wednesday,3520,11.95
+Month,January,10614,36.02
+Month,March,9684,32.87
+Month,February,9167,31.11
+IsLoyaltyMember,No,18480,62.72
+IsLoyaltyMember,Yes,10985,37.28
