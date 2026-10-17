@@ -1,0 +1,5 @@
+Member,Model,Train_Accuracy,Test_Accuracy,Accuracy_Gap,Train_Macro_F1,Test_Macro_F1,Generalization_Diagnosis
+Member 2,Linear Discriminant Analysis (LDA),76.2,75.15,1.05,76.49,76.48,Well-Calibrated (No Overfitting; Gap <= 2%)
+Member 1,Multinomial Logistic Regression,76.25,75.13,1.12,76.28,76.34,Well-Calibrated (No Overfitting; Gap <= 2%)
+Member 3,Quadratic Discriminant Analysis (QDA),74,72.79,1.21,74.26,73.99,Well-Calibrated (No Overfitting; Gap <= 2%)
+Member 4,Naïve Bayes Classifier,74.92,74.11,0.81,75.5,75.8,Well-Calibrated (No Overfitting; Gap <= 2%)

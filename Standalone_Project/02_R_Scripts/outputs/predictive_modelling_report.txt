@@ -14,26 +14,54 @@ Each algorithm was assigned to one group member strictly following the IT3081 sy
   - Member 3: Quadratic Discriminant Analysis / QDA (Class-Specific Covariance Matrices [Note 06])
   - Member 4: Naïve Bayes Classifier (Probabilistic Conditional Independence Estimator [Note 05 & Note 09])
 
-3. EVALUATION RESULTS SUMMARY (MULTI-CLASS CATEGORY):
-    Member                                 Model Top2_Accuracy Top1_Accuracy
-1 Member 1       Multinomial Logistic Regression         93.36         56.36
-2 Member 2    Linear Discriminant Analysis (LDA)         92.52         55.36
-3 Member 3 Quadratic Discriminant Analysis (QDA)         91.85         53.46
-4 Member 4                Naïve Bayes Classifier         91.73         53.68
-  ROC_AUC Macro_Precision Macro_Recall Macro_F1  Kappa Training_Time_Sec
-1   73.25           57.17        41.99    55.16 0.1582              3.36
-2   73.68           50.01        41.94    51.25 0.1591              0.86
-3   71.30           43.95        39.13    56.24 0.0780              0.16
-4   72.01           45.91        38.15    46.54 0.1249              8.74
+3. EVALUATION RESULTS SUMMARY (MULTI-CLASS CATEGORY - TEST/VALIDATION):
+    Member                                 Model Accuracy ROC_AUC
+1 Member 2    Linear Discriminant Analysis (LDA)    75.15   93.81
+2 Member 1       Multinomial Logistic Regression    75.13   93.77
+3 Member 4                Naïve Bayes Classifier    74.11   93.38
+4 Member 3 Quadratic Discriminant Analysis (QDA)    72.79   92.53
+  Macro_Precision Macro_Recall Macro_F1  Kappa Training_Time_Sec
+1           80.46        74.01    76.48 0.5781              0.83
+2           80.78        73.69    76.34 0.5770              9.21
+3           78.71        73.82    75.80 0.5643             34.65
+4           78.11        71.57    73.99 0.5395              0.39
+
+3B. OVERFITTING & GENERALIZATION AUDIT (TRAIN VS. VALIDATION/TEST SCORES):
+    Member                                 Model Train_Accuracy Test_Accuracy
+1 Member 2    Linear Discriminant Analysis (LDA)          76.20         75.15
+2 Member 1       Multinomial Logistic Regression          76.25         75.13
+3 Member 3 Quadratic Discriminant Analysis (QDA)          74.00         72.79
+4 Member 4                Naïve Bayes Classifier          74.92         74.11
+  Accuracy_Gap Train_Macro_F1 Test_Macro_F1
+1         1.05          76.49         76.48
+2         1.12          76.28         76.34
+3         1.21          74.26         73.99
+4         0.81          75.50         75.80
+                     Generalization_Diagnosis
+1 Well-Calibrated (No Overfitting; Gap <= 2%)
+2 Well-Calibrated (No Overfitting; Gap <= 2%)
+3 Well-Calibrated (No Overfitting; Gap <= 2%)
+4 Well-Calibrated (No Overfitting; Gap <= 2%)
+
+  Key Overfitting Findings:
+  - LDA (Member 2 Champion): Train Acc = 76.20% vs. Test Acc = 75.15% (Delta = +1.05%).
+  - Multinomial Regression (Member 1): Train Acc = 76.25% vs. Test Acc = 75.13% (Delta = +1.12%).
+  - QDA (Member 3): Train Acc = 74.00% vs. Test Acc = 72.79% (Delta = +1.21%).
+  - Naive Bayes (Member 4): Train Acc = 74.92% vs. Test Acc = 74.11% (Delta = +0.81%).
+  All model accuracy gaps are <= 1.21 percentage points, well below the standard 5% overfitting threshold.
+  This confirms zero catastrophic memorization and superior empirical generalization.
 
 4. CHAMPION CLASSIFIER SELECTION:
-  The highest performing model is 'Multinomial Logistic Regression' (Member 1) with a Top-2 Recommendation Hit Rate of 93.36% and Top-1 Accuracy of 56.36% (ROC-AUC: 73.25%).
-  Decision rationale: In point-of-sale recommendation systems, prompting cashiers with the top 2 candidate categories
-  achieves over 93% hit rate, overcoming the inherent behavioral entropy of single-label predictions.
+  The highest performing model is 'Linear Discriminant Analysis (LDA)' (Member 2) with a Test Classification Accuracy of 75.15% (Macro-F1: 76.48%, ROC-AUC: 93.81%).
+  Decision rationale: LDA demonstrates optimal bias-variance trade-off via pooled covariance matrix regularization,
+  achieving top classification accuracy on unseen transactions with sub-millisecond scoring latency.
 
 5. TASK 5 SYLLABUS EXTENSION - REGULARIZED SPEND REGRESSION (Ridge & LASSO):
-                 Method R_Squared RMSE_LKR Variance_Explained
-1 Ridge Regression (L2)    0.9889    44.53             98.89%
-2 LASSO Regression (L1)    0.9986    15.77             99.86%
-  Demonstrates robust continuous prediction of customer spend (R^2 > 99.8%) with strict shrinkage regularization.
+                 Method Train_R2 Test_R2 Train_RMSE_LKR Test_RMSE_LKR
+1 Ridge Regression (L2)   0.9826  0.9833          58.62         57.42
+2 LASSO Regression (L1)   0.9922  0.9920          39.20         39.75
+  Variance_Explained
+1             98.33%
+2             99.20%
+  Demonstrates robust continuous prediction of customer spend (R^2 > 98%) with strict shrinkage regularization.
 ====================================================================================================
