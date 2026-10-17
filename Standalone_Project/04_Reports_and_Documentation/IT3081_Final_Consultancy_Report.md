@@ -290,8 +290,8 @@ If extended longitudinal time series data (e.g., 1–3 years) were continuously 
 
 1. **Seasonal ARIMA (SARIMA - Selected Recommendation):**
    - **Formulation:** \text{ARIMA}(p, d, q) \times (P, D, Q)_s with seasonal period s = 7.
-   - **Why Suitable:** SARIMA explicitly separates non-seasonal autoregressive dynamics from 7-day weekly cycles via seasonal differencing (D=1). Residual diagnostic validation via the Ljung-Box portmanteau test (\chi^2 = 14.71, p = 0.398 > 0.05) verifies that error residuals behave as uncorrelated white noise.
-   - **Strengths:** High statistical interpretability, mathematically rigorous prediction intervals (\pm 95\% confidence bounds), and zero GPU hardware requirements for daily training.
+   - **Why Suitable:** SARIMA explicitly separates non-seasonal autoregressive dynamics from recurring weekly cycles via seasonal differencing (D=1).
+   - **Strengths:** High statistical interpretability, mathematically rigorous prediction intervals (\pm 95\% confidence bounds), and zero GPU hardware requirements for scheduled retraining.
 2. **Holt-Winters Exponential Smoothing (Triple Exponential Smoothing):**
    - **Suitability:** Suitable as a lightweight edge baseline for individual outlet terminals. Captures level, linear trend, and multiplicative seasonal swings with minimal computational overhead.
    - **Limitation:** Less resilient to structural price changes or promotional intervention shocks compared to regression with ARIMA errors.
