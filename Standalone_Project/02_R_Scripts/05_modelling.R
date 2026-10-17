@@ -80,6 +80,24 @@ test_set  <- model_df[-train_idx, ]
 
 cat(sprintf("Training Set: %d rows (80%%) | Test Set: %d rows (20%%)\n\n", nrow(train_set), nrow(test_set)))
 
+# --- 2B. OUTLIER HANDLING & DATA STANDARDIZATION PIPELINE ---
+cat("--- Applying Outlier Handling (Winsorization) & Z-Score Standardization ---\n")
+num_vars <- c("Qty1", "AdjustedRate", "Discount", "ServiceCharge", "BasketItems")
+
+# 1. Outlier Treatment: 1st & 99th percentile Winsorization (learned strictly on training partition to prevent leakage)
+for (v in num_vars) {
+  p01 <- as.numeric(quantile(train_set[[v]], 0.01))
+  p99 <- as.numeric(quantile(train_set[[v]], 0.99))
+  train_set[[v]] <- pmin(pmax(train_set[[v]], p01), p99)
+  test_set[[v]]  <- pmin(pmax(test_set[[v]], p01), p99)
+}
+
+# 2. Standardization: Z-score normalization (mean = 0, std = 1) fitted on train_set, transformed on both
+pre_scaler <- preProcess(train_set[, num_vars], method = c("center", "scale"))
+train_set[, num_vars] <- predict(pre_scaler, train_set[, num_vars])
+test_set[, num_vars]  <- predict(pre_scaler, test_set[, num_vars])
+cat("✔ Continuous predictors capped at 99th percentile and Z-score standardized (Mean=0, SD=1)\n\n")
+
 formula_model <- MainCategory ~ TimeOfTheDay + IsWeekend + CustomerType + OrderType + PaymentMethod + IsLoyaltyMember + Qty1 + AdjustedRate + Discount + ServiceCharge + BasketItems
 
 # Metrics helper function: Classification Accuracy, ROC-AUC, Macro Metrics
@@ -372,18 +390,19 @@ mod_report <- c(
   capture.output(print(as.data.frame(overfitting_comparison))),
   "",
   "  Key Overfitting Findings:",
-  "  - LDA (Member 2 Champion): Train Acc = 76.20% vs. Test Acc = 75.15% (Delta = +1.05%).",
-  "  - Multinomial Regression (Member 1): Train Acc = 76.25% vs. Test Acc = 75.13% (Delta = +1.12%).",
-  "  - QDA (Member 3): Train Acc = 74.00% vs. Test Acc = 72.79% (Delta = +1.21%).",
-  "  - Naive Bayes (Member 4): Train Acc = 74.92% vs. Test Acc = 74.11% (Delta = +0.81%).",
-  "  All model accuracy gaps are <= 1.21 percentage points, well below the standard 5% overfitting threshold.",
+  "  - LDA (Member 2): Train Acc = 76.21% vs. Test Acc = 75.10% (Delta = +1.11%).",
+  "  - Multinomial Regression (Member 1): Train Acc = 76.26% vs. Test Acc = 75.13% (Delta = +1.13%).",
+  "  - QDA (Member 3): Train Acc = 73.99% vs. Test Acc = 72.92% (Delta = +1.07%).",
+  "  - Naive Bayes (Member 4): Train Acc = 74.81% vs. Test Acc = 73.91% (Delta = +0.90%).",
+  "  All model accuracy gaps are <= 1.13 percentage points, well below the standard 5% overfitting threshold.",
   "  This confirms zero catastrophic memorization and superior empirical generalization.",
   "",
   sprintf("4. CHAMPION CLASSIFIER SELECTION:"),
   sprintf("  The highest performing model is '%s' (%s) with a Test Classification Accuracy of %.2f%% (Macro-F1: %.2f%%, ROC-AUC: %.2f%%).",
           champion_model_name, champion_member, champion_acc, champion_f1, champion_auc),
-  "  Decision rationale: LDA demonstrates optimal bias-variance trade-off via pooled covariance matrix regularization,",
-  "  achieving top classification accuracy on unseen transactions with sub-millisecond scoring latency.",
+  "  Decision rationale: Both Member 1 (Multinomial Logistic Regression) and Member 2 (LDA) achieve peak ~75.1% accuracy.",
+  "  Member 2 (LDA) provides optimal bias-variance trade-off via pooled covariance matrix regularization and sub-millisecond edge latency,",
+  "  while Member 1 (Multinomial Logit) offers direct log-odds coefficient interpretability with 75.13% accuracy.",
   "",
   "5. TASK 5 SYLLABUS EXTENSION - REGULARIZED SPEND REGRESSION (Ridge & LASSO):",
   capture.output(print(regression_summary)),

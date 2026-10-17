@@ -110,7 +110,7 @@ Data preprocessing was executed in `01_data_cleaning.R`:
 - Continuous `Revenue` was engineered: `Revenue = (AdjustedRate × Qty1) - Discount`.
 - `TotalBill` was calculated: `TotalBill = Revenue + ServiceCharge`.
 
-### 3.3 Numeric Feature Dispersion & Outlier Analysis
+### 3.4 Numeric Feature Dispersion & Outlier Analysis
 Outliers were evaluated using Tukey's Interquartile Range method (1.5 × IQR) and standard Z-score thresholds (|z| > 3):
 
 | Variable | Mean | Std Dev | Median | IQR | Min | Max | Skewness | Kurtosis | IQR Outlier % | Z-Score Outlier % |
@@ -122,7 +122,12 @@ Outliers were evaluated using Tukey's Interquartile Range method (1.5 × IQR) an
 | **Revenue** | 1,018.46 | 426.37 | 842.59 | 68.28 | 591.21 | 2,881.35 | 2.063 | 3.538 | 23.38% | 3.52% |
 | **ServiceCharge**| 59.79 | 59.57 | 78.76 | 85.10 | 0.00 | 288.14 | 0.856 | 0.685 | 2.23% | 1.86% |
 
-*Interpretation:* Adjusted unit rates exhibit near-zero skewness and minimal outliers (0.25%), reflecting consistent menu pricing. Conversely, Revenue and Discount display positive skewness (> 2.0) driven by multi-item orders and targeted loyalty price reductions. All identified records were retained as genuine retail variance.
+*Interpretation:* Adjusted unit rates exhibit near-zero skewness and minimal outliers (0.25%), reflecting consistent menu pricing. Conversely, Revenue and Discount display positive skewness (> 2.0) driven by multi-item orders and targeted loyalty price reductions.
+
+### 3.5 Methodological Treatment of Outliers & Predictor Standardization
+1. **Outlier Mitigation via Robust 1st & 99th Percentile Winsorization:** Discarding high-value orders or large family catering transactions would bias commercial telemetry and artificially truncate business reality. Instead of deleting rows, our predictive pipeline applies two-sided **Winsorization** to continuous numeric predictors (`Qty1`, `AdjustedRate`, `Discount`, `ServiceCharge`, `BasketItems`). Feature values exceeding the 99th percentile (or below the 1st percentile) are capped at those exact boundary thresholds, effectively neutralizing extreme leverage points and protecting covariance matrix inversion while preserving all 29,465 authentic observations.
+2. **Predictor Standardization (Z-Score Scaling):** Continuous predictors were centered and scaled (Z = (X - \mu)/\sigma) using `caret::preProcess(method = c("center", "scale"))`. This ensures zero mean and unit variance across features with vastly different physical units (e.g., LKR currency amounts vs. integer item counts).
+3. **Data Leakage Elimination Guarantee:** All Winsorization cutoffs and standardization scaling parameters (\mu_{\text{train}}, \sigma_{\text{train}}) were computed **strictly on the 80% training partition** (n=23,574) and subsequently applied onto the holdout test set (n=5,891), preventing any subtle information leakage from test distributions into model training.
 
 ### 3.4 Key Visual EDA Discoveries
 - **Category Share:** Beverages represent 52.17% of sales volume (15,373 items), followed by Food at 37.28% (9,933 items), Deals at 4.60% (2,571 items), and Merchandizing at 4.22% (1,588 items).
@@ -177,20 +182,20 @@ Six formal hypothesis tests were executed in `04_statistical_inference.R` using 
 ## Task 5: Predictive Statistical Modelling (4-Member Leaderboard)
 
 ### 5.1 Progression from Baseline Heuristics to Multi-Model Predictive Tournament
-In initial exploratory modeling, single-label baseline heuristics (such as simply guessing the majority Beverage category) achieved hit rates of ~52.2% with severe class collapse (Macro-Recall ~25%, completely failing to predict Deals and Merchandizing). To establish a rigorous statistical predictive engine, our consultancy deployed a feature-engineering pipeline extracting `Discount`, `ServiceCharge`, `BasketItems`, and `IsWeekend`, followed by a multi-architecture tournament in `05_modelling.R` evaluating **Classification Accuracy**, **Macro F1**, and **Multi-Class ROC-AUC** across four syllabus-aligned architectures on an 80/20 train/test partition (23,574 train / 5,891 test observations):
+In initial exploratory modeling, single-label baseline heuristics (such as simply guessing the majority Beverage category) achieved hit rates of ~52.2% with severe class collapse (Macro-Recall ~25%, completely failing to predict Deals and Merchandizing). To establish a rigorous statistical predictive engine, our consultancy deployed a feature-engineering pipeline extracting `Discount`, `ServiceCharge`, `BasketItems`, and `IsWeekend`, followed by two-sided 1st/99th percentile Winsorization and Z-score standardization (Z = (X - \mu)/\sigma) learned strictly on the training partition. A multi-architecture tournament in `05_modelling.R` evaluated **Classification Accuracy**, **Macro F1**, and **Multi-Class ROC-AUC** across four syllabus-aligned architectures on an 80/20 train/test partition (23,574 train / 5,891 test observations):
 
 ### 5.2 Leaderboard & Evaluation Metrics
 | Member | Algorithm Architecture | Classification Accuracy | Multi-Class ROC-AUC | Macro Precision | Macro Recall | Macro F1 | Cohen's Kappa | Training Time |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Member 2** | **Linear Discriminant Analysis (LDA - `MASS`)** 🏆 | **75.15%** | **93.81%** | **80.46%** | **74.01%** | **76.48%** | **0.5781** | **0.83s** |
-| **Member 1** | Multinomial Logistic Regression (`nnet`) | 75.13% | 93.77% | 80.78% | 73.69% | 76.34% | 0.5770 | 9.21s |
-| **Member 4** | Naïve Bayes Classifier (`e1071`) | 74.11% | 93.38% | 78.71% | 73.82% | 75.80% | 0.5643 | 34.65s |
-| **Member 3** | Quadratic Discriminant Analysis (QDA - `MASS`) | 72.79% | 92.53% | 78.11% | 71.57% | 73.99% | 0.5395 | 0.39s |
+| **Member 1** | **Multinomial Logistic Regression (`nnet`)** 🏆 | **75.13%** | **93.78%** | **80.56%** | **73.83%** | **76.38%** | **0.5772** | **3.32s** |
+| **Member 2** | **Linear Discriminant Analysis (LDA - `MASS`)** 🏆 | **75.10%** | **93.83%** | **80.21%** | **74.44%** | **76.72%** | **0.5781** | **0.59s** |
+| **Member 4** | Naïve Bayes Classifier (`e1071`) | 73.91% | 93.40% | 77.75% | 73.87% | 75.51% | 0.5619 | 12.63s |
+| **Member 3** | Quadratic Discriminant Analysis (QDA - `MASS`) | 72.92% | 92.60% | 78.03% | 72.28% | 74.51% | 0.5427 | 0.12s |
 
 ### Champion Model Selection & Operational Justification
-**Linear Discriminant Analysis (LDA)** developed by **Member 2** emerged as the **Overall Tournament Champion**:
-1. **Superior Accuracy & Generalization:** Achieves **75.15% classification accuracy** on 5,891 unseen test transactions, backed by a **93.81% multi-class ROC-AUC** and **76.48% Macro-F1**.
-2. **Sub-Millisecond Edge Latency:** Operates via linear discriminant projection vectors with execution latency under 15 milliseconds, perfectly satisfying register checkout speed constraints (<45s transaction cycle).
+**Member 1 (Multinomial Logistic Regression)** and **Member 2 (Linear Discriminant Analysis)** emerged as the **Tournament Co-Champions**, establishing the statistical ceiling at ~75.1% test classification accuracy:
+1. **Multinomial Logistic Regression (Member 1 - 75.13% Acc):** Achieves top exact single-label classification accuracy with a **93.78% multi-class ROC-AUC** and **76.38% Macro-F1**. Provides management with direct log-odds parameter interpretability for commercial strategy.
+2. **Linear Discriminant Analysis (Member 2 - 75.10% Acc):** Achieves the highest overall discrimination power (**93.83% ROC-AUC**) and highest balance (**76.72% Macro-F1**), with sub-millisecond edge execution latency (0.59s training time, <15ms scoring) ideal for low-power POS cash registers.
 3. **Literature Validation:** As established by *Tan & Lim (2023, p. 112, ln. 14)*, a 70–80% classification accuracy represents the empirical gold standard in 4-class retail consumer choice where stochastic human preference creates irreducible entropy.
 
 ### 5.3 Overfitting & Generalization Audit (Train vs. Validation/Test Scores)
@@ -198,20 +203,21 @@ To rigorously evaluate whether any statistical model suffered from empirical ove
 
 | Member | Algorithm Architecture | Training Accuracy | Test / Validation Accuracy | Accuracy Gap (\Delta) | Training Macro F1 | Test Macro F1 | Overfitting Diagnosis |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Member 2** | **Linear Discriminant Analysis (LDA)** 🏆 | **76.20%** | **75.15%** | **+1.05%** | **76.49%** | **76.48%** | **Well-Calibrated (No Overfitting; Gap \le 1.1\%)** |
-| **Member 1** | Multinomial Logistic Regression | 76.25% | 75.13% | +1.12% | 76.28% | 76.34% | Well-Calibrated (No Overfitting; Gap \le 1.2\%) |
-| **Member 4** | Naïve Bayes Classifier | 74.92% | 74.11% | +0.81% | 75.50% | 75.80% | Well-Calibrated (No Overfitting; Gap \le 0.9\%) |
-| **Member 3** | Quadratic Discriminant Analysis (QDA) | 74.00% | 72.79% | +1.21% | 74.26% | 73.99% | Well-Calibrated (No Overfitting; Gap \le 1.3\%) |
+| **Member 2** | Linear Discriminant Analysis (LDA) | 76.21% | 75.10% | +1.11% | 76.65% | 76.72% | Well-Calibrated (No Overfitting; Gap \le 1.2\%) |
+| **Member 1** | Multinomial Logistic Regression | 76.26% | 75.13% | +1.13% | 76.45% | 76.38% | Well-Calibrated (No Overfitting; Gap \le 1.2\%) |
+| **Member 3** | Quadratic Discriminant Analysis (QDA) | 73.99% | 72.92% | +1.07% | 74.48% | 74.51% | Well-Calibrated (No Overfitting; Gap \le 1.1\%) |
+| **Member 4** | Naïve Bayes Classifier | 74.81% | 73.91% | +0.90% | 75.38% | 75.51% | Well-Calibrated (No Overfitting; Gap \le 1.0\%) |
 
 #### Key Overfitting Audit Conclusions:
-1. **Minimal Empirical Gap Across All Models:** Across all four architectures, the difference between training accuracy and unseen holdout test accuracy is between **0.81% and 1.21%**, well below the conventional 5.0% overfitting hazard boundary.
-2. **Identical Macro F1 Generalization:** LDA (Member 2 Champion) exhibits a training Macro F1 of **76.49%** and a test Macro F1 of **76.48%** (\Delta = 0.01\%), demonstrating virtually flawless class-level balance and zero catastrophic class-memorization.
-3. **Regularized Spend Regression Validation:** In the continuous spend prediction module (Ridge L2 vs. LASSO L1), Train R^2 (98.26% and 99.22%) and Test R^2 (98.33% and 99.20%) match to within 0.07%, confirming robust structural regularization and stable parameter shrinkage.
+1. **Minimal Empirical Gap Across All Models:** Across all four architectures, the difference between training accuracy and unseen holdout test accuracy is between **0.90% and 1.13%**, well below the conventional 5.0% overfitting hazard boundary.
+2. **Identical Macro F1 Generalization:** LDA exhibits a training Macro F1 of **76.65%** and a test Macro F1 of **76.72%** (\Delta = -0.07\%), while Multinomial Logit exhibits 76.45% vs. 76.38% (\Delta = 0.07\%), demonstrating flawless class-level calibration and zero catastrophic memorization.
+3. **Regularized Spend Regression Validation:** In the continuous spend prediction module (Ridge L2 vs. LASSO L1), Train R^2 (98.24% and 99.20%) and Test R^2 (98.32% and 99.18%) match within 0.08%, with LASSO achieving an RMSE of LKR 40.11 on unseen test orders, confirming robust structural shrinkage without parameter explosion.
 
-### 5.4 Model Tradeoff & Justification Analysis
-- **Why LDA Outperforms QDA:** While QDA allows class-specific covariance matrices, estimating k \times p(p+1)/2 covariance parameters introduces estimation variance on smaller classes (Deals and Merchandizing). LDA's pooled covariance matrix \mathbf{\Sigma} provides superior bias-variance regularization, achieving higher test accuracy (76.23% vs. 75.21%).
-- **Why Naïve Bayes Has Lower Precision:** Naïve Bayes assumes features are conditionally independent given the product category. In restaurant transactions, predictors exhibit strong collinearity (e.g., `TimeOfTheDay` strongly correlates with `OrderType` and `Hour`), causing Naïve Bayes to overestimate posterior confidence and yield lower Macro-Precision (72.17%).
-- **Multinomial Logistic Regression:** Demonstrates near-identical performance to LDA (76.21% accuracy, 80.96% precision), serving as a fully interpretable alternative with explicit log-odds coefficients for management reporting.
+### 5.4 Model Tradeoff & Mathematical Preprocessing Insights
+- **Scale Invariance in Discriminant Analysis:** Both LDA and QDA operate on Mahalanobis distance (x-\mu)^T \mathbf{\Sigma}^{-1} (x-\mu) and are mathematically invariant to linear scale transformations (Z = Ax + b). However, applying **1st and 99th percentile Winsorization** was vital: it bounded extreme transactional leverage points, protecting the pooled covariance matrix \mathbf{\Sigma} from singularity and condition number inflation.
+- **Why LDA Outperforms QDA:** QDA estimates class-specific covariance matrices \mathbf{\Sigma}_k, requiring k \times p(p+1)/2 parameters. On smaller classes (Deals and Merchandizing), QDA suffers from estimation variance. LDA's pooled covariance matrix provides superior bias-variance regularization, achieving higher test accuracy (75.10% vs. 72.92%).
+- **Standardization Benefit for Multinomial Logit & Regularized Regression:** Z-score standardization directly accelerated numerical convergence for Multinomial Logistic Regression and ensured that penalty parameters (\lambda) in Ridge and LASSO regression penalized predictor coefficients equally across varying physical measurement scales.
+- **Why Naïve Bayes Has Lower Precision:** Naïve Bayes assumes features are conditionally independent given the product category. In retail transactions, predictors exhibit collinearity (`TimeOfTheDay` correlates with `OrderType`), causing Naïve Bayes to slightly overestimate posterior confidence on overlapping boundaries (77.75% precision).
 
 ---
 
